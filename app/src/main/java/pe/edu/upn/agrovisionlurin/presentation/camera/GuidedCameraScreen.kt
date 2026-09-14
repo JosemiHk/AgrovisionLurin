@@ -18,6 +18,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -164,7 +166,7 @@ fun GuidedCameraScreen(
                 },
             contentAlignment = Alignment.Center
         ) {
-            Text(if (isFlashOn) "⚡" else "💡", color = Color.White, style = Typography.titleMedium)
+            Icon(if (isFlashOn) Icons.Rounded.FlashOn else Icons.Rounded.FlashOff, contentDescription = "Flash", tint = Color.White)
         }
 
         // Overlay: Bottom Controls
@@ -194,7 +196,7 @@ fun GuidedCameraScreen(
                         .clickable { galleryLauncher.launch("image/*") },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("🖼️", color = Color.White, style = Typography.titleLarge)
+                    Icon(Icons.Rounded.PhotoLibrary, contentDescription = "Galería", tint = Color.White)
                 }
 
                 // Capture Button
@@ -225,12 +227,12 @@ fun GuidedCameraScreen(
                             }
                         )
                     },
-                    modifier = Modifier.align(Alignment.Center).size(72.dp), // Touch target >= 56dp requirement
+                    modifier = Modifier.align(Alignment.Center).size(72.dp),
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     contentPadding = PaddingValues(0.dp)
                 ) {
-                    Box(modifier = Modifier.size(60.dp).clip(CircleShape).border(2.dp, Color.Black, CircleShape))
+                    Icon(Icons.Rounded.PhotoCamera, contentDescription = "Capturar", tint = Color.Black)
                 }
             }
         }

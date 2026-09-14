@@ -16,8 +16,6 @@ import java.io.FileOutputStream
 import java.util.UUID
 
 class CameraViewModel : ViewModel() {
-    private val runInference = RunLeafInferenceUseCase()
-
     private val _isAnalyzing = MutableStateFlow(false)
     val isAnalyzing: StateFlow<Boolean> = _isAnalyzing.asStateFlow()
 
@@ -35,9 +33,12 @@ class CameraViewModel : ViewModel() {
             }
 
             @Suppress("UNUSED_VARIABLE")
+            val runInference = RunLeafInferenceUseCase(context)
             val result = runInference(bitmap)
             
-            // Mock ID de la inspección guardada
+            pe.edu.upn.agrovisionlurin.domain.model.ResultCache.lastResult = result
+
+            // Mock ID de la inspección para navegación
             val mockId = UUID.randomUUID().toString()
             _isAnalyzing.value = false
             onComplete(mockId)

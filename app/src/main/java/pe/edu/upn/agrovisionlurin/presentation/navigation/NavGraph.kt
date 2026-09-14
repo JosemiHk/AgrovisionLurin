@@ -38,10 +38,15 @@ fun NavGraph(
         composable(Screen.Result.route) { backStackEntry ->
             val inspectionId = backStackEntry.arguments?.getString("inspectionId") ?: ""
             DiagnosticResultScreen(
-                inspectionId = inspectionId,
-                onBackToDashboard = {
+                resultId = inspectionId,
+                onBack = {
                     navController.navigate(Screen.Dashboard.route) {
                         popUpTo(Screen.Dashboard.route) { inclusive = true }
+                    }
+                },
+                onNavigateToCamera = {
+                    navController.navigate(Screen.Camera.route) {
+                        popUpTo(Screen.Dashboard.route)
                     }
                 }
             )
