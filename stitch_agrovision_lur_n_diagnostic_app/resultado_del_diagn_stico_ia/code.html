@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AGROVISION-LURÍN - Resultado del Análisis</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#00450d",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#ebe7ec",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#e5e1e7",
+            "surface-container-low": "#f7f2f8",
+            "surface-dim": "#ddd9de",
+            "on-background": "#1c1b1f",
+            "secondary": "#a83900",
+            "tertiary-fixed": "#a3f69c",
+            "background": "#fdf8fd",
+            "inverse-primary": "#91d78a",
+            "surface-container": "#f1ecf2",
+            "on-primary": "#ffffff",
+            "tertiary": "#00450d",
+            "on-primary-fixed": "#002203",
+            "outline-variant": "#c0c9bb",
+            "on-primary-container": "#90d689",
+            "inverse-on-surface": "#f4eff5",
+            "on-tertiary-fixed-variant": "#005312",
+            "on-primary-fixed-variant": "#0c5216",
+            "on-surface": "#1c1b1f",
+            "surface": "#fdf8fd",
+            "on-surface-variant": "#41493e",
+            "on-secondary-container": "#531800",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#380d00",
+            "surface-variant": "#e5e1e7",
+            "surface-bright": "#fdf8fd",
+            "secondary-fixed-dim": "#ffb59a",
+            "primary-fixed": "#acf4a4",
+            "tertiary-fixed-dim": "#88d982",
+            "surface-tint": "#2a6b2c",
+            "on-tertiary-fixed": "#002204",
+            "on-tertiary-container": "#86d881",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#717a6d",
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#91d78a",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#313034",
+            "primary-container": "#1b5e20",
+            "secondary-container": "#fc6018",
+            "secondary-fixed": "#ffdbcf",
+            "error": "#ba1a1a",
+            "tertiary-container": "#055f18",
+            "on-secondary-fixed-variant": "#802a00"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "spacing-20": "1.25rem",
+            "spacing-32": "2rem",
+            "spacing-12": "0.75rem",
+            "spacing-8": "0.5rem",
+            "margin-tablet": "2rem",
+            "spacing-48": "3rem",
+            "touch-target-min": "3rem",
+            "spacing-40": "2.5rem",
+            "gutter-mobile": "1rem",
+            "gutter-tablet": "1.5rem",
+            "spacing-16": "1rem",
+            "spacing-4": "0.25rem",
+            "spacing-24": "1.5rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "title-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+            "title-lg": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "700" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+<!-- Main Mobile Frame Container: Focused Task Mode (Shell Navigation suppressed per Semantic Shell Mandate for sub-page task with close/back) -->
+<div class="max-w-md mx-auto min-h-screen flex flex-col bg-background relative pb-44 shadow-2xl" style="background-color: rgb(248, 249, 250);">
+<!-- Top Persistent Offline State Indicator Banner (Design System Offline-First Token) -->
+<header class="w-full bg-surface-container-lowest px-4 py-2 flex items-center justify-between border-b border-outline-variant/50 sticky top-0 z-40 shadow-sm"><div class="flex items-center gap-2"><span class="flex items-center justify-center bg-[#FFA000] text-[#1C1B1F] rounded-full px-3 py-1 text-[12px] font-label-md font-bold tracking-wider"><span class="material-symbols-outlined text-[15px] mr-1 text-[#1C1B1F]" data-icon="cloud_off">cloud_off</span>Modo Local Activo • 3 pendientes</span></div><span class="text-[12px] font-body-md text-on-surface-variant font-medium">Lurín Sur</span></header>
+<!-- Header Navigation with Task Back Action -->
+<div class="px-4 py-3 bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button aria-label="Volver al panel" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high transition-colors active:scale-95 duration-100 touch-target-min" type="button">
+<span class="material-symbols-outlined text-[26px]" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<h1 class="font-title-lg text-title-lg text-primary font-bold tracking-tight">Resultado del Análisis</h1>
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span>
+            Hoy 08:32 AM • Lote 1 - Valle Bajo
+          </p>
+</div>
+</div>
+<button aria-label="Compartir reporte técnico" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-100" type="button">
+<span class="material-symbols-outlined text-[24px]" data-icon="share">share</span>
+</button>
+</div>
+<!-- On-Device Local Inference Chip Banner -->
+<div class="px-4 pt-3 pb-1">
+<div class="bg-primary-fixed/30 border border-outline-variant/60 rounded-xl px-3 py-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="bolt">bolt</span>
+</span>
+<div>
+<span class="font-label-md text-label-md text-primary font-bold block">Analizado en 1.8s (On-Device Local)</span>
+<span class="text-[12px] font-body-md text-on-surface-variant">Inferencia offline sin consumo satelital</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="verified">verified</span>
+</div>
+</div>
+<!-- Main Content Flow -->
+<main class="px-4 py-3 space-y-4">
+<!-- Main Visual Inspection Card with AI Bounding Box -->
+<section class="bg-surface-container-lowest rounded-2xl border-[1.5px] border-outline-variant overflow-hidden shadow-sm">
+<div class="relative w-full h-60 bg-surface-container-high overflow-hidden">
+<!-- Analyzed Field Sample Image -->
+<img alt="Muestra Foliar de Cebolla Lurín" class="w-full h-full object-cover" data-alt="Close up macroscopic high-contrast photograph of green Peruvian onion leaves in a sunny Lurín agricultural field, showing fine silvery necrotic streaks and feeding punctures caused by thrips insects, with harsh natural sunlight, vivid agricultural foliage, and sharp scientific clarity matching modern agronomical documentation standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmUrvPBIrDZCnh6-iQvTNNsGBCfNKxqQIrDO-41v1nBawZn_Yq7TR0MRZ2jshcNKhrIwKqUu7zxq_DVJR7JOzrRamI_13raWD6k7Fp5xcb0xrKKc5b-LTBkOg7HezgPgPM5e84EbUNk5UB3GsCBcVjHEon6rd6c-ALPNdKVymzw1ZIvUYM05pJ2rTIV-T2eMhqfOnoJ8HEtta72llXwrkDrPKTpzUPxcX83tK_wghKHmaUKq0L7lmx">
+<!-- Tactical AI Bounding Box Overlay for Thrips Tabaci -->
+<div class="absolute top-10 left-12 w-48 h-32 border-2 border-[#C62828] bg-[#C62828]/10 rounded-lg pointer-events-none flex flex-col justify-between p-1.5 shadow-sm">
+<div class="self-start bg-[#C62828] text-white px-2 py-0.5 rounded text-[11px] font-label-md font-bold tracking-wider flex items-center gap-1 shadow">
+<span class="material-symbols-outlined text-[13px]" data-icon="pest_control">pest_control</span>
+<span class="">Trips tabaci (89%)</span>
+</div>
+<div class="self-end flex items-center gap-1 bg-surface-container-lowest/90 px-1.5 py-0.5 rounded text-[10px] font-label-md text-[#C62828] border border-[#C62828]/40 font-bold">
+<span class="">FOCO #1</span>
+</div>
+</div>
+<!-- Zoom & Reticle Action Pills -->
+<div class="absolute bottom-2.5 right-2.5 flex items-center gap-2">
+<span class="bg-inverse-surface/85 backdrop-blur-xs text-white text-[12px] font-label-md px-2.5 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="photo_camera">photo_camera</span>
+              Macro 2.4x
+            </span>
+</div>
+</div>
+<!-- Sample Details Footer -->
+<div class="p-3.5 bg-surface-container-low flex items-center justify-between border-t border-outline-variant text-[13px]">
+<div class="flex items-center gap-1.5 font-label-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="spa">spa</span>
+<span class="">Variedad: <strong class="text-primary font-bold">Cebolla Roja de Lurín</strong></span>
+</div>
+<span class="text-on-surface-variant font-body-md">Muestra #04-89C</span>
+</div>
+</section>
+<!-- Diagnosis Banner: High-contrast Alert banner with Crimson Red (#C62828) -->
+<section class="bg-surface-container-lowest rounded-2xl border-2 border-[#C62828] p-4 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-2.5 h-full bg-[#C62828]"></div>
+<div class="pl-2.5">
+<div class="flex items-start justify-between gap-2 mb-2">
+<div class="flex items-center gap-2">
+<span class="w-10 h-10 rounded-xl bg-[#FFEBEE] text-[#C62828] flex items-center justify-center border border-[#C62828]/30">
+<span class="material-symbols-outlined text-[24px]" data-icon="shield_with_heart" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</span>
+<div>
+<span class="text-[11px] font-label-md uppercase tracking-wider text-[#C62828] font-extrabold block">Detección Confirmada</span>
+<h2 class="font-title-md text-title-md text-on-surface font-bold leading-tight">ALERTA: Trips / Daño Foliar Detectado</h2>
+</div>
+</div>
+</div>
+<!-- Confidence Score & Metadata Metrics -->
+<div class="mt-3 pt-3 border-t border-outline-variant/60 grid grid-cols-2 gap-3">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-2.5">
+<span class="text-[12px] font-body-md text-on-surface-variant block">Precisión del Modelo</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-headline-md text-headline-md text-[#C62828] font-extrabold">89%</span>
+<span class="material-symbols-outlined text-[#C62828] text-[18px]" data-icon="check_circle">check_circle</span>
+</div>
+<span class="text-[11px] font-label-md text-on-surface-variant">Inferencia Confiable</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-2.5">
+<span class="text-[12px] font-body-md text-on-surface-variant block">Cultivo Evaluado</span>
+<p class="font-title-md text-title-md text-primary font-bold mt-0.5 leading-tight">Cebolla Roja</p>
+<span class="text-[11px] font-label-md text-on-surface-variant">Lurín Costero Sur</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Severity Meter: Visual segmented meter with 3 clear steps -->
+<section class="bg-surface-container-lowest rounded-2xl border-[1.5px] border-outline-variant p-4 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="speed">speed</span>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Escala de Afectación</h3>
+</div>
+<span class="text-[#C62828] bg-[#FFEBEE] border border-[#C62828]/40 px-2 py-0.5 rounded-full text-[12px] font-label-md font-bold">
+            Nivel: Severidad Media a Crítica
+          </span>
+</div>
+<!-- 3-Segment Progress Bar -->
+<div class="grid grid-cols-3 gap-2 mt-3">
+<!-- Step 1: Bajo (Verde Inactivo) -->
+<div class="flex flex-col gap-1.5">
+<div class="h-3 w-full rounded-full bg-primary-fixed/50"></div>
+<div class="flex items-center justify-between text-[11px] font-label-md text-on-surface-variant">
+<span class="">1. Bajo</span>
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="done">done</span>
+</div>
+</div>
+<!-- Step 2: Medio (Amarillo Advertencia) -->
+<div class="flex flex-col gap-1.5">
+<div class="h-3 w-full rounded-full bg-[#F57F17]/60"></div>
+<div class="flex items-center justify-between text-[11px] font-label-md text-on-surface-variant">
+<span class="">2. Medio</span>
+<span class="material-symbols-outlined text-[14px] text-[#E65100]" data-icon="warning">warning</span>
+</div>
+</div>
+<!-- Step 3: Crítico (Rojo Activo y Pulsante) -->
+<div class="flex flex-col gap-1.5">
+<div class="h-3 w-full rounded-full bg-[#C62828] ring-2 ring-[#C62828]/40 ring-offset-1 animate-pulse"></div>
+<div class="flex items-center justify-between text-[11px] font-label-md text-[#C62828] font-bold">
+<span class="">3. Crítico</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="priority_high">priority_high</span>
+</div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 text-[13px] leading-snug">
+          Se identificó colonización activa de ninfas y adultos de <em>Trips tabaci</em>. Riesgo inminente de transmisión del virus de la mancha amarilla del iris (IYSV).
+        </p>
+</section>
+<!-- Decision Agent Action Recommendations (Agro-Advisory Card) -->
+<section class="bg-surface-container-lowest rounded-2xl border-[1.5px] border-outline-variant p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-2.5">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="smart_toy">smart_toy</span>
+</span>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface font-bold leading-tight">Recomendaciones Inmediatas en Campo</h3>
+<span class="text-[12px] font-label-md text-on-surface-variant">Protocolo Fitosanitario Validado INIA</span>
+</div>
+</div>
+<span class="text-[11px] font-label-md text-primary font-extrabold uppercase bg-primary-fixed/40 px-2 py-1 rounded">3 Tareas</span>
+</div>
+<!-- Recommendation List Items -->
+<div class="space-y-2.5 pt-1">
+<!-- Item 1 -->
+<div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/70 flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-primary flex-shrink-0 flex items-center justify-center border border-outline-variant shadow-xs">
+<span class="material-symbols-outlined text-[20px]" data-icon="pan_tool_alt">pan_tool_alt</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface text-[14px] leading-snug font-semibold">
+                1. Aislamiento y revisión en 5 metros a la redonda para verificar dispersión de ninfas.
+              </p>
+<div class="mt-1 flex items-center gap-2 text-[12px] font-label-md text-secondary font-bold">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+<span class="">Ejecutar dentro de 2 horas</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/70 flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-[#00695C] flex-shrink-0 flex items-center justify-center border border-outline-variant shadow-xs"><span class="material-symbols-outlined text-[20px]" data-icon="water_drop">water_drop</span></div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface text-[14px] leading-snug font-semibold">
+                2. Calibrar riego para evitar estrés térmico en el lote (reduce proliferación).
+              </p>
+<div class="mt-1 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-label-md font-bold border" style="color: rgb(0, 105, 92); background-color: rgb(224, 242, 241); border-color: rgb(0, 105, 92);"><span class="material-symbols-outlined text-[14px] text-[#00695C]" data-icon="tune">tune</span><span class="">Sugerido: Ciclo corto por goteo (+15%)</span></div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/70 flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-primary flex-shrink-0 flex items-center justify-center border border-outline-variant shadow-xs">
+<span class="material-symbols-outlined text-[20px]" data-icon="science">science</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface text-[14px] leading-snug font-semibold">
+                3. Aplicación focalizada de bio-insumo o jabón potásico en horas de baja radiación (tarde).
+              </p>
+<div class="mt-1 flex items-center gap-2 text-[12px] font-label-md text-[#C62828] font-bold">
+<span class="material-symbols-outlined text-[14px]" data-icon="wb_twilight">wb_twilight</span>
+<span class="">Ventana térmica: 16:30 - 18:00 hrs</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Telemetry Stamp -->
+<details class="bg-surface-container-high/60 rounded-xl p-3 border border-outline-variant/60 group"><summary class="flex items-center justify-between cursor-pointer font-label-md text-[13px] font-bold text-on-surface list-none select-none"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px] text-primary" data-icon="terminal">terminal</span>Detalles Técnicos</span><span class="material-symbols-outlined text-[18px] transition-transform group-open:rotate-180" data-icon="expand_more">expand_more</span></summary><div class="mt-3 pt-2.5 border-t border-outline-variant/50 space-y-1.5 text-[12px] font-body-md text-on-surface-variant text-left"><p class="">Hash del Modelo: <span class="font-mono font-bold text-on-surface">ONION-LURIN-NPU-v4.2</span></p><p class="">Muestra Registrada: <span class="font-bold text-on-surface">#04-89C</span></p><p class="">Motor de Inferencia: <span class="font-bold text-secondary">Edge NPU V3 (On-Device Offline)</span></p><p class="text-[11px] text-on-surface-variant/80 pt-1">Almacenamiento y encriptación local seguro</p></div></details>
+</main>
+<!-- Action Footer (Fixed at bottom for easy one-hand thumb tap per Design Guidelines) -->
+<div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-surface-container-lowest/95 backdrop-blur-md px-4 py-3 border-t-2 border-outline-variant shadow-[0_-6px_20px_rgba(0,0,0,0.12)] z-50" style="background-color: rgb(248, 249, 250);">
+<div class="flex flex-col gap-2.5">
+<!-- Primary Button: 56px height, Forest Green, Pill-shaped, Uppercase Weight 700 -->
+<button class="w-full h-[56px] min-h-[56px] bg-primary-container text-white rounded-full font-label-lg text-label-lg font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:bg-primary transition-all active:scale-[0.98] duration-100 touch-target-min" onclick="alert('Registro agronómico guardado exitosamente en la memoria local del dispositivo.')" type="button">
+<span class="material-symbols-outlined text-[24px]" data-icon="save">save</span>
+<span class="">Guardar en Registro Local</span>
+</button>
+<!-- Secondary Button: 50px height, Outlined 2px Deep Forest Green, Off-white background -->
+<button class="w-full h-[50px] min-h-[48px] bg-surface-container-lowest border-2 border-primary-container text-primary-container rounded-full font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 hover:bg-primary-fixed/20 transition-all active:scale-[0.98] duration-100 touch-target-min" onclick="alert('Activando sensor óptico de alta resolución para nueva captura foliar.')" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="replay">replay</span>
+<span class="">Repetir Foto de Muestra</span>
+</button>
+</div>
+</div>
+</div>
+
+
+</body></html>

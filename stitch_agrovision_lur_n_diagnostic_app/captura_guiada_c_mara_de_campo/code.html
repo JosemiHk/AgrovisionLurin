@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Captura Guiada - AGROVISION-LURÍN</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#00450d",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#ebe7ec",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#e5e1e7",
+            "surface-container-low": "#f7f2f8",
+            "surface-dim": "#ddd9de",
+            "on-background": "#1c1b1f",
+            "secondary": "#a83900",
+            "tertiary-fixed": "#a3f69c",
+            "background": "#fdf8fd",
+            "inverse-primary": "#91d78a",
+            "surface-container": "#f1ecf2",
+            "on-primary": "#ffffff",
+            "tertiary": "#00450d",
+            "on-primary-fixed": "#002203",
+            "outline-variant": "#c0c9bb",
+            "on-primary-container": "#90d689",
+            "inverse-on-surface": "#f4eff5",
+            "on-tertiary-fixed-variant": "#005312",
+            "on-primary-fixed-variant": "#0c5216",
+            "on-surface": "#1c1b1f",
+            "surface": "#fdf8fd",
+            "on-surface-variant": "#41493e",
+            "on-secondary-container": "#531800",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#380d00",
+            "surface-variant": "#e5e1e7",
+            "surface-bright": "#fdf8fd",
+            "secondary-fixed-dim": "#ffb59a",
+            "primary-fixed": "#acf4a4",
+            "tertiary-fixed-dim": "#88d982",
+            "surface-tint": "#2a6b2c",
+            "on-tertiary-fixed": "#002204",
+            "on-tertiary-container": "#86d881",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#717a6d",
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#91d78a",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#313034",
+            "primary-container": "#1b5e20",
+            "secondary-container": "#fc6018",
+            "secondary-fixed": "#ffdbcf",
+            "error": "#ba1a1a",
+            "tertiary-container": "#055f18",
+            "on-secondary-fixed-variant": "#802a00"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "spacing-20": "1.25rem",
+            "spacing-32": "2rem",
+            "spacing-12": "0.75rem",
+            "spacing-8": "0.5rem",
+            "margin-tablet": "2rem",
+            "spacing-48": "3rem",
+            "touch-target-min": "3rem",
+            "spacing-40": "2.5rem",
+            "gutter-mobile": "1rem",
+            "gutter-tablet": "1.5rem",
+            "spacing-16": "1rem",
+            "spacing-4": "0.25rem",
+            "spacing-24": "1.5rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "title-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+            "title-lg": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "700" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.8; }
+    }
+    .status-pulse {
+      animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .dashed-leaf {
+      stroke-dasharray: 8 6;
+      animation: dash-flow 25s linear infinite;
+    }
+    @keyframes dash-flow {
+      to { stroke-dashoffset: -200; }
+    }
+  </style>
+</head>
+<body class="bg-black text-on-surface select-none overflow-hidden m-0 p-0 font-body-md text-body-md antialiased min-h-screen flex justify-center items-center">
+<!-- Mobile Screen Container (Android 4-column layout standard) -->
+<main class="relative w-full max-w-md h-[100dvh] overflow-hidden bg-black flex flex-col justify-between">
+<!-- Camera Viewfinder Background Image (Red onion field crop close-up) -->
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-85" data-alt="A vivid high-definition close-up shot of vibrant green red onion leaves in an agricultural field in Lurín, Peru under sharp direct sunlight. The rich sandy soil and deep green tubular scallion stalks create high contrast outdoor agricultural textures. High-contrast natural daylight with crisp shadows highlighting healthy plant tissue and diagnostic textures in a modern agronomy setting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAPpYBHRFIbiPiO_gJURlO1hgT1aCvnGc4AJfTjGn1SfjccR0b5EIaN3Ok7RiffcmSCMCKSSZxsuHy91E3UvD8RleymwukSP6ZuH3OCOvooRbU5V-ywgDgPUvZC3G-LP4Njd5poIweX_gCv6jjkuQR1juyivz1VKDiPbFu2SZNkFnFMPQ0k6tdq9IBwrAtbEo9NtNQEi1FR3a4SXJ3jfDZl1oDcYskRNnY6_OXuDhWLH5r9kYaP5e2K');">
+</div>
+<!-- Sunlight Anti-Glare Overlays for Camera View -->
+<div class="absolute inset-0 z-0 bg-gradient-to-b from-black/80 via-transparent to-black/90 pointer-events-none"></div>
+<!-- Offline-First Sync Banner (From Design System) -->
+<div class="relative z-30 pt-2 px-margin-mobile flex justify-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full shadow-md" style="background-color: rgb(255, 160, 0); color: rgb(28, 27, 31);"><span class="material-symbols-outlined text-[16px]" data-icon="cloud_off">cloud_off</span><span class="font-label-md text-label-md font-bold text-[#1c1b1f]">Modo Local — 3 Registros Pendientes</span></div>
+</div>
+<!-- Top Header Overlay: 48dp Touch Targets with Heavy Anchor -->
+<header class="relative z-30 flex items-center justify-between px-margin-mobile py-spacing-8" style="background: linear-gradient(rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 75%, transparent 100%);">
+<!-- Back Action -->
+<button aria-label="Volver al panel" class="w-spacing-48 h-spacing-48 rounded-full bg-black/60 backdrop-blur-md border border-outline-variant/40 flex items-center justify-center text-white active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[26px]" data-icon="arrow_back">arrow_back</span>
+</button>
+<!-- Center Screen Title -->
+<div class="flex flex-col items-center">
+<span class="text-white font-title-lg text-title-lg tracking-tight drop-shadow-md">Captura de Hoja</span>
+<span class="text-inverse-primary font-label-md text-label-md font-bold tracking-wider uppercase">Sector B-14 Lurín</span>
+</div>
+<!-- Flash Toggle Button (Linterna) -->
+<button aria-label="Alternar Linterna" class="w-spacing-48 h-spacing-48 rounded-full bg-black/60 backdrop-blur-md border border-outline-variant/40 flex items-center justify-center text-white active:scale-95 transition-transform hover:bg-black/80" id="flash-toggle" type="button">
+<span class="material-symbols-outlined text-[24px] text-tertiary-fixed" data-icon="flash_on" data-weight="fill" id="flash-icon" style="font-variation-settings: 'FILL' 1;">flash_on</span>
+</button>
+</header>
+<!-- Floating Dynamic Feedback Pill (Optimal Distance / Good Light) -->
+<div class="relative z-20 flex justify-center px-margin-mobile">
+<div class="inline-flex items-center gap-2.5 bg-surface-container-lowest/95 backdrop-blur-md px-spacing-16 py-spacing-8 rounded-full border-2 border-primary-container shadow-lg">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container status-pulse shrink-0"></span>
+<span class="text-primary font-label-lg text-label-lg font-bold">Distancia óptima • Buena iluminación</span>
+</div>
+</div>
+<!-- Center Camera Viewfinder: Silhouette of Elongated Onion Leaf (Allium Cepa) with Crosshairs -->
+<div class="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pointer-events-none">
+<div class="relative w-full max-w-[280px] h-[320px] flex items-center justify-center">
+<!-- Viewfinder Reticle Frame (High contrast for direct sunlight) -->
+<div class="absolute -top-3 -left-3 w-6 h-6 border-t-4 border-l-4 border-inverse-primary"></div>
+<div class="absolute -top-3 -right-3 w-6 h-6 border-t-4 border-r-4 border-inverse-primary"></div>
+<div class="absolute -bottom-3 -left-3 w-6 h-6 border-b-4 border-l-4 border-inverse-primary"></div>
+<div class="absolute -bottom-3 -right-3 w-6 h-6 border-b-4 border-r-4 border-inverse-primary"></div>
+<!-- Onion Leaf (Allium Cepa) Vector Guidance Target Outline -->
+<svg class="w-full h-full drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" fill="none" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+<!-- Crosshair Guidelines -->
+<line stroke="#91d78a" stroke-linecap="round" stroke-width="2" x1="100" x2="100" y1="15" y2="45"></line>
+<line stroke="#91d78a" stroke-linecap="round" stroke-width="2" x1="100" x2="100" y1="255" y2="285"></line>
+<line stroke="#91d78a" stroke-linecap="round" stroke-width="2" x1="15" x2="45" y1="150" y2="150"></line>
+<line stroke="#91d78a" stroke-linecap="round" stroke-width="2" x1="155" x2="185" y1="150" y2="150"></line>
+<!-- Central Alignment Circle -->
+<circle cx="100" cy="150" r="12" stroke="#91d78a" stroke-dasharray="3 3" stroke-width="1.5"></circle>
+<circle cx="100" cy="150" fill="#91d78a" r="2.5"></circle>
+<!-- Onion Leaf Slender Tubular Silhouette (Allium Cepa) -->
+<path class="dashed-leaf" d="M99 22 C98 50, 93 110, 92 180 C91 225, 93 265, 95 288 L105 288 C107 265, 109 225, 108 180 C107 110, 102 50, 101 22 Z" fill="rgba(145, 215, 138, 0.12)" stroke="#91d78a" stroke-width="2.5"></path>
+</svg>
+<!-- Dynamic Guidance Label Inside Reticle -->
+<div class="absolute bottom-6 px-3 py-1.5 rounded-lg bg-black/75 backdrop-blur-sm border border-outline-variant/30">
+<p class="text-white font-label-md text-label-md font-bold text-center tracking-wide">
+            Enfoque la hoja de cebolla aquí
+          </p>
+</div>
+</div>
+</div>
+<!-- Lower Operational Section: Helper Card & Large Thumb-Zone Controls -->
+<div class="relative z-30 flex flex-col gap-spacing-12 pb-8 px-margin-mobile">
+<!-- Bottom Guidance Card (High Contrast Level 1 Card) -->
+<div class="bg-surface-container-lowest rounded-xl p-spacing-12 border-2 border-outline-variant shadow-lg flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[24px]" data-icon="wb_sunny">wb_sunny</span>
+</div>
+<div class="flex-1">
+<p class="text-on-surface font-body-md text-body-md font-semibold leading-tight">
+            Evite sombras directas y sostenga la hoja fija a <span class="text-primary font-bold">15-20 cm</span>.
+          </p>
+</div>
+</div>
+<!-- Bottom Camera Controls Row (Designed for one-handed rural operation) -->
+<div class="flex items-center justify-between px-2 pt-spacing-8">
+<!-- Left Action: Galería / Cargar imagen (Min 56px touch target) -->
+<button aria-label="Abrir Galería de Fotos" class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-surface-container-lowest/90 backdrop-blur-md border-2 border-outline-variant active:scale-95 transition-transform shadow-md" type="button">
+<span class="material-symbols-outlined text-on-surface text-[26px]" data-icon="photo_library">photo_library</span>
+<span class="text-[10px] font-bold text-on-surface -mt-0.5">Galería</span>
+</button>
+<!-- Center Shutter Button: Extra large circular trigger (72dp diameter) with Forest Green core -->
+<div class="relative flex items-center justify-center">
+<!-- Haptic feedback outer pulse ring -->
+<div class="absolute w-24 h-24 rounded-full border-2 border-inverse-primary/60 animate-ping opacity-25"></div>
+<button aria-label="Capturar fotografía de hoja" class="relative z-10 w-[76px] h-[76px] rounded-full p-1 bg-white border-4 border-surface-container-highest shadow-[0_4px_16px_rgba(0,0,0,0.5)] active:scale-90 transition-transform flex items-center justify-center" id="shutter-button" type="button">
+<div class="w-full h-full rounded-full bg-primary-container flex items-center justify-center hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-white text-[32px]" data-icon="camera" data-weight="fill" style="font-variation-settings: 'FILL' 1;">camera</span>
+</div>
+</button>
+</div>
+<!-- Right Action: Macro Focus / Crop Switch Toggle -->
+<button aria-label="Alternar Enfoque Macro" class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-surface-container-lowest/90 backdrop-blur-md border-2 border-outline-variant active:scale-95 transition-transform shadow-md" id="macro-toggle" type="button">
+<span class="material-symbols-outlined text-primary text-[26px]" data-icon="center_focus_strong">center_focus_strong</span>
+<span class="text-[10px] font-bold text-on-surface -mt-0.5">Macro</span>
+</button>
+</div>
+</div>
+</main>
+<script>
+    // Lightweight tactile micro-interactions for field usability
+    document.addEventListener('DOMContentLoaded', () => {
+      const shutterBtn = document.getElementById('shutter-button');
+      const flashBtn = document.getElementById('flash-toggle');
+      const flashIcon = document.getElementById('flash-icon');
+      const macroBtn = document.getElementById('macro-toggle');
+
+      let flashActive = true;
+      let macroActive = false;
+
+      // Flash Toggle Handler
+      if (flashBtn && flashIcon) {
+        flashBtn.addEventListener('click', () => {
+          flashActive = !flashActive;
+          if (flashActive) {
+            flashIcon.textContent = 'flash_on';
+            flashIcon.classList.remove('text-outline-variant');
+            flashIcon.classList.add('text-tertiary-fixed');
+            flashBtn.classList.remove('bg-black/40');
+            flashBtn.classList.add('bg-black/60');
+          } else {
+            flashIcon.textContent = 'flash_off';
+            flashIcon.classList.remove('text-tertiary-fixed');
+            flashIcon.classList.add('text-outline-variant');
+            flashBtn.classList.remove('bg-black/60');
+            flashBtn.classList.add('bg-black/40');
+          }
+        });
+      }
+
+      // Shutter Trigger Visual Feedback
+      if (shutterBtn) {
+        shutterBtn.addEventListener('click', () => {
+          // Trigger momentary flash effect
+          const flashDiv = document.createElement('div');
+          flashDiv.className = 'absolute inset-0 bg-white z-50 pointer-events-none transition-opacity duration-300 opacity-90';
+          document.body.appendChild(flashDiv);
+          setTimeout(() => {
+            flashDiv.style.opacity = '0';
+            setTimeout(() => flashDiv.remove(), 300);
+          }, 60);
+        });
+      }
+
+      // Macro Mode Toggle
+      if (macroBtn) {
+        macroBtn.addEventListener('click', () => {
+          macroActive = !macroActive;
+          if (macroActive) {
+            macroBtn.classList.add('border-primary', 'bg-primary-container/20');
+          } else {
+            macroBtn.classList.remove('border-primary', 'bg-primary-container/20');
+          }
+        });
+      }
+    });
+  </script>
+
+
+</body></html>

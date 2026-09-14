@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AGROVISION-LURÍN - Historial y Sincronización</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#00450d",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#ebe7ec",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#e5e1e7",
+            "surface-container-low": "#f7f2f8",
+            "surface-dim": "#ddd9de",
+            "on-background": "#1c1b1f",
+            "secondary": "#a83900",
+            "tertiary-fixed": "#a3f69c",
+            "background": "#fdf8fd",
+            "inverse-primary": "#91d78a",
+            "surface-container": "#f1ecf2",
+            "on-primary": "#ffffff",
+            "tertiary": "#00450d",
+            "on-primary-fixed": "#002203",
+            "outline-variant": "#c0c9bb",
+            "on-primary-container": "#90d689",
+            "inverse-on-surface": "#f4eff5",
+            "on-tertiary-fixed-variant": "#005312",
+            "on-primary-fixed-variant": "#0c5216",
+            "on-surface": "#1c1b1f",
+            "surface": "#fdf8fd",
+            "on-surface-variant": "#41493e",
+            "on-secondary-container": "#531800",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#380d00",
+            "surface-variant": "#e5e1e7",
+            "surface-bright": "#fdf8fd",
+            "secondary-fixed-dim": "#ffb59a",
+            "primary-fixed": "#acf4a4",
+            "tertiary-fixed-dim": "#88d982",
+            "surface-tint": "#2a6b2c",
+            "on-tertiary-fixed": "#002204",
+            "on-tertiary-container": "#86d881",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#717a6d",
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#91d78a",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#313034",
+            "primary-container": "#1b5e20",
+            "secondary-container": "#fc6018",
+            "secondary-fixed": "#ffdbcf",
+            "error": "#ba1a1a",
+            "tertiary-container": "#055f18",
+            "on-secondary-fixed-variant": "#802a00"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "spacing-20": "1.25rem",
+            "spacing-32": "2rem",
+            "spacing-12": "0.75rem",
+            "spacing-8": "0.5rem",
+            "margin-tablet": "2rem",
+            "spacing-48": "3rem",
+            "touch-target-min": "3rem",
+            "spacing-40": "2.5rem",
+            "gutter-mobile": "1rem",
+            "gutter-tablet": "1.5rem",
+            "spacing-16": "1rem",
+            "spacing-4": "0.25rem",
+            "spacing-24": "1.5rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "title-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+            "title-lg": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "700" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface antialiased font-body-md text-body-md min-h-screen pb-28 select-none" style="background-color: rgb(248, 249, 250);">
+<!-- TopAppBar: Derived from Shared Components JSON with Style Executions -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile min-h-[56px] bg-surface shadow-sm border-b-2 border-outline-variant">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="cloud_off">cloud_off</span>
+<span class="font-title-lg text-title-lg text-primary font-bold tracking-tight">AGROVISION-LURÍN</span>
+</div>
+<div class="flex items-center space-x-1">
+<button aria-label="Condición solar" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="wb_sunny">wb_sunny</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas Container -->
+<main class="max-w-md mx-auto pt-16 px-margin-mobile flex flex-col space-y-4">
+<!-- Page Context Title Area -->
+<section class="mt-3">
+<div class="flex flex-col space-y-1">
+<div class="flex items-center justify-between">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold tracking-tight">
+            Historial de Muestreos
+          </h1>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">
+            Lurín - Temporada Actual
+          </span>
+<!-- Counter Badge -->
+<div class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container-highest border border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface font-bold">5 guardados localmente</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Horizontal Scrollable Filter Chips Row -->
+<nav aria-label="Filtros de inspección" class="w-full overflow-x-auto no-scrollbar py-1">
+<div class="flex items-center space-x-2 min-w-max" style="display: flex; flex-wrap: nowrap; white-space: nowrap;">
+<!-- Filter 1: Todos (5) - Selected -->
+<button class="h-11 px-4 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center space-x-1.5 shadow-sm active:scale-95 duration-100 min-h-[44px]">
+<span class="">Todos (5)</span>
+</button>
+<!-- Filter 2: Con Plaga (2) -->
+<button class="h-11 px-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant hover:bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center space-x-2 active:scale-95 duration-100 min-h-[44px]">
+<span class="w-2.5 h-2.5 rounded-full bg-error inline-block"></span>
+<span class="">Con Plaga (2)</span>
+</button>
+<!-- Filter 3: Estrés Hídrico (1) -->
+<button class="h-11 px-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant hover:bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center space-x-2 active:scale-95 duration-100 min-h-[44px]" style="border-color: rgb(0, 105, 92); color: rgb(0, 105, 92);">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container inline-block" style="background-color: rgb(0, 105, 92);"></span>
+<span class="">Estrés Hídrico (1)</span>
+</button>
+<!-- Filter 4: Sanos (2) -->
+<button class="h-11 px-4 rounded-full bg-surface-container-lowest border-2 border-outline-variant hover:bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center space-x-2 active:scale-95 duration-100 min-h-[44px]">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container inline-block"></span>
+<span class="">Sanos (2)</span>
+</button>
+</div>
+</nav>
+<!-- Sync Banner Card (Eye-catching amber/orange container) -->
+<section class="rounded-xl bg-[#FFF3E0] border-2 border-secondary-container p-4 shadow-sm relative overflow-hidden">
+<div class="flex items-start space-x-3.5">
+<div class="w-11 h-11 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-2xl" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-md text-title-md text-[#531800] leading-tight font-bold">
+            3 registros pendientes de subir a la nube
+          </h2>
+<p class="font-body-md text-body-md text-[#802a00] mt-1">
+            Los diagnósticos están seguros en la memoria de este teléfono.
+          </p>
+</div>
+</div>
+<div class="mt-3.5">
+<button class="w-full min-h-[52px] bg-secondary hover:bg-[#8d3000] text-on-secondary rounded-full font-label-lg text-label-lg flex items-center justify-center space-x-2 active:scale-95 duration-100 shadow-sm">
+<span class="material-symbols-outlined text-xl" data-icon="sync">sync</span>
+<span class="">Sincronizar Ahora (Esperando Wi-Fi / 4G)</span>
+</button>
+</div>
+</section>
+<!-- Inspection List (Vertical list with high contrast & tactile field card layout) -->
+<section aria-label="Lista de inspecciones fitosanitarias" class="flex flex-col space-y-3 pt-1">
+<!-- Card 1: Trips Detectado -->
+<article class="bg-surface-container-lowest border-[1.5px] border-outline-variant rounded-xl p-4 shadow-sm active:scale-[0.99] duration-100 flex flex-col space-y-3">
+<div class="flex items-center space-x-3.5">
+<img class="w-16 h-16 rounded-lg object-cover border border-outline-variant flex-shrink-0" data-alt="Close up high contrast agricultural field photography of an onion leaf showing subtle damage from thrips pests under bright natural desert sunlight with deep green chlorophyll tones and dry coastal sandy field background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNA0NkbMSvbCIfDoN9Lp6GLHxuEKnCTfwLHLQhv5sfgpFqaUrpTqxk_opJmfABkMeKe-RXtrf5lWEII_0nNVrnqyGmqdDJHEn3czi4i911beDuokudNskIRUN9gOnuHcTG1v8pPxOkE1ykzM30GYX0IC0XGwKXKYAg_cEhGN5wmPgMZJ0h4GvfKnu5TwuTU_HLs-bwGrA-QNWra7omBjfBskRFO9qXa0DCtrmzyM_x2egEuPq6WCvj">
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Surco 4 - Valle Bajo</h3>
+<span class="font-label-md text-label-md text-on-surface-variant flex-shrink-0">Hoy, 08:32 AM</span>
+</div>
+<div class="mt-1.5 flex flex-wrap gap-1.5">
+<!-- Crimson red badge -->
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#FFEBEE] border border-error text-error font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-error mr-1.5"></span>
+                Trips Detectado
+              </span>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-[#E65100]">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="font-label-md text-label-md font-bold">Guardado Localmente</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">Ver Ficha</span>
+</div>
+</article>
+<!-- Card 2: Trips Detectado -->
+<article class="bg-surface-container-lowest border-[1.5px] border-outline-variant rounded-xl p-4 shadow-sm active:scale-[0.99] duration-100 flex flex-col space-y-3">
+<div class="flex items-center space-x-3.5">
+<img class="w-16 h-16 rounded-lg object-cover border border-outline-variant flex-shrink-0" data-alt="Agronomist holding an allium cepa onion crop foliage with macro lens inspection showing pest symptoms in Lurín Peru valley under crisp intense daytime lighting with rich organic greens and earth textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOrMi_EgPA0wFKszuf2j-YX_pFmzgGTHYl6ut-XWcoTMPii-2qK5a4jLAdvG11MsB-4IigsWrOLW0AB-_2j5TbLQTYoKeGHL-aJLIDppLdaIzicNrjroWs_r5qRQysXGhbfTsGwk2bg07Fx0M9cc77zJMNzvyVfqjli6DEXA7Bzvxyj89kJ4hBEgfYY8l76-XnbKtExrqBLyp6ncqqLmmA23yn6Q0gwweFi_N97vtJa7r8TDhhreeK">
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Surco 4 - Muestra A</h3>
+<span class="font-label-md text-label-md text-on-surface-variant flex-shrink-0">Hoy, 08:20 AM</span>
+</div>
+<div class="mt-1.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#FFEBEE] border border-error text-error font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-error mr-1.5"></span>
+                Trips Detectado
+              </span>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-[#E65100]">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="font-label-md text-label-md font-bold">Guardado Localmente</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">Ver Ficha</span>
+</div>
+</article>
+<!-- Card 3: Estrés Hídrico Leve -->
+<article class="bg-surface-container-lowest border-[1.5px] border-outline-variant rounded-xl p-4 shadow-sm active:scale-[0.99] duration-100 flex flex-col space-y-3">
+<div class="flex items-center space-x-3.5">
+<img class="w-16 h-16 rounded-lg object-cover border border-outline-variant flex-shrink-0" data-alt="Field row inspection of young vegetable plants with slight dehydration curling leaves under high desert sun with irrigation drip lines visible on arid Peruvian coastal soil." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjJwWguzKBvVtkVBGnTddBNjLlMUBhE5qQsHQp6I9leIxULltzYdBseQafWa2VLePV8ohMijSCaKTGytX8gJP5Lh-chFVMs-wztXJgMV__W4qsxNZDQReou-QwHKVoP17-R4c7STlnEKJgmzdyERs6T3vIqXr2Z1jun6CaIiIRGZoB3fs3B4y8-rM9oigYyhGYgSlX_c2fcHRa38zbUlEaEWzDSyvKBRnV-Qr_EaatOtptPP6FRgya">
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Surco 2 - Sector Central</h3>
+<span class="font-label-md text-label-md text-on-surface-variant flex-shrink-0">Ayer, 04:15 PM</span>
+</div>
+<div class="mt-1.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#FFF3E0] border border-secondary-container text-secondary font-label-md text-label-md" style="background-color: rgb(224, 242, 241); border-color: rgb(0, 105, 92); color: rgb(0, 105, 92);">
+<span class="w-2 h-2 rounded-full bg-secondary-container mr-1.5" style="background-color: rgb(0, 105, 92);"></span>
+                Estrés Hídrico Leve
+              </span>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-[#E65100]">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="font-label-md text-label-md font-bold">Guardado Localmente</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">Ver Ficha</span>
+</div>
+</article>
+<!-- Card 4: Cultivo Sano -->
+<article class="bg-surface-container-lowest border-[1.5px] border-outline-variant rounded-xl p-4 shadow-sm active:scale-[0.99] duration-100 flex flex-col space-y-3">
+<div class="flex items-center space-x-3.5">
+<img class="w-16 h-16 rounded-lg object-cover border border-outline-variant flex-shrink-0" data-alt="Vibrant healthy emerald green crop seedling leaves growing strongly in straight furrows with crisp natural morning sunlight and professional high resolution agricultural focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQuD7nyTsy_FGro3IHEERzw0f1Ag4Hz3L4jVaRrFhTQkET1lGCOrt5iGZU2-LacpZ0uyduNZLO5GYsq6LJ3HiDOLDIL9sAwG3FtZxVntios6uMLTyoZ_wVj1ZfByAwgqyCs5xHnvntKz8CtAqUF7j8ZiemGgMTm4e64eazePGEh4X-nUUiA1uctdVtcYv8jktK8eg30gTZm_XHws9qWbqEWlEhKHh3PL-2dNyj9end7LyLviIWUgcp">
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Surco 1 - Almacigo</h3>
+<span class="font-label-md text-label-md text-on-surface-variant flex-shrink-0">24 Feb, 10:00 AM</span>
+</div>
+<div class="mt-1.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#E8F5E9] border border-primary-container text-primary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-primary-container mr-1.5"></span>
+                Cultivo Sano
+              </span>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="cloud_done">cloud_done</span>
+<span class="font-label-md text-label-md font-bold">Sincronizado en Nube</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">Ver Ficha</span>
+</div>
+</article>
+<!-- Card 5: Cultivo Sano -->
+<article class="bg-surface-container-lowest border-[1.5px] border-outline-variant rounded-xl p-4 shadow-sm active:scale-[0.99] duration-100 flex flex-col space-y-3">
+<div class="flex items-center space-x-3.5">
+<img class="w-16 h-16 rounded-lg object-cover border border-outline-variant flex-shrink-0" data-alt="Lush healthy green commercial onion plantation plot under blue sky in Lurín agricultural valley with balanced organic soil and clear farm irrigation channels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKVw9LT0a54uPJ80XlUYuW6DGjjayw5CHfHuzJM8xNMsbHRwrjMI0SpD5EBYWRGOgLGURG7nL0cOloX_LG-SOOwt1l3OPLRzSi7rTXyuA4WjKCIg313sQyUJYwU5tfzs__O21bA64nkr_pa7CUAAbAbq-65-x55lHR4DatPiUttpfPhoa68h3U9xglazufux5V29GWavDO8GqVfTf2u-AP_GgYOmFDNZUYUQiReyR7ZTDrG27Ub0BW">
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<h3 class="font-title-md text-title-md text-on-surface font-bold">Lote 2 - Parcela Este</h3>
+<span class="font-label-md text-label-md text-on-surface-variant flex-shrink-0">22 Feb, 03:30 PM</span>
+</div>
+<div class="mt-1.5 flex flex-wrap gap-1.5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#E8F5E9] border border-primary-container text-primary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-primary-container mr-1.5"></span>
+                Cultivo Sano
+              </span>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-primary">
+<span class="material-symbols-outlined text-lg" data-icon="cloud_done">cloud_done</span>
+<span class="font-label-md text-label-md font-bold">Sincronizado en Nube</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">Ver Ficha</span>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar: Exact implementation derived from Shared Components JSON -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface min-h-[64px] border-t-2 border-outline-variant shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+<!-- Item 1: Inicio (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-2 min-h-[48px] hover:bg-surface-container-low transition-colors active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="home">home</span>
+<span class="font-label-lg text-label-lg mt-0.5">Inicio</span>
+</a>
+<!-- Item 2: Historial (Active State from semantic intent match) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-2 min-h-[48px] active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined text-2xl text-on-primary-container" data-icon="history" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-lg text-label-lg text-on-primary-container mt-0.5">Historial</span>
+</a>
+<!-- Item 3: Configuración (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-2 min-h-[48px] hover:bg-surface-container-low transition-colors active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg mt-0.5">Configuración</span>
+</a>
+</nav>
+
+
+</body></html>

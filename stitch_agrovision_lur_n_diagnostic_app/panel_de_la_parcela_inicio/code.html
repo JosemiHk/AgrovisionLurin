@@ -1,0 +1,299 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>AGROVISION-LURÍN - Panel de Parcela</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#00450d",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#ebe7ec",
+            "on-secondary": "#ffffff",
+            "surface-container-highest": "#e5e1e7",
+            "surface-container-low": "#f7f2f8",
+            "surface-dim": "#ddd9de",
+            "on-background": "#1c1b1f",
+            "secondary": "#a83900",
+            "tertiary-fixed": "#a3f69c",
+            "background": "#fdf8fd",
+            "inverse-primary": "#91d78a",
+            "surface-container": "#f1ecf2",
+            "on-primary": "#ffffff",
+            "tertiary": "#00450d",
+            "on-primary-fixed": "#002203",
+            "outline-variant": "#c0c9bb",
+            "on-primary-container": "#90d689",
+            "inverse-on-surface": "#f4eff5",
+            "on-tertiary-fixed-variant": "#005312",
+            "on-primary-fixed-variant": "#0c5216",
+            "on-surface": "#1c1b1f",
+            "surface": "#fdf8fd",
+            "on-surface-variant": "#41493e",
+            "on-secondary-container": "#531800",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#380d00",
+            "surface-variant": "#e5e1e7",
+            "surface-bright": "#fdf8fd",
+            "secondary-fixed-dim": "#ffb59a",
+            "primary-fixed": "#acf4a4",
+            "tertiary-fixed-dim": "#88d982",
+            "surface-tint": "#2a6b2c",
+            "on-tertiary-fixed": "#002204",
+            "on-tertiary-container": "#86d881",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#717a6d",
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#91d78a",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#313034",
+            "primary-container": "#1b5e20",
+            "secondary-container": "#fc6018",
+            "secondary-fixed": "#ffdbcf",
+            "error": "#ba1a1a",
+            "tertiary-container": "#055f18",
+            "on-secondary-fixed-variant": "#802a00"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "spacing-20": "1.25rem",
+            "spacing-32": "2rem",
+            "spacing-12": "0.75rem",
+            "spacing-8": "0.5rem",
+            "margin-tablet": "2rem",
+            "spacing-48": "3rem",
+            "touch-target-min": "3rem",
+            "spacing-40": "2.5rem",
+            "gutter-mobile": "1rem",
+            "gutter-tablet": "1.5rem",
+            "spacing-16": "1rem",
+            "spacing-4": "0.25rem",
+            "spacing-24": "1.5rem"
+          },
+          "fontFamily": {
+            "display-lg": ["Plus Jakarta Sans"],
+            "display-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "title-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "display-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+            "title-lg": ["20px", { "lineHeight": "26px", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "700" }],
+            "headline-lg": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .icon-fill {
+      font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col pb-28 select-none" style="min-height: max(884px, 100dvh); background-color: rgb(248, 249, 250);">
+<!-- TopAppBar Shared Component Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile min-h-[56px] bg-surface shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="cloud_off">cloud_off</span>
+<span class="font-title-lg text-title-lg text-primary font-bold tracking-tight">AGROVISION-LURÍN</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-high px-3 py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-base" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-label-md text-label-md text-on-surface">24°C • Lurín</span>
+</div>
+</header>
+<!-- Offline Status Persistence Banner (Sunlight-Proof High Contrast) -->
+<div class="mt-14 w-full bg-[#FFA000] text-[#1C1B1F] px-margin-mobile py-2.5 flex items-center justify-between shadow-sm"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[#1C1B1F] text-xl" data-icon="cloud_off">cloud_off</span><span class="font-label-lg text-label-lg tracking-wide uppercase font-bold text-[#1C1B1F]">Modo Local (Offline Listo)</span></div><span class="font-label-md text-label-md bg-black/25 px-2.5 py-0.5 rounded-full font-bold text-[#1C1B1F]">3 pendientes</span></div>
+<main class="w-full max-w-2xl mx-auto px-margin-mobile pt-4 space-y-4">
+<!-- Status Banner Card: Lote 1 -->
+<section class="bg-surface-container-lowest rounded-xl p-spacing-16 border-[1.5px] border-[#DDE2D5] shadow-[0_2px_4px_rgba(28,27,31,0.04)]">
+<div class="flex items-start justify-between gap-3 mb-3">
+<div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-base" data-icon="location_on">location_on</span>
+<span class="">Valle Bajo • Parcela 04</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-extrabold mt-0.5">Lote 1 - Valle Bajo (Cebolla Roja)</h1>
+</div>
+<span class="shrink-0 bg-[#FFEBEE] border border-[#C62828] text-[#C62828] font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#C62828]"></span>
+          Atención
+        </span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-spacing-12 border border-outline-variant/60 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-2xl" data-icon="warning">warning</span>
+<div>
+<div class="font-title-md text-title-md font-bold text-on-surface">Estado General: Requiere Atención</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Último muestreo: Hoy 08:30 AM (Surco 4)</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Hero Primary CTA: Nueva Inspección Fitosanitaria -->
+<section>
+<button class="w-full min-h-[64px] bg-primary-container text-on-primary rounded-xl px-5 py-3 flex items-center justify-between active:scale-[0.98] transition-transform shadow-md border-2 border-primary" type="button">
+<div class="flex items-center gap-3.5 text-left">
+<div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-3xl icon-fill" data-icon="photo_camera">photo_camera</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-extrabold tracking-wide uppercase text-white leading-tight">Nueva Inspección Fitosanitaria</div>
+<div class="font-body-md text-body-md text-inverse-primary">Tomar foto y analizar en el lote</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-white text-2xl shrink-0" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</section>
+<!-- Quick Stats Metric Bento Grid -->
+<section class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-lowest p-spacing-16 rounded-xl border-[1.5px] border-[#DDE2D5] flex flex-col justify-between min-h-[92px]">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">Por Enviar</span>
+<span class="material-symbols-outlined text-secondary text-xl" data-icon="sync_problem">sync_problem</span>
+</div>
+<div>
+<div class="font-display-mobile text-display-mobile text-on-surface leading-none font-extrabold mt-1">3</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-1">Pendientes de Sincronizar</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-spacing-16 rounded-xl border-[1.5px] border-[#DDE2D5] flex flex-col justify-between min-h-[92px]">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Actividad</span>
+<span class="material-symbols-outlined text-primary text-xl" data-icon="analytics">analytics</span>
+</div>
+<div>
+<div class="font-display-mobile text-display-mobile text-on-surface leading-none font-extrabold mt-1">12</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-1">Muestreos este mes</div>
+</div>
+</div>
+</section>
+<!-- Secondary Section: Inspecciones Recientes de Campo -->
+<section class="space-y-3 pt-2">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-headline-md text-headline-md text-on-surface font-extrabold">Inspecciones Recientes de Campo</h2>
+<span class="font-label-md text-label-md text-primary font-bold">Ver todas</span>
+</div>
+<!-- Card 1: Surco 4 - Alerta Trips -->
+<article class="bg-surface-container-lowest p-spacing-16 rounded-xl border-[2px] border-[#C62828] shadow-sm">
+<div class="flex items-start justify-between gap-2 mb-2">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-extrabold">Surco 4 - Cebolla Roja</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">Hoy, 08:30 AM</span>
+</div>
+<div class="bg-[#FFEBEE] border border-[#C62828] text-[#C62828] font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-base" data-icon="pest_control">pest_control</span>
+<span class="">ALERTA: Trips (89%)</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/50 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-secondary font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="">Pendiente de subir</span>
+</div>
+<button class="min-h-[44px] px-4 bg-surface-container-high rounded-full font-label-md text-label-md text-on-surface font-bold border border-outline-variant active:bg-surface-dim" type="button">
+            Detalle Muestreo
+          </button>
+</div>
+</article>
+<!-- Card 2: Surco 2 - Estrés Hídrico Leve -->
+<article class="bg-surface-container-lowest p-spacing-16 rounded-xl border-[2px] border-[#F57F17] shadow-sm">
+<div class="flex items-start justify-between gap-2 mb-2">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-extrabold">Surco 2 - Sector Norte</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">Ayer, 04:15 PM</span>
+</div>
+<div class="bg-[#E0F2F1] border border-[#00695C] text-[#00695C] font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-base text-[#00695C]" data-icon="water_drop">water_drop</span><span class="">Estrés Hídrico Leve</span></div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/50 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-secondary font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-lg" data-icon="schedule">schedule</span>
+<span class="">Pendiente de subir</span>
+</div>
+<button class="min-h-[44px] px-4 bg-surface-container-high rounded-full font-label-md text-label-md text-on-surface font-bold border border-outline-variant active:bg-surface-dim" type="button">
+            Detalle Muestreo
+          </button>
+</div>
+</article>
+<!-- Card 3: Surco 1 - Cultivo Sano -->
+<article class="bg-surface-container-lowest p-spacing-16 rounded-xl border-[1.5px] border-[#DDE2D5] shadow-sm">
+<div class="flex items-start justify-between gap-2 mb-2">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-extrabold">Surco 1 - Almacigo</h3>
+<span class="font-label-md text-label-md text-on-surface-variant">24 Feb, 10:00 AM</span>
+</div>
+<div class="bg-[#E8F5E9] border border-[#2E7D32] text-[#1B5E20] font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-base" data-icon="check_circle">check_circle</span>
+<span class="">Cultivo Sano</span>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-outline-variant/50 flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-[#2E7D32] font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-lg text-[#2E7D32]" data-icon="cloud_done">cloud_done</span>
+<span class="">Sincronizado en Nube</span>
+</div>
+<button class="min-h-[44px] px-4 bg-surface-container-high rounded-full font-label-md text-label-md text-on-surface font-bold border border-outline-variant active:bg-surface-dim" type="button">
+            Detalle Muestreo
+          </button>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar Shared Component Anchor (Destination: Inicio Active) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface min-h-[64px] shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+<!-- Active Navigation: Inicio -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-2 min-h-[48px] active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined text-2xl text-on-primary-container icon-fill" data-icon="home">home</span>
+<span class="font-label-lg text-label-lg font-bold text-on-primary-container leading-none mt-0.5">Inicio</span>
+</a>
+<!-- Inactive Navigation: Historial -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-2 min-h-[48px] hover:bg-surface-container-low transition-colors active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="history">history</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant leading-none mt-0.5">Historial</span>
+</a>
+<!-- Inactive Navigation: Configuración -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-2 min-h-[48px] hover:bg-surface-container-low transition-colors active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant leading-none mt-0.5">Configuración</span>
+</a>
+</nav>
+
+
+</body></html>
