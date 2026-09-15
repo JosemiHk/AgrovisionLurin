@@ -1,6 +1,8 @@
 package pe.edu.upn.agrovisionlurin
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +24,16 @@ class MainActivity : ComponentActivity() {
                     NavGraph()
                 }
             }
+        }
+    }
+
+    override fun dispatchGenericMotionEvent(ev: MotionEvent): Boolean {
+        return try {
+            super.dispatchGenericMotionEvent(ev)
+        } catch (e: IllegalStateException) {
+            // Mitigación para el bug de AndroidComposeView (ACTION_HOVER_EXIT) en screen mirroring / stylus
+            Log.w("MainActivity", "Interceptado bug de Compose hover event: ${e.message}")
+            true
         }
     }
 }

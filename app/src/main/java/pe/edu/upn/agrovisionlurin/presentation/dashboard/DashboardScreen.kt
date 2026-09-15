@@ -8,13 +8,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import pe.edu.upn.agrovisionlurin.presentation.theme.*
 
@@ -24,7 +24,7 @@ fun DashboardScreen(
     @Suppress("UNUSED_PARAMETER") onNavigateToHistory: () -> Unit,
     viewModel: DashboardViewModel = viewModel()
 ) {
-    val pendingCount by viewModel.pendingSyncCount.collectAsState()
+    val pendingCount by viewModel.pendingSyncCount.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -57,7 +57,7 @@ fun DashboardScreen(
                 Text("Valle Bajo - Lurín", style = Typography.bodyLarge, color = TextCharcoal.copy(alpha = 0.7f))
             }
             
-            items(3) { index ->
+            items(3, key = { index -> index }) { index ->
                 InspectionCard(index = index)
             }
         }

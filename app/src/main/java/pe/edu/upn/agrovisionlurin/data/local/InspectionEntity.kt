@@ -1,9 +1,16 @@
 package pe.edu.upn.agrovisionlurin.data.local
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "inspections")
+@Entity(
+    tableName = "inspections",
+    indices = [
+        Index(value = ["syncStatus"]),
+        Index(value = ["createdAt"])
+    ]
+)
 data class InspectionEntity(
     @PrimaryKey
     val id: String,

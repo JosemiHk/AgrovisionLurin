@@ -16,6 +16,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,8 +36,10 @@ public final class AppDatabase_Impl extends AppDatabase {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `inspections` (`id` TEXT NOT NULL, `plotId` TEXT NOT NULL, `subPlot` TEXT NOT NULL, `imagePath` TEXT NOT NULL, `diagnosisClass` INTEGER NOT NULL, `confidence` REAL NOT NULL, `latencyMs` INTEGER NOT NULL, `severityLevel` TEXT NOT NULL, `recommendationsJson` TEXT NOT NULL, `syncStatus` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_inspections_syncStatus` ON `inspections` (`syncStatus`)");
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_inspections_createdAt` ON `inspections` (`createdAt`)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '239a9af75179b3a7e5d10fc93fe020d4')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0a6df58e85b09f798daafb6bd7dce0b4')");
       }
 
       @Override
@@ -98,7 +101,9 @@ public final class AppDatabase_Impl extends AppDatabase {
         _columnsInspections.put("syncStatus", new TableInfo.Column("syncStatus", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsInspections.put("createdAt", new TableInfo.Column("createdAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysInspections = new HashSet<TableInfo.ForeignKey>(0);
-        final HashSet<TableInfo.Index> _indicesInspections = new HashSet<TableInfo.Index>(0);
+        final HashSet<TableInfo.Index> _indicesInspections = new HashSet<TableInfo.Index>(2);
+        _indicesInspections.add(new TableInfo.Index("index_inspections_syncStatus", false, Arrays.asList("syncStatus"), Arrays.asList("ASC")));
+        _indicesInspections.add(new TableInfo.Index("index_inspections_createdAt", false, Arrays.asList("createdAt"), Arrays.asList("ASC")));
         final TableInfo _infoInspections = new TableInfo("inspections", _columnsInspections, _foreignKeysInspections, _indicesInspections);
         final TableInfo _existingInspections = TableInfo.read(db, "inspections");
         if (!_infoInspections.equals(_existingInspections)) {
@@ -108,7 +113,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "239a9af75179b3a7e5d10fc93fe020d4", "3c380d8636abc0573df96cb72e8bd2a4");
+    }, "0a6df58e85b09f798daafb6bd7dce0b4", "a841ce38bc097472f11d3a05df73b064");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -16,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import pe.edu.upn.agrovisionlurin.presentation.theme.PrimaryGreen
 import pe.edu.upn.agrovisionlurin.presentation.theme.Typography
@@ -27,7 +29,7 @@ fun DiagnosticResultScreen(
     onNavigateToCamera: () -> Unit,
     viewModel: ResultViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(resultId) {
         viewModel.loadResult(resultId)
@@ -45,7 +47,7 @@ fun DiagnosticResultScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             IconButton(onClick = onBack) {
-                Icon(Icons.Rounded.ArrowBack, contentDescription = "Volver")
+                Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Volver")
             }
             Spacer(modifier = Modifier.width(8.dp))
             Text("Resultado del Diagnóstico", style = Typography.titleLarge, fontWeight = FontWeight.Bold)
@@ -112,7 +114,7 @@ fun DiagnosticResultScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(state.recommendations) { rec ->
+                    items(state.recommendations, key = { it.title }) { rec ->
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -150,7 +152,9 @@ fun DiagnosticResultScreen(
                 }
             }
             is ResultUiState.Error -> {
-                Text("Error: ${state.message}", color = Color.Red)
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Error: ${state.message}", color = Color.Red, style = Typography.bodyLarge)
+                }
             }
         }
     }

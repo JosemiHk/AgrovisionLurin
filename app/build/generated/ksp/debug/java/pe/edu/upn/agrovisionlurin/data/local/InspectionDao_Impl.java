@@ -3,6 +3,7 @@ package pe.edu.upn.agrovisionlurin.data.local;
 import android.database.Cursor;
 import android.os.CancellationSignal;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.CoroutinesRoom;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
@@ -10,6 +11,7 @@ import androidx.room.RoomSQLiteQuery;
 import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
+import androidx.room.util.StringUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import java.lang.Class;
 import java.lang.Exception;
@@ -17,6 +19,7 @@ import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.StringBuilder;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,6 +94,25 @@ public final class InspectionDao_Impl implements InspectionDao {
   }
 
   @Override
+  public Object insertInspections(final List<InspectionEntity> inspections,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __insertionAdapterOfInspectionEntity.insert(inspections);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
   public Object markAsSynced(final String id, final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
@@ -110,6 +132,68 @@ public final class InspectionDao_Impl implements InspectionDao {
           }
         } finally {
           __preparedStmtOfMarkAsSynced.release(_stmt);
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object getInspectionById(final String id,
+      final Continuation<? super InspectionEntity> $completion) {
+    final String _sql = "SELECT * FROM inspections WHERE id = ? LIMIT 1";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindString(_argIndex, id);
+    final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<InspectionEntity>() {
+      @Override
+      @Nullable
+      public InspectionEntity call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+          final int _cursorIndexOfPlotId = CursorUtil.getColumnIndexOrThrow(_cursor, "plotId");
+          final int _cursorIndexOfSubPlot = CursorUtil.getColumnIndexOrThrow(_cursor, "subPlot");
+          final int _cursorIndexOfImagePath = CursorUtil.getColumnIndexOrThrow(_cursor, "imagePath");
+          final int _cursorIndexOfDiagnosisClass = CursorUtil.getColumnIndexOrThrow(_cursor, "diagnosisClass");
+          final int _cursorIndexOfConfidence = CursorUtil.getColumnIndexOrThrow(_cursor, "confidence");
+          final int _cursorIndexOfLatencyMs = CursorUtil.getColumnIndexOrThrow(_cursor, "latencyMs");
+          final int _cursorIndexOfSeverityLevel = CursorUtil.getColumnIndexOrThrow(_cursor, "severityLevel");
+          final int _cursorIndexOfRecommendationsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "recommendationsJson");
+          final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
+          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final InspectionEntity _result;
+          if (_cursor.moveToFirst()) {
+            final String _tmpId;
+            _tmpId = _cursor.getString(_cursorIndexOfId);
+            final String _tmpPlotId;
+            _tmpPlotId = _cursor.getString(_cursorIndexOfPlotId);
+            final String _tmpSubPlot;
+            _tmpSubPlot = _cursor.getString(_cursorIndexOfSubPlot);
+            final String _tmpImagePath;
+            _tmpImagePath = _cursor.getString(_cursorIndexOfImagePath);
+            final int _tmpDiagnosisClass;
+            _tmpDiagnosisClass = _cursor.getInt(_cursorIndexOfDiagnosisClass);
+            final float _tmpConfidence;
+            _tmpConfidence = _cursor.getFloat(_cursorIndexOfConfidence);
+            final long _tmpLatencyMs;
+            _tmpLatencyMs = _cursor.getLong(_cursorIndexOfLatencyMs);
+            final String _tmpSeverityLevel;
+            _tmpSeverityLevel = _cursor.getString(_cursorIndexOfSeverityLevel);
+            final String _tmpRecommendationsJson;
+            _tmpRecommendationsJson = _cursor.getString(_cursorIndexOfRecommendationsJson);
+            final int _tmpSyncStatus;
+            _tmpSyncStatus = _cursor.getInt(_cursorIndexOfSyncStatus);
+            final long _tmpCreatedAt;
+            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+            _result = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+          _statement.release();
         }
       }
     }, $completion);
@@ -180,58 +264,64 @@ public final class InspectionDao_Impl implements InspectionDao {
   @Override
   public Object getPendingSyncInspections(
       final Continuation<? super List<InspectionEntity>> $completion) {
-    final String _sql = "SELECT * FROM inspections WHERE syncStatus = 0";
+    final String _sql = "SELECT * FROM inspections WHERE syncStatus = 0 ORDER BY createdAt ASC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
-    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<InspectionEntity>>() {
+    return CoroutinesRoom.execute(__db, true, _cancellationSignal, new Callable<List<InspectionEntity>>() {
       @Override
       @NonNull
       public List<InspectionEntity> call() throws Exception {
-        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        __db.beginTransaction();
         try {
-          final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
-          final int _cursorIndexOfPlotId = CursorUtil.getColumnIndexOrThrow(_cursor, "plotId");
-          final int _cursorIndexOfSubPlot = CursorUtil.getColumnIndexOrThrow(_cursor, "subPlot");
-          final int _cursorIndexOfImagePath = CursorUtil.getColumnIndexOrThrow(_cursor, "imagePath");
-          final int _cursorIndexOfDiagnosisClass = CursorUtil.getColumnIndexOrThrow(_cursor, "diagnosisClass");
-          final int _cursorIndexOfConfidence = CursorUtil.getColumnIndexOrThrow(_cursor, "confidence");
-          final int _cursorIndexOfLatencyMs = CursorUtil.getColumnIndexOrThrow(_cursor, "latencyMs");
-          final int _cursorIndexOfSeverityLevel = CursorUtil.getColumnIndexOrThrow(_cursor, "severityLevel");
-          final int _cursorIndexOfRecommendationsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "recommendationsJson");
-          final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
-          final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
-          final List<InspectionEntity> _result = new ArrayList<InspectionEntity>(_cursor.getCount());
-          while (_cursor.moveToNext()) {
-            final InspectionEntity _item;
-            final String _tmpId;
-            _tmpId = _cursor.getString(_cursorIndexOfId);
-            final String _tmpPlotId;
-            _tmpPlotId = _cursor.getString(_cursorIndexOfPlotId);
-            final String _tmpSubPlot;
-            _tmpSubPlot = _cursor.getString(_cursorIndexOfSubPlot);
-            final String _tmpImagePath;
-            _tmpImagePath = _cursor.getString(_cursorIndexOfImagePath);
-            final int _tmpDiagnosisClass;
-            _tmpDiagnosisClass = _cursor.getInt(_cursorIndexOfDiagnosisClass);
-            final float _tmpConfidence;
-            _tmpConfidence = _cursor.getFloat(_cursorIndexOfConfidence);
-            final long _tmpLatencyMs;
-            _tmpLatencyMs = _cursor.getLong(_cursorIndexOfLatencyMs);
-            final String _tmpSeverityLevel;
-            _tmpSeverityLevel = _cursor.getString(_cursorIndexOfSeverityLevel);
-            final String _tmpRecommendationsJson;
-            _tmpRecommendationsJson = _cursor.getString(_cursorIndexOfRecommendationsJson);
-            final int _tmpSyncStatus;
-            _tmpSyncStatus = _cursor.getInt(_cursorIndexOfSyncStatus);
-            final long _tmpCreatedAt;
-            _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
-            _item = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt);
-            _result.add(_item);
+          final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+          try {
+            final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+            final int _cursorIndexOfPlotId = CursorUtil.getColumnIndexOrThrow(_cursor, "plotId");
+            final int _cursorIndexOfSubPlot = CursorUtil.getColumnIndexOrThrow(_cursor, "subPlot");
+            final int _cursorIndexOfImagePath = CursorUtil.getColumnIndexOrThrow(_cursor, "imagePath");
+            final int _cursorIndexOfDiagnosisClass = CursorUtil.getColumnIndexOrThrow(_cursor, "diagnosisClass");
+            final int _cursorIndexOfConfidence = CursorUtil.getColumnIndexOrThrow(_cursor, "confidence");
+            final int _cursorIndexOfLatencyMs = CursorUtil.getColumnIndexOrThrow(_cursor, "latencyMs");
+            final int _cursorIndexOfSeverityLevel = CursorUtil.getColumnIndexOrThrow(_cursor, "severityLevel");
+            final int _cursorIndexOfRecommendationsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "recommendationsJson");
+            final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
+            final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+            final List<InspectionEntity> _result = new ArrayList<InspectionEntity>(_cursor.getCount());
+            while (_cursor.moveToNext()) {
+              final InspectionEntity _item;
+              final String _tmpId;
+              _tmpId = _cursor.getString(_cursorIndexOfId);
+              final String _tmpPlotId;
+              _tmpPlotId = _cursor.getString(_cursorIndexOfPlotId);
+              final String _tmpSubPlot;
+              _tmpSubPlot = _cursor.getString(_cursorIndexOfSubPlot);
+              final String _tmpImagePath;
+              _tmpImagePath = _cursor.getString(_cursorIndexOfImagePath);
+              final int _tmpDiagnosisClass;
+              _tmpDiagnosisClass = _cursor.getInt(_cursorIndexOfDiagnosisClass);
+              final float _tmpConfidence;
+              _tmpConfidence = _cursor.getFloat(_cursorIndexOfConfidence);
+              final long _tmpLatencyMs;
+              _tmpLatencyMs = _cursor.getLong(_cursorIndexOfLatencyMs);
+              final String _tmpSeverityLevel;
+              _tmpSeverityLevel = _cursor.getString(_cursorIndexOfSeverityLevel);
+              final String _tmpRecommendationsJson;
+              _tmpRecommendationsJson = _cursor.getString(_cursorIndexOfRecommendationsJson);
+              final int _tmpSyncStatus;
+              _tmpSyncStatus = _cursor.getInt(_cursorIndexOfSyncStatus);
+              final long _tmpCreatedAt;
+              _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
+              _item = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt);
+              _result.add(_item);
+            }
+            __db.setTransactionSuccessful();
+            return _result;
+          } finally {
+            _cursor.close();
+            _statement.release();
           }
-          return _result;
         } finally {
-          _cursor.close();
-          _statement.release();
+          __db.endTransaction();
         }
       }
     }, $completion);
@@ -266,6 +356,37 @@ public final class InspectionDao_Impl implements InspectionDao {
         _statement.release();
       }
     });
+  }
+
+  @Override
+  public Object markAllAsSynced(final List<String> ids,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final StringBuilder _stringBuilder = StringUtil.newStringBuilder();
+        _stringBuilder.append("UPDATE inspections SET syncStatus = 1 WHERE id IN (");
+        final int _inputSize = ids.size();
+        StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
+        _stringBuilder.append(")");
+        final String _sql = _stringBuilder.toString();
+        final SupportSQLiteStatement _stmt = __db.compileStatement(_sql);
+        int _argIndex = 1;
+        for (String _item : ids) {
+          _stmt.bindString(_argIndex, _item);
+          _argIndex++;
+        }
+        __db.beginTransaction();
+        try {
+          _stmt.executeUpdateDelete();
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, $completion);
   }
 
   @NonNull

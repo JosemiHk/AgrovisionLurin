@@ -2,9 +2,6 @@ package pe.edu.upn.agrovisionlurin.presentation.camera
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -31,9 +28,11 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import pe.edu.upn.agrovisionlurin.presentation.theme.PrimaryGreen
 import pe.edu.upn.agrovisionlurin.presentation.theme.Typography
+import java.io.File
 import java.util.concurrent.Executors
 
 @Composable
@@ -42,7 +41,7 @@ fun GuidedCameraScreen(
     onCaptureComplete: (String) -> Unit,
     viewModel: CameraViewModel = viewModel()
 ) {
-    val isAnalyzing by viewModel.isAnalyzing.collectAsState()
+    val isAnalyzing by viewModel.isAnalyzing.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -72,15 +71,36 @@ fun GuidedCameraScreen(
     var isFlashOn by remember { mutableStateOf(false) }
     val executor = remember { Executors.newSingleThreadExecutor() }
 
+    // Limpieza de ciclo de vida para evitar fugas de hardware y memoria
+    DisposableEffect(lifecycleOwner) {
+        onDispose {
+            try {
+                cameraControl?.enableTorch(false)
+                if (cameraProviderFuture.isDone) {
+                    cameraProviderFuture.get().unbindAll()
+                }
+            } catch (e: Exception) {
+                Log.e("GuidedCameraScreen", "Error al desvincular CameraProvider", e)
+            }
+            executor.shutdown()
+        }
+    }
+
+    // Selector de galería File-First sin decodificar bitmap en memoria
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
-            val inputStream = context.contentResolver.openInputStream(it)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
-            if (bitmap != null) {
-                viewModel.processImage(context, bitmap, onCaptureComplete)
+            try {
+                val tempFile = File(context.filesDir, "gallery_${System.currentTimeMillis()}.jpg")
+                context.contentResolver.openInputStream(it)?.use { input ->
+                    tempFile.outputStream().use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                viewModel.processImageFile(tempFile, onCaptureComplete)
+            } catch (e: Exception) {
+                Log.e("GuidedCameraScreen", "Error al importar desde galería", e)
             }
         }
     }
@@ -131,7 +151,7 @@ fun GuidedCameraScreen(
             }
         }
 
-        // Overlay: Reticle for Allium cepa (Red Onion)
+        // Overlay: Retículo tubular para Allium cepa (Cebolla Roja)
         Box(
             modifier = Modifier
                 .align(Alignment.Center)
@@ -140,7 +160,7 @@ fun GuidedCameraScreen(
                 .border(2.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(60.dp))
         )
 
-        // Overlay: Dynamic Lighting Pill
+        // Overlay: Píldora de Iluminación
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -152,7 +172,7 @@ fun GuidedCameraScreen(
             Text("Iluminación Óptima", color = Color.White, style = Typography.labelMedium)
         }
 
-        // Top Right: Flash Toggle
+        // Top Right: Control de Linterna / Flash
         Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
@@ -166,10 +186,14 @@ fun GuidedCameraScreen(
                 },
             contentAlignment = Alignment.Center
         ) {
-            Icon(if (isFlashOn) Icons.Rounded.FlashOn else Icons.Rounded.FlashOff, contentDescription = "Flash", tint = Color.White)
+            Icon(
+                imageVector = if (isFlashOn) Icons.Rounded.FlashOn else Icons.Rounded.FlashOff,
+                contentDescription = "Flash",
+                tint = Color.White
+            )
         }
 
-        // Overlay: Bottom Controls
+        // Overlay: Controles de Captura Accesibles (>= 56dp)
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -186,7 +210,7 @@ fun GuidedCameraScreen(
                     Text("Analizando tejido foliar...", color = Color.White, style = Typography.labelLarge)
                 }
             } else {
-                // Gallery Button
+                // Selector de Galería
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterStart)
@@ -199,35 +223,30 @@ fun GuidedCameraScreen(
                     Icon(Icons.Rounded.PhotoLibrary, contentDescription = "Galería", tint = Color.White)
                 }
 
-                // Capture Button
+                // Botón de Disparo File-First
                 Button(
                     onClick = {
                         val capture = imageCapture ?: return@Button
-                        capture.takePicture(
-                            executor,
-                            object : ImageCapture.OnImageCapturedCallback() {
-                                override fun onCaptureSuccess(image: ImageProxy) {
-                                    val buffer = image.planes[0].buffer
-                                    val bytes = ByteArray(buffer.remaining())
-                                    buffer.get(bytes)
-                                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                                    
-                                    val matrix = Matrix()
-                                    matrix.postRotate(image.imageInfo.rotationDegrees.toFloat())
-                                    val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
-                                    
-                                    image.close()
+                        val photoFile = File(context.filesDir, "capture_${System.currentTimeMillis()}.jpg")
+                        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-                                    viewModel.processImage(context, rotatedBitmap, onCaptureComplete)
+                        capture.takePicture(
+                            outputOptions,
+                            executor,
+                            object : ImageCapture.OnImageSavedCallback {
+                                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                    viewModel.processImageFile(photoFile, onCaptureComplete)
                                 }
 
                                 override fun onError(exception: ImageCaptureException) {
-                                    Log.e("CameraX", "Photo capture failed: ${exception.message}", exception)
+                                    Log.e("CameraX", "Fallo al guardar imagen: ${exception.message}", exception)
                                 }
                             }
                         )
                     },
-                    modifier = Modifier.align(Alignment.Center).size(72.dp),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(72.dp),
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     contentPadding = PaddingValues(0.dp)
