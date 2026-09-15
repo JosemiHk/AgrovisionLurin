@@ -1,13 +1,7 @@
 package pe.edu.upn.agrovisionlurin.presentation.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,7 +10,7 @@ import pe.edu.upn.agrovisionlurin.presentation.camera.GuidedCameraScreen
 import pe.edu.upn.agrovisionlurin.presentation.dashboard.DashboardScreen
 import pe.edu.upn.agrovisionlurin.presentation.history.HistorySyncScreen
 import pe.edu.upn.agrovisionlurin.presentation.result.DiagnosticResultScreen
-import pe.edu.upn.agrovisionlurin.presentation.theme.Typography
+import pe.edu.upn.agrovisionlurin.presentation.settings.SettingsScreen
 
 @Composable
 fun NavGraph(
@@ -32,7 +26,10 @@ fun NavGraph(
         composable(Screen.Dashboard.route) {
             DashboardScreen(
                 onNavigateToCamera = { navController.navigate(Screen.Camera.route) },
-                onNavigateToHistory = { navController.navigate(Screen.History.route) }
+                onNavigateToHistory = { navController.navigate(Screen.History.route) },
+                onNavigateToDetail = { inspectionId ->
+                    navController.navigate(Screen.Result.createRoute(inspectionId))
+                }
             )
         }
         composable(Screen.Camera.route) {
@@ -70,18 +67,7 @@ fun NavGraph(
             )
         }
         composable(Screen.Settings.route) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(0xFFF8F9FA)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Configuración del Sistema Agrícola\nValle de Lurín",
-                    style = Typography.titleMedium,
-                    color = Color(0xFF1C1B1F)
-                )
-            }
+            SettingsScreen()
         }
     }
 }

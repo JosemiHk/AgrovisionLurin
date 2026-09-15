@@ -1,365 +1,126 @@
 package pe.edu.upn.agrovisionlurin.presentation.history
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.CloudDone
+import androidx.compose.material.icons.rounded.CloudUpload
+import androidx.compose.material.icons.rounded.SearchOff
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import pe.edu.upn.agrovisionlurin.data.local.InspectionEntity
-import pe.edu.upn.agrovisionlurin.presentation.theme.PrimaryGreen
-import pe.edu.upn.agrovisionlurin.presentation.theme.Typography
-import java.io.File
+import pe.edu.upn.agrovisionlurin.presentation.components.LeafThumbnail
 import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistorySyncScreen(
-    onBack: () -> Unit,
+    @Suppress("UNUSED_PARAMETER") onBack: () -> Unit = {},
     onNavigateToDetail: (String) -> Unit = {},
     viewModel: HistoryViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "AGROVISION-LURÍN",
-                        style = Typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = Color(0xFF1B5E20)
+                        text = "Historial de Muestreos",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF1C1B1F)
                     )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = "Volver",
-                            tint = Color(0xFF1B5E20)
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Rounded.WbSunny,
-                            contentDescription = "Condición solar",
-                            tint = Color(0xFF1B5E20)
-                        )
-                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.White
                 ),
-                modifier = Modifier.border(
-                    width = 1.dp,
-                    color = Color(0xFFDDE2D5)
-                )
+                modifier = Modifier.statusBarsPadding()
             )
         },
         containerColor = Color(0xFFF8F9FA)
-    ) { paddingValues ->
+    ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
-            contentPadding = PaddingValues(
-                start = 16.dp,
-                end = 16.dp,
-                top = 16.dp,
-                bottom = 88.dp // Evita solapamiento con el NavigationBar
-            ),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(innerPadding),
+            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // 1. Header Section
-            item(key = "header_section") {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = "Historial de Muestreos",
-                        style = Typography.headlineMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 22.sp
-                        ),
-                        color = Color(0xFF1C1B1F)
-                    )
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Lurín – Temporada Actual",
-                            style = Typography.bodyMedium.copy(fontSize = 15.sp),
-                            color = Color(0xFF41493E)
-                        )
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = Color(0xFFE5E1E7),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFDDE2D5))
-                        ) {
-                            Text(
-                                text = "${uiState.totalLocalCount} guardados localmente",
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                                style = Typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                                color = Color(0xFF1C1B1F)
-                            )
-                        }
-                    }
-                }
+            // 1. Top Sync Banner
+            item(key = "sync_banner") {
+                SyncBanner(
+                    pendingCount = uiState.pendingSyncCount,
+                    isSyncing = isSyncing,
+                    onSyncNow = { viewModel.syncPending() }
+                )
             }
 
-            // 2. Top Sync Status Banner (si hay registros pendientes)
-            if (uiState.pendingSyncCount > 0) {
-                item(key = "sync_banner") {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .border(1.5.dp, Color(0xFFE65100), RoundedCornerShape(16.dp)),
-                        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3E0)),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                verticalAlignment = Alignment.Top
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(44.dp)
-                                        .clip(CircleShape)
-                                        .background(Color(0xFFFFCC80)),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.CloudUpload,
-                                        contentDescription = "Sincronización pendiente",
-                                        tint = Color(0xFFE65100),
-                                        modifier = Modifier.size(24.dp)
-                                    )
-                                }
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = "${uiState.pendingSyncCount} registros pendientes de subir a la nube",
-                                        style = Typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                                        color = Color(0xFF531800)
-                                    )
-                                    Spacer(modifier = Modifier.height(2.dp))
-                                    Text(
-                                        text = "Los diagnósticos están seguros en la memoria de este teléfono.",
-                                        style = Typography.bodyMedium.copy(fontSize = 14.sp),
-                                        color = Color(0xFF802A00)
-                                    )
-                                }
-                            }
-
-                            Button(
-                                onClick = { /* Fase 4: Trigger WorkManager */ },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(48.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE65100)),
-                                shape = CircleShape
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Sync,
-                                    contentDescription = null,
-                                    tint = Color.White,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = "Sincronizar Ahora (Esperando Wi-Fi / 4G)",
-                                    style = Typography.labelLarge.copy(fontWeight = FontWeight.Bold),
-                                    color = Color.White
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-
-            // 3. Horizontal Filter Chips Row
+            // 2. Horizontal Filter Chips
             item(key = "filter_chips") {
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    item {
-                        FilterChip(
-                            selected = uiState.selectedFilter == HistoryFilter.ALL,
-                            onClick = { viewModel.setFilter(HistoryFilter.ALL) },
-                            label = {
-                                Text(
-                                    text = "Todos (${uiState.totalLocalCount})",
-                                    fontWeight = FontWeight.Bold,
-                                    softWrap = false,
-                                    maxLines = 1
-                                )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = PrimaryGreen,
-                                selectedLabelColor = Color.White,
-                                containerColor = Color.White,
-                                labelColor = Color(0xFF1C1B1F)
-                            ),
-                            shape = CircleShape,
-                            modifier = Modifier.height(44.dp)
-                        )
-                    }
-                    item {
-                        FilterChip(
-                            selected = uiState.selectedFilter == HistoryFilter.PESTS,
-                            onClick = { viewModel.setFilter(HistoryFilter.PESTS) },
-                            label = {
-                                Text(
-                                    text = "Con Plaga (${uiState.pestCount})",
-                                    fontWeight = FontWeight.Bold,
-                                    softWrap = false,
-                                    maxLines = 1
-                                )
-                            },
-                            leadingIcon = {
-                                Box(
-                                    modifier = Modifier
-                                        .size(8.dp)
-                                        .clip(CircleShape)
-                                        .background(Color(0xFFC62828))
-                                )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = Color(0xFFC62828),
-                                selectedLabelColor = Color.White,
-                                selectedLeadingIconColor = Color.White,
-                                containerColor = Color.White,
-                                labelColor = Color(0xFF1C1B1F)
-                            ),
-                            shape = CircleShape,
-                            modifier = Modifier.height(44.dp)
-                        )
-                    }
-                    item {
-                        FilterChip(
-                            selected = uiState.selectedFilter == HistoryFilter.WATER_STRESS,
-                            onClick = { viewModel.setFilter(HistoryFilter.WATER_STRESS) },
-                            label = {
-                                Text(
-                                    text = "Estrés Hídrico (${uiState.waterStressCount})",
-                                    fontWeight = FontWeight.Bold,
-                                    softWrap = false,
-                                    maxLines = 1
-                                )
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Rounded.WaterDrop,
-                                    contentDescription = null,
-                                    tint = if (uiState.selectedFilter == HistoryFilter.WATER_STRESS) Color.White else Color(0xFFE65100),
-                                    modifier = Modifier.size(16.dp)
-                                )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = Color(0xFFE65100),
-                                selectedLabelColor = Color.White,
-                                containerColor = Color.White,
-                                labelColor = Color(0xFF1C1B1F)
-                            ),
-                            shape = CircleShape,
-                            modifier = Modifier.height(44.dp)
-                        )
-                    }
-                    item {
-                        FilterChip(
-                            selected = uiState.selectedFilter == HistoryFilter.HEALTHY,
-                            onClick = { viewModel.setFilter(HistoryFilter.HEALTHY) },
-                            label = {
-                                Text(
-                                    text = "Cultivo Sano (${uiState.healthyCount})",
-                                    fontWeight = FontWeight.Bold,
-                                    softWrap = false,
-                                    maxLines = 1
-                                )
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Rounded.CheckCircle,
-                                    contentDescription = null,
-                                    tint = if (uiState.selectedFilter == HistoryFilter.HEALTHY) Color.White else Color(0xFF2E7D32),
-                                    modifier = Modifier.size(16.dp)
-                                )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = Color(0xFF2E7D32),
-                                selectedLabelColor = Color.White,
-                                containerColor = Color.White,
-                                labelColor = Color(0xFF1C1B1F)
-                            ),
-                            shape = CircleShape,
-                            modifier = Modifier.height(44.dp)
-                        )
-                    }
-                }
+                FilterChipsRow(
+                    selectedFilter = uiState.selectedFilter,
+                    totalCount = uiState.totalLocalCount,
+                    pestCount = uiState.pestCount,
+                    waterStressCount = uiState.waterStressCount,
+                    healthyCount = uiState.healthyCount,
+                    onFilterSelected = { viewModel.setFilter(it) }
+                )
             }
 
-            // 4. Inspection Cards List
-            if (uiState.inspections.isEmpty() && !uiState.isLoading) {
+            // 3. Inspections List or Empty State
+            if (uiState.inspections.isEmpty()) {
                 item(key = "empty_state") {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 48.dp),
-                        contentAlignment = Alignment.Center
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        color = Color.White,
+                        border = BorderStroke(1.dp, Color(0xFFE0E3EB))
                     ) {
                         Column(
+                            modifier = Modifier.padding(32.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.SearchOff,
                                 contentDescription = null,
-                                tint = Color(0xFF717A6D),
-                                modifier = Modifier.size(48.dp)
+                                tint = Color(0xFF5E636E),
+                                modifier = Modifier.size(36.dp)
                             )
                             Text(
-                                text = "No se encontraron muestreos en esta categoría",
-                                style = Typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                text = "Sin registros coincidentes",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold,
                                 color = Color(0xFF1C1B1F)
                             )
                             Text(
-                                text = "Prueba seleccionando otro filtro o realiza una nueva inspección.",
-                                style = Typography.bodyMedium,
-                                color = Color(0xFF41493E)
+                                text = "No se encontraron muestras foliares para este filtro.",
+                                fontSize = 13.sp,
+                                color = Color(0xFF5E636E),
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
@@ -369,9 +130,9 @@ fun HistorySyncScreen(
                     items = uiState.inspections,
                     key = { it.id }
                 ) { inspection ->
-                    InspectionCardItem(
-                        inspection = inspection,
-                        onViewDetail = { onNavigateToDetail(inspection.id) }
+                    HistoryItemCard(
+                        item = inspection,
+                        onClick = { onNavigateToDetail(inspection.id) }
                     )
                 }
             }
@@ -380,114 +141,267 @@ fun HistorySyncScreen(
 }
 
 @Composable
-fun InspectionCardItem(
-    inspection: InspectionEntity,
-    onViewDetail: () -> Unit
+private fun SyncBanner(
+    pendingCount: Int,
+    isSyncing: Boolean,
+    onSyncNow: () -> Unit
 ) {
-    Card(
+    if (pendingCount > 0) {
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            color = Color(0xFFFEF3C7),
+            border = BorderStroke(1.dp, Color(0xFFFDE68A))
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.CloudUpload,
+                        contentDescription = null,
+                        tint = Color(0xFFD97706),
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(
+                            text = "$pendingCount por sincronizar",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF92400E)
+                        )
+                        Text(
+                            text = "Guardado local en Room",
+                            fontSize = 12.sp,
+                            color = Color(0xFFB45309)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                if (isSyncing) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.5.dp,
+                        color = Color(0xFFD97706)
+                    )
+                } else {
+                    Surface(
+                        modifier = Modifier.clickable(onClick = onSyncNow),
+                        shape = RoundedCornerShape(20.dp),
+                        color = Color(0xFFD97706)
+                    ) {
+                        Text(
+                            text = "Subir ahora",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            modifier = Modifier.padding(horizontal = 14.dp, vertical = 7.dp)
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            color = Color(0xFFECFDF5),
+            border = BorderStroke(1.dp, Color(0xFFA7F3D0))
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.CloudDone,
+                    contentDescription = null,
+                    tint = Color(0xFF059669),
+                    modifier = Modifier.size(20.dp)
+                )
+                Text(
+                    text = "Todo sincronizado con el servidor",
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color(0xFF065F46)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun FilterChipsRow(
+    selectedFilter: HistoryFilter,
+    totalCount: Int,
+    pestCount: Int,
+    waterStressCount: Int,
+    healthyCount: Int,
+    onFilterSelected: (HistoryFilter) -> Unit
+) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.5.dp, Color(0xFFDDE2D5), RoundedCornerShape(16.dp)),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            .horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+        FilterChipItem(
+            label = "Todos ($totalCount)",
+            isSelected = selectedFilter == HistoryFilter.ALL,
+            onClick = { onFilterSelected(HistoryFilter.ALL) }
+        )
+        FilterChipItem(
+            label = "Plagas ($pestCount)",
+            isSelected = selectedFilter == HistoryFilter.PESTS,
+            onClick = { onFilterSelected(HistoryFilter.PESTS) }
+        )
+        FilterChipItem(
+            label = "Déficit Hídrico ($waterStressCount)",
+            isSelected = selectedFilter == HistoryFilter.WATER_STRESS,
+            onClick = { onFilterSelected(HistoryFilter.WATER_STRESS) }
+        )
+        FilterChipItem(
+            label = "Sanos ($healthyCount)",
+            isSelected = selectedFilter == HistoryFilter.HEALTHY,
+            onClick = { onFilterSelected(HistoryFilter.HEALTHY) }
+        )
+    }
+}
+
+@Composable
+private fun FilterChipItem(
+    label: String,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier.clickable(onClick = onClick),
+        shape = RoundedCornerShape(20.dp),
+        color = if (isSelected) Color(0xFF1B5E20) else Color.White,
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (isSelected) Color(0xFF1B5E20) else Color(0xFFE0E3EB)
+        )
+    ) {
+        Text(
+            text = label,
+            fontSize = 13.sp,
+            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+            color = if (isSelected) Color.White else Color(0xFF5E636E),
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)
+        )
+    }
+}
+
+@Composable
+private fun HistoryItemCard(
+    item: InspectionEntity,
+    onClick: () -> Unit
+) {
+    val (statusLabel, statusColor, statusBg, statusBorder) = when (item.diagnosisClass) {
+        1 -> Quadruple(
+            "Trips",
+            Color(0xFFBA1A1A),
+            Color(0xFFFEE2E2),
+            Color(0xFFFECACA)
+        )
+        2 -> Quadruple(
+            "Déficit Hídrico",
+            Color(0xFFD97706),
+            Color(0xFFFEF3C7),
+            Color(0xFFFDE68A)
+        )
+        else -> Quadruple(
+            "Sano",
+            Color(0xFF059669),
+            Color(0xFFECFDF5),
+            Color(0xFFA7F3D0)
+        )
+    }
+
+    val formattedDate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date(item.createdAt))
+
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFE0E3EB))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(14.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Leaf Thumbnail
-                InspectionThumbnail(
-                    imagePath = inspection.imagePath,
-                    modifier = Modifier.size(64.dp)
+            LeafThumbnail(
+                imagePath = item.imagePath,
+                size = 56.dp,
+                shapeRadius = 12.dp
+            )
+
+            Spacer(modifier = Modifier.width(14.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = item.subPlot.ifBlank { "Surco sin definir" },
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF1C1B1F),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
-
-                // Info Column
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = inspection.subPlot.ifBlank { "Surco 4 - Valle Bajo" },
-                            style = Typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = Color(0xFF1C1B1F)
-                        )
-                        Text(
-                            text = formatInspectionDate(inspection.createdAt),
-                            style = Typography.labelMedium,
-                            color = Color(0xFF717A6D)
-                        )
-                    }
-
-                    // Status Pill Badge
-                    StatusBadge(diagnosisClass = inspection.diagnosisClass)
-                }
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = formattedDate,
+                    fontSize = 12.sp,
+                    color = Color(0xFF5E636E)
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "${item.latencyMs} ms · ${(item.confidence * 100).toInt()}% confianza",
+                    fontSize = 11.sp,
+                    color = Color(0xFF5E636E).copy(alpha = 0.8f)
+                )
             }
 
-            // Bottom Divider & Actions
-            HorizontalDivider(thickness = 1.dp, color = Color(0xFFE5E1E7))
+            Spacer(modifier = Modifier.width(8.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            // Status chip
+            Surface(
+                shape = CircleShape,
+                color = statusBg,
+                border = BorderStroke(1.dp, statusBorder)
             ) {
-                // Sync status indicator
-                if (inspection.syncStatus == 0) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.Schedule,
-                            contentDescription = "Guardado local",
-                            tint = Color(0xFFE65100),
-                            modifier = Modifier.size(18.dp)
-                        )
-                        Text(
-                            text = "Guardado Localmente",
-                            style = Typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                            color = Color(0xFFE65100)
-                        )
-                    }
-                } else {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.CloudDone,
-                            contentDescription = "Sincronizado",
-                            tint = Color(0xFF1B5E20),
-                            modifier = Modifier.size(18.dp)
-                        )
-                        Text(
-                            text = "Sincronizado en Nube",
-                            style = Typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                            color = Color(0xFF1B5E20)
-                        )
-                    }
-                }
-
-                TextButton(
-                    onClick = onViewDetail,
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
-                    modifier = Modifier.height(36.dp)
+                Row(
+                    modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
+                    Box(
+                        modifier = Modifier
+                            .size(6.dp)
+                            .clip(CircleShape)
+                            .background(statusColor)
+                    )
                     Text(
-                        text = "Ver Ficha",
-                        style = Typography.labelLarge.copy(fontWeight = FontWeight.Bold),
-                        color = Color(0xFF1B5E20)
+                        text = statusLabel,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = statusColor
                     )
                 }
             }
@@ -495,123 +409,4 @@ fun InspectionCardItem(
     }
 }
 
-@Composable
-fun StatusBadge(diagnosisClass: Int) {
-    val (bgColor, textColor, icon, label) = when (diagnosisClass) {
-        1 -> Quadruple(
-            Color(0xFFFFEBEE),
-            Color(0xFFC62828),
-            Icons.Rounded.BugReport,
-            "Trips Detectado"
-        )
-        2 -> Quadruple(
-            Color(0xFFFFF3E0),
-            Color(0xFFE65100),
-            Icons.Rounded.WaterDrop,
-            "Estrés Hídrico Leve"
-        )
-        else -> Quadruple(
-            Color(0xFFE8F5E9),
-            Color(0xFF2E7D32),
-            Icons.Rounded.CheckCircle,
-            "Cultivo Sano"
-        )
-    }
-
-    Surface(
-        shape = CircleShape,
-        color = bgColor,
-        border = androidx.compose.foundation.BorderStroke(1.dp, textColor.copy(alpha = 0.5f))
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = textColor,
-                modifier = Modifier.size(14.dp)
-            )
-            Text(
-                text = label,
-                style = Typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                color = textColor
-            )
-        }
-    }
-}
-
-@Composable
-fun InspectionThumbnail(
-    imagePath: String,
-    modifier: Modifier = Modifier
-) {
-    val bitmapState = produceState<Bitmap?>(initialValue = null, key1 = imagePath) {
-        value = withContext(Dispatchers.IO) {
-            try {
-                val file = File(imagePath)
-                if (file.exists() && file.length() > 0) {
-                    val boundsOptions = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                    BitmapFactory.decodeFile(file.absolutePath, boundsOptions)
-                    var inSampleSize = 1
-                    while ((boundsOptions.outHeight / inSampleSize) >= 128 && (boundsOptions.outWidth / inSampleSize) >= 128) {
-                        inSampleSize *= 2
-                    }
-                    val decodeOptions = BitmapFactory.Options().apply {
-                        this.inSampleSize = inSampleSize
-                        inPreferredConfig = Bitmap.Config.RGB_565
-                    }
-                    BitmapFactory.decodeFile(file.absolutePath, decodeOptions)
-                } else null
-            } catch (e: Exception) {
-                null
-            }
-        }
-    }
-
-    val bitmap = bitmapState.value
-    if (bitmap != null) {
-        Image(
-            bitmap = bitmap.asImageBitmap(),
-            contentDescription = "Muestra foliar",
-            modifier = modifier
-                .clip(RoundedCornerShape(12.dp))
-                .border(1.dp, Color(0xFFDDE2D5), RoundedCornerShape(12.dp)),
-            contentScale = ContentScale.Crop
-        )
-    } else {
-        Box(
-            modifier = modifier
-                .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFFE8F5E9))
-                .border(1.dp, Color(0xFFDDE2D5), RoundedCornerShape(12.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.Eco,
-                contentDescription = null,
-                tint = PrimaryGreen,
-                modifier = Modifier.size(32.dp)
-            )
-        }
-    }
-}
-
-fun formatInspectionDate(timestamp: Long): String {
-    if (timestamp <= 0L) return "Fecha no disp."
-    val now = System.currentTimeMillis()
-    val diff = now - timestamp
-    val oneDay = 24 * 60 * 60 * 1000L
-    val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-    val dateFormat = SimpleDateFormat("dd MMM, hh:mm a", Locale("es", "PE"))
-
-    return when {
-        diff < oneDay && diff >= 0 -> "Hoy, ${timeFormat.format(Date(timestamp))}"
-        diff < 2 * oneDay && diff >= 0 -> "Ayer, ${timeFormat.format(Date(timestamp))}"
-        else -> dateFormat.format(Date(timestamp))
-    }
-}
-
-data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
+private data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)

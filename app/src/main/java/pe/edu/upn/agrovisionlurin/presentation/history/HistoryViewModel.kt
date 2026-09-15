@@ -3,11 +3,14 @@ package pe.edu.upn.agrovisionlurin.presentation.history
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import pe.edu.upn.agrovisionlurin.data.local.AppDatabase
 import pe.edu.upn.agrovisionlurin.data.local.InspectionDao
 import pe.edu.upn.agrovisionlurin.data.local.InspectionEntity
@@ -32,6 +35,8 @@ class HistoryViewModel(
     private val dao: InspectionDao = AppDatabase.getDatabase(application).inspectionDao()
 
     private val _selectedFilter = MutableStateFlow(HistoryFilter.ALL)
+    private val _isSyncing = MutableStateFlow(false)
+    val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
 
     val uiState: StateFlow<HistoryUiState> = combine(
         dao.getAllInspections(),
@@ -67,5 +72,20 @@ class HistoryViewModel(
 
     fun setFilter(filter: HistoryFilter) {
         _selectedFilter.value = filter
+    }
+
+    fun syncPending() {
+        viewModelScope.launch {
+            _isSyncing.value = true
+            try {
+                val pending = dao.getPendingSyncInspections()
+                if (pending.isNotEmpty()) {
+                    delay(800) // Simulación breve de transferencia de datos
+                    dao.markAllAsSynced(pending.map { it.id })
+                }
+            } finally {
+                _isSyncing.value = false
+            }
+        }
     }
 }
