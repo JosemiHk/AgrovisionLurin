@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import pe.edu.upn.agrovisionlurin.presentation.navigation.MainScaffold
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpScreen
 import pe.edu.upn.agrovisionlurin.presentation.theme.AgroVisionLurinTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScaffold()
+                    LocalMvpScreen()
                 }
             }
         }

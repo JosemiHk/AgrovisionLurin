@@ -1,0 +1,800 @@
+
+
+
+
+FACULTADDEINGENIERÍA
+
+CARRERADEINGENIERÍA DESISTEMAS COMPUTACIONALES
+
+
+INFORME DE PROYECTO FINAL
+
+
+
+TÍTULO: Implementación de un Sistemainteligente basado en visión artificial para la detección temprana de plagas en el cultivo de cebolla roja en los valles de Lurín – 2026
+
+Autores:
+ORTIZ SIFUENTES, Fabrizio Alexander (100%)
+PEREA VALDIVIA, Jose Miguel (100%)
+
+
+Curso:
+Capstone Project Sistemas
+
+
+Docente del Curso:
+Ing. Cesar Edinson Aguirre Rodriguez
+
+
+Chorrillos–Perú
+2026-2
+
+
+
+
+
+
+
+Contenido
+I.RESUMEN.5
+II.INTRODUCCIÓN.5
+2.1.Motivación del proyecto5
+2.2.Hallazgos5
+III.ANÁLISIS DEL PROBLEMA5
+3.1.Antecedentes (Mínimo de 5 antecedentes)5
+3.2.Identificación y formulación del problema5
+3.3.Definición de variables5
+3.4.Definición de objetivos5
+3.4.1.Objetivo general5
+3.4.2.Objetivos específicos5
+3.5.Población5
+3.6.Muestra5
+3.7.Matriz de dimensiones e indicadores6
+3.8.Matriz de consistencia6
+3.9.Técnicas e instrumentos de recolección de datos6
+3.10.Validación y confiabilidad de datos6
+IV.HERRAMIENTAS DE INGENIERÍA6
+V.GENERACIÓN DE SOLUCIONES6
+5.1.Alternativas de solución6
+5.2.Identificación y descripción de todas las restricciones realistas, criterios, riesgos y limitaciones.6
+5.3.Generación y análisis de múltiples soluciones6
+5.4.Análisis de los Contextos y su impacto7
+5.4.1.Social7
+Análisis del contexto7
+Impacto en el contexto7
+5.4.2.Cultural7
+Análisis del contexto7
+Impacto en el contexto7
+5.4.3.Económico7
+Análisis del contexto7
+Impacto en el contexto7
+5.4.4.Político7
+Análisis del contexto7
+Impacto en el contexto7
+5.4.5.Legal7
+Análisis del contexto7
+Impacto en el contexto7
+5.4.6.Medio Ambiente7
+Análisis del contexto7
+Impacto en el contexto8
+5.4.7.Seguridad8
+Análisis del contexto8
+Impacto en el contexto8
+5.4.8.Matriz comparativa de los impactos de las soluciones8
+5.5.Importancia del impacto del proyecto8
+5.6.Diseño de la alternativa seleccionada8
+5.7.Business Case8
+5.8.Cronograma del proyecto y EDT del proyecto8
+5.9.Plan de Gestión de Riesgos8
+5.9.1.Roles y Responsabilidades8
+5.9.2.Presupuesto9
+5.9.3.Matriz de riegos9
+5.10.Plan de Gestión de Interesados9
+5.10.1.Registro de interesados9
+5.10.2.Alcance e impacto del proyecto sobre los interesados10
+5.11.Presupuesto del proyecto10
+5.12.Plan de seguridad10
+5.13.Plan de Calidad de software11
+VI.METODOLOGÍA DE DESARROLLO A UTILIZAR12
+6.1.Desarrollo de la metodología12
+6.2.Pruebas de Calidad12
+6.2.1.Pruebas unitarias12
+6.2.2.Pruebas de aceptación12
+6.3.Despliegue12
+6.4.Resultados de medición de variable independiente12
+VII.RESULTADOS: EVALUACIÓN OPERATIVA Y ECONÓMICA13
+7.1.Análisis de Viabilidad técnica y tecnológica13
+7.2.Análisis de la viabilidad (de diferente tipo) y/o beneficio económico13
+7.3.Uso de indicadores y ratios13
+7.4.Análisis de la sostenibilidad13
+7.5.Discusión de resultados13
+7.6.Resultados en base a los objetivos del proyecto13
+7.6.1.Resultados del Objetivo específico 01:13
+7.6.2.Resultados del Objetivo específico 02:13
+7.6.3.Resultados del Objetivo específico 03:13
+7.6.4.Resultados del Objetivo General:13
+7.6.5.Resultados de la visita a cachimbos13
+7.6.6.Resultados de la validación de usuarios finales13
+VIII.RECOMENDACIONES FINALES13
+8.1.Conclusiones13
+8.2.Recomendaciones respaldadas por información y análisis13
+IX.COMPROMISO ÉTICO EN EL EJERCICIO PROFESIONAL13
+9.1.Compromiso ético personal13
+9.2.Importancia del ejercicio ético a nivel profesional14
+X.REFERENCIAS O BIBLIOGRAFÍA14
+XI.ANEXOS14
+11.1.Anexo 01: Link de video de proyecto14
+11.2.Anexo 02: Link de repositorio de proyecto14
+NOTAS ACLARATORIAS15
+
+
+
+INDICE DE TABLAS
+INDICE DE FIGURAS
+INDICE DE ANEXOS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RESUMEN.
+El presente trabajo fue elaborado …..
+
+Palabras clave: Incluir 05 palabras clave
+
+Abstract (Alltraslatedto English)
+
+Key (All traslated to English)
+
+INTRODUCCIÓN.
+
+Motivación del proyecto
+Hallazgos
+
+ANÁLISIS DEL PROBLEMA
+
+
+Antecedentes
+En el plano internacional, Ahmad et al. (2022) desarrollaron un sistema de detección temprana de plagas agrícolas implementando el modelo de aprendizaje profundo YOLOv5 sobre imágenes digitales. La investigación demostró que los algoritmos de detección de objetos alcanzan un alto equilibrio entre exactitud y velocidad de inferencia computacional, permitiendo reconocer patrones de daño antes de que se extiendan. Este trabajo aporta a la presente propuesta la base técnica para seleccionar y entrenar redes neuronales convolucionales optimizadas para la identificación de fitopatógenos en hojas de cultivo. 
+Asimismo, Zhang et al. (2022) propusieron la arquitectura AgriPest-YOLO, orientada al reconocimiento rápido de plagas capturadas mediante trampas de luz en entornos agrícolas reales. Su diseño priorizó un modelo ligero que disminuye la demanda de cómputo sin perjudicar la precisión del diagnóstico. Dicho aporte resulta fundamental para este proyecto, ya que sustenta la factibilidad de ejecutar modelos de visión artificial en dispositivos con recursos de hardware limitados o conectividad restringida en campo. 
+A nivel nacional, Parra Garzón (2023) investigó la detección del estado hídrico en plantas de vid empleando teledetección multiespectral y térmica en la Universidad Nacional Agraria La Molina. Su trabajo evidenció la correlación directa entre las variaciones ópticas del follaje y el nivel de estrés hídrico bajo diferentes regímenes de irrigación. Esta investigación aporta un sustento metodológico clave al demostrar que las señales visuales de la planta son suficientes para monitorear el déficit de agua en condiciones agrícolas peruanas. 
+En la misma línea, Chuquipoma Fermín y Arapa Mejía (2023) desarrollaron un sistema experto complementado con visión artificial para el diagnóstico automatizado de problemas fitosanitarios en el cultivo de cacao en la región San Martín. Los autores validaron cómo los motores de reglas y agentes basados en conocimiento procesan eficazmente las anomalías detectadas en imágenes. Su aporte reside en evidenciar que la integración entre visión por computador y agentes de decisión mejora la oportunidad y pertinencia de las recomendaciones brindadas al productor. 
+En el ámbito local, EliasEstremadoyro e Iannacone (2022) evaluaron el impacto ecotoxicológico de diversos plaguicidas comerciales empleados en el cultivo de cebolla (Allium cepa) en el distrito de Lurín. El estudio constató que el control químico intensivo genera efectos perjudiciales en la biodiversidad del suelo debido a la falta de mecanismos de alerta temprana. Dicho antecedente contextualiza directamente el territorio del proyecto, justificando la necesidad de proveer una solución tecnológica preventiva que reduzca la dependencia de agroquímicos en los valles de Lurín. 
+
+Identificación y formulación del problema
+A. Delimitación del problema
+¿Cuál es el problema?: Limitada e inoportuna detección de plagas y déficit hídrico debido a la dependencia de métodos de inspección visual manuales no tecnificados. 
+¿Dónde ocurre?: En las zonas y parcelas productoras de cebolla roja en los valles del río Lurín, provincia de Lima. 
+¿Qué proceso está siendo afectado?: El proceso de monitoreo fitosanitario, evaluación del estado fenológico y la programación y gestión eficiente del riego agrícola. 
+¿Quiénes son los usuarios/afectados?: Los agricultores, regantes y productores hortícolas locales de los valles de Lurín. 
+B. Evidencias objetivas del problema 
+Evidencia 1 (Reporte de Sanidad e Impacto Agrario - MIDAGRI/SENASA): Estadísticas sectoriales oficiales reportan que los ataques de plagas no controladas a tiempo y el estrés hídrico ocasionan mermas productivas de entre el 20% y 35% del rendimiento total de la cosecha en los valles costeros. 
+Evidencia 2 (Diagnóstico Ecosistémico Territorial - MINAM): El informe del MINAM (2021) sobre la cuenca del río Lurín evidencia que durante los meses de estiaje el caudal hídrico superficial disminuye críticamente, incrementando el riesgo de déficit hídrico en las parcelas que no cuentan con herramientas de monitoreo técnico del cultivo. 
+Evidencia 3 (Registro de Monitoreo Manual de Campo): Los registros de campo tradicionales demuestran que las revisiones visuales directas se ejecutan de manera espaciada (cada 7 a 15 días), diagnosticando anomalías únicamente cuando los daños foliares son irreversibles, provocando un tiempo de retraso de detección superior a 7 días. 
+C.Identificación del problema
+
+
+
+D. Formulación de problemas (General y Específicos)
+Tipo
+Formulación del Problema
+Problema General
+¿De qué manera la implementación de un sistema inteligente basado en visión artificial y agentes de decisión contribuirá a la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja en los valles de Lurín durante el año 2026?
+Problema Específico 1
+¿Cuáles son los requerimientos funcionales y no funcionales necesarios para el desarrollo del sistema inteligente de monitoreo agrícola?
+Problema Específico 2
+¿Cómo diseñar una arquitectura de software que integre eficazmente modelos de visión artificial y agentes de decisión para la evaluación del cultivo?
+Problema Específico 3
+¿Cuál es el nivel de precisión y exactitud alcanzado por los modelos de visión artificial en la clasificación de plagas y estrés hídrico en hojas de cebolla roja?
+Problema Específico 4
+¿Cuál es el tiempo de respuesta y desempeño operativo del sistema al emitir recomendaciones automáticas para la toma de decisiones del agricultor?
+
+
+Definición de variables
+Identificar la variable independiente y dependiente y describirlas.
+Variable Independiente (VI): Sistema inteligente basado en visión artificial y agentes de decisión.
+Definición: Solución de software que integra algoritmos de aprendizaje profundo para el procesamiento y análisis de imágenes digitales de cultivos, combinada con agentes computacionales que aplican reglas de inferencia para emitir alertas y sugerencias de manejo agronómico. 
+Dimensiones: Visión artificial y procesamiento de imágenes, modelos de aprendizaje profundo, agentes de decisión y tiempo de respuesta. 
+
+Variable Dependiente (VD): Detección temprana de plagas y déficit hídrico.
+Definición: Capacidad de identificar oportuna y correctamente anomalías visuales bióticas (plagas) y abióticas (falta de agua) en el cultivo de cebolla roja antes de que generen mermas severas en el rendimiento. 
+Dimensiones: Detección de síntomas de plagas, identificación de señales de déficit hídrico, precisión del reconocimiento y oportunidad de la alerta. 
+
+
+Definición de objetivos
+Objetivo general
+Implementar un sistema inteligente basado en visión artificial y agentes de decisión para la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja en los valles de Lurín durante el año 2026.  
+Objetivos específicos
+Identificar los requerimientos funcionales y no funcionales del sistema inteligente adaptados al entorno de los agricultores de Lurín. 
+Diseñar la arquitectura de software del sistema basada en módulos de visión artificial y agentes de decisión. 
+Implementar y entrenar modelos de procesamiento de imágenes y aprendizaje profundo para la detección y clasificación de plagas y señales de déficit hídrico en el cultivo de cebolla roja. 
+Desarrollar agentes de decisión para la generación de recomendaciones técnicas automáticas que orienten las acciones de manejo fitosanitario y riego. 
+Validar el funcionamiento del sistema inteligente evaluando métricas de precisión, exactitud, recall, F1-score y tiempo de respuesta en condiciones reales de prueba.
+
+Población
+En concordancia con el diseño aplicativo-tecnológico y el horizonte temporal de ejecución, la población se restringe a un sector específico del valle de Lurín:  
+Según su rol de estudio
+Población de diagnóstico: 12 agricultores empadronados de un sector productivo focalizado del Valle de Lurín evaluados al inicio para levantar los tiempos y métodos actuales de inspección. 
+Población de intervención: 5 agricultores del sector seleccionado que emplean el aplicativo móvil en sus parcelas para el registro y validación en campo. 
+Población de control: 3 parcelas testigo del mismo sector donde se continúa exclusivamente con el monitoreo visual tradicional para comparar la oportunidad de las alertas. 
+Población de evaluación: Los 5 agricultores usuarios junto con el evaluador técnico para medir usabilidad, tiempo de respuesta y pertinencia de las recomendaciones del agente. 
+Según su accesibilidad
+Población diana: Productores de cebolla roja de los valles de Lurín. 
+Población accesible: 12 agricultores de cebolla roja de un comité de regantes específico del Valle Bajo de Lurín con parcelas activas durante el periodo de prueba. 
+Según su naturaleza
+Población humana: 12 productores agrícolas del sector delimitado en Lurín.
+Población no humana: Registros fotográficos digitales tomados sobre las parcelas del sector delimitado para el análisis fitosanitario e hídrico. 
+Según su tamaño
+Población humana (Finita y delimitada): Exactamente 12 agricultores empadronados en el sector de trabajo.
+Población no humana (Finita temporalmente): Estimada en un banco base de 600 capturas fotográficas obtenidas en las parcelas del comité durante las semanas de muestreo. 
+Muestra
+Se aplica un muestreo no probabilístico por conveniencia e intencional, acotado estrictamente a la viabilidad operativa del ciclo académico:  
+Muestra no humana
+Conformada por un dataset de 600 imágenes válidas de hojas y tallos de cebolla roja capturadas en las parcelas del sector de Lurín, distribuidas en: 
+200 imágenes de cultivo sano o en condición normal. 
+200 imágenes con presencia evidente de plagas foliares. 
+200 imágenes con signos claros de déficit hídrico. 
+Criterios de inclusión: Fotografías nítidas, con luz de día natural, enfocando el tejido vegetal de cebolla roja (Allium cepa). 
+Criterios de exclusión: Tomas desenfocadas, con sombra excesiva, resolución menor a 8 MP o imágenes duplicadas.
+Muestra humana 
+Conformada por 5 agricultores seleccionados por conveniencia dentro de los 12 disponibles, quienes cuentan con smartphone compatible y disponibilidad para realizar las pruebas de captura, inferencia y validación de alertas en campo.
+Matriz de dimensiones e indicadores
+La matriz debe mostrar la dimensiones e indicadores de las variables de investigación
+
+
+Matriz de consistencia
+Formulación del problema
+Objetivos
+Hipótesis
+Variables
+Método
+
+Propósito
+Implementar un sistema inteligente basado en visión artificial y agentes de decisión para contribuir a la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja de los valles de Lurín durante el año 2026.
+
+Enunciado interrogativo
+¿De qué manera la implementación de un sistema inteligente basado en visión artificial y agentes de decisión contribuirá a la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja en los valles de Lurín durante el año 2026?
+
+Objetivo principal
+Implementar un sistema inteligente basado en visión artificial y agentes de decisión para la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja en los valles de Lurín durante el año 2026.
+
+Objetivos secundarios
+• Identificar los requerimientos funcionales y no funcionales del sistema inteligente.
+• Diseñar la arquitectura del sistema basada en visión artificial y agentes de decisión.
+• Implementar modelos de procesamiento de imágenes para la detección de plagas en el cultivo de cebolla roja.
+• Desarrollar mecanismos de evaluación del déficit hídrico a partir de señales del cultivo.
+• Validar el funcionamiento del sistema mediante pruebas de precisión, desempeño y tiempo de respuesta.
+
+H1
+El desarrollo de un sistema inteligente basado en visión artificial y agentes de decisión permitirá mejorar significativamente la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja de los valles de Lurín durante el año 2026, favoreciendo una respuesta más oportuna frente a eventos que afectan la productividad agrícola.
+
+
+
+Variable 1: Sistema inteligente basado en visión artificial y agentes de decisión
+• Dimensión 1: visión artificial y procesamiento de imágenes.
+• Dimensión 2: modelos de aprendizaje profundo.
+• Dimensión 3: agentes de decisión y generación de alertas.
+• Dimensión 4: tiempo de respuesta del sistema.
+
+Variable 2: Detección temprana de plagas y déficit hídrico
+• Dimensión 1: detección de síntomas visuales de plagas.
+• Dimensión 2: identificación de señales relacionadas con déficit hídrico.
+• Dimensión 3: precisión del reconocimiento.
+• Dimensión 4: oportunidad de la alerta y utilidad para la toma de decisiones agrícolas.
+
+Diseño
+Método científico. Investigación aplicada, enfoque cuantitativo, nivel aplicativo-tecnológico y diseño de desarrollo tecnológico con validación experimental.
+
+Población
+Imágenes digitales y registros de observación del cultivo de cebolla roja en los valles de Lurín durante el año 2026. Población indeterminada. Muestra no probabilística por conveniencia e intencional, con un mínimo de 600 imágenes válidas distribuidas en estado normal, plagas y déficit hídrico.
+
+Mediciones
+Técnicas: observación directa, registro fotográfico y prueba tecnológica. Instrumentos: ficha de observación, matriz de clasificación de imágenes, registro de etiquetado, dataset, matriz de confusión, reporte de métricas y registro de tiempo de respuesta.
+
+Procedimiento
+Autorización de campo; captura de imágenes; llenado de fichas de observación; depuración de imágenes; etiquetado de datos; división en entrenamiento, validación y prueba; entrenamiento del modelo; implementación de agentes de decisión; integración del sistema; pruebas y análisis de resultados.
+
+Análisis de datos
+Análisis cuantitativo mediante exactitud, precisión, recall o sensibilidad, F1-score, tiempo de respuesta y, de corresponder, mAP para detección de objetos. Presentación mediante tablas, gráficos y matriz de confusión.
+
+Técnicas e instrumentos de recolección de datos
+Validación y confiabilidad de datos
+
+HERRAMIENTAS DE INGENIERÍA
+Comparación de metodologías o marco de trabajo y estándares de ingeniería, selección de lo que se utilizaría (justificar)
+Selección de las herramientas hardware y software, fundamentado
+Uso correcto de herramientas: recolección de datos, análisis de datos, procesamiento de datos.
+No olvidar requisitos de usuario final, servidor
+
+
+
+
+GENERACIÓN DE SOLUCIONES
+
+
+Alternativas de solución
+Matriz de requisitos versus soluciones existentes y nueva propuesta
+Requisitos del Sistema
+Descripción / Hallazgo
+Propuesta Seleccionada (App AgTech Inteligente) 
+Solución Existente 1 (Sensores IoT en Suelo)
+Solución Existente 2 (Imágenes Satelitales / Drones) 
+RE01: Detección temprana de síntomas de plagas
+Reconocimiento de lesiones foliares, punteaduras o manchas en etapas tempranas.
+X
+ 
+X
+RE02: Identificación de señales de déficit hídrico
+Reconocimiento de pérdida de turgencia, marchitez y decoloración foliar por estrés de agua.
+X
+X
+X
+RE03: Bajo costo de implementación inicial
+Accesible económicamente para pequeños y medianos agricultores de Lurín.
+X
+ 
+ 
+RE04: Emisión de recomendaciones mediante agentes de decisión
+Sugerencias accionables inmediatas (ajuste de riego, revisión focalizada, control cultural).
+X
+ 
+ 
+RE05: Portabilidad y uso en campo sin infraestructura invasiva
+Operación directa mediante smartphones estándar de los agricultores.
+X
+ 
+ 
+RE06: Funcionamiento sin riesgo de sustracción/vandalismo
+No depender de hardware expuesto o anclado a la intemperie en parcelas abiertas.
+X
+ 
+X
+RE07: Diagnóstico casi instantáneo (tiempo de respuesta < 5 s)
+Capacidad de respuesta en tiempo real durante la inspección del cultivo.
+X
+X
+ 
+
+La solución elegida reúne de forma sinérgica la visión por computador para el análisis macroscópico foliar con agentes inteligentes que contextualizan el hallazgo, a diferencia de los sensores fijos (que solo miden humedad en un punto sin identificar plagas) o las imágenes de satélite (cuya resolución espacial y temporal de varios días no permite ver síntomas incipientes de insectos plaga). Su originalidad radica en integrar en una herramienta portátil de bajo costo modelos de visión artificial entrenados con datos locales de la variedad Roja Lurín y reglas agronómicas adaptadas a la dinámica hídrica de estiaje del valle.
+Identificación y descripción de todas las restricciones realistas, criterios, riesgos ylimitaciones.
+Restricciones realistas
+Tecnológicas:
+El modelo de Deep Learning debe estar optimizado para ejecutarse en dispositivos móviles o servidores de baja latencia (tamaño de modelo reducido tipo MobileNet / YOLO Nano).
+Variabilidad en las resoluciones de cámara de los dispositivos de los productores locales (mínimo 8 MP).
+Económicas:
+Restricción de presupuesto para infraestructura: el costo operativo por productor debe ser marginal, aprovechando frameworks y bibliotecas de código abierto (Python, OpenCV, PyTorch/TensorFlow).
+Operativas y de Conectividad:
+En los valles de Lurín la conectividad móvil (3G/4G) presenta zonas de sombra; el sistema debe contemplar en caché y procesamiento asíncrono o inferencia local ligera.
+Ambientales y de Campo:
+Alta fluctuación de iluminación solar, contraluz, sombras del follaje y presencia de polvo sobre las hojas en el momento de captura.
+Criterios de ingeniería y evaluación
+Precisión Diagnóstica: Exactitud global (Accuracy) ≥ 85% y Precisión/Recall ≥ 80% en el dataset de validación. 
+Tiempo de Respuesta: Inferencia y generación de alerta en menos de 3.5 segundos por captura. 
+Usabilidad (UX Rural): Interfaz simplificada con simbología iconográfica intuitiva, reduciendo el texto técnico. 
+Escalabilidad: Base de datos estructurada capaz de registrar el crecimiento de muestras y parcelas georreferenciadas.
+Riegos del Proyecto
+Riesgo R01: Sesgo en el dataset o sobreajuste (overfitting) debido a condiciones lumínicas homogéneas. 
+Mitigación: Técnicas de data augmentation (rotación, ajuste de brillo, contraste, ruido) y balance de clases. 
+Riesgo R02: Baja tasa de adopción o resistencia al cambio por parte de agricultores tradicionales. 
+Mitigación: Validación participativa en campo y diseño de recomendaciones directas, claras y accionables. 
+Riesgo R03: Falsos positivos por daños mecánicos o suelo confundidos con lesiones foliares de plagas. 
+Mitigación: Preprocesamiento de segmentación y umbrales de confianza mínimos (confidencethreshold ≥ 0.70).
+Limitaciones del alcance
+El sistema es una herramienta de soporte a la decisión, no un sustituto legal ni una receta agronómica certificada.
+El dataset inicial delimita el reconocimiento a las plagas foliares recurrentes y síntomas de estrés hídrico característicos de la cebolla roja en el valle de Lurín en la campaña 2026.
+Generación y análisis de múltiples soluciones
+Criterio de Decisión / Restricción
+Peso (%)
+Solución 1: Red de Sensores IoT en Suelo
+Solución 2: Monitoreo Satelital / Drones
+Propuesta Seleccionada: App AgTech Visión + Agentes
+Restricción Económica (Costo inicial y mantenimiento)
+20%
+2 (0.40)
+2 (0.40)
+5 (1.00)
+Factibilidad Técnica y Tiempo de Respuesta
+20%
+4 (0.80)
+3 (0.60)
+4 (0.80)
+Capacidad de Detección Temprana (Plagas + Agua)
+20%
+2 (0.40)
+3 (0.60)
+5 (1.00)
+Impacto Social y Accesibilidad para el Agricultor
+15%
+2 (0.30)
+2 (0.30)
+5 (0.75)
+Seguridad de la Información y de Activos (Riesgo de robo)
+10%
+1 (0.10)
+4 (0.40)
+5 (0.50)
+Sostenibilidad e Impacto Ambiental
+10%
+3 (0.30)
+4 (0.40)
+5 (0.50)
+Marco Ético y Legal (Privacidad y protección de datos)
+5%
+4 (0.20)
+2 (0.10)
+4 (0.20)
+Puntaje Total Ponderado
+100%
+2.50 / 5.00
+2.80 / 5.00
+4.75 / 5.00
+
+Análisis de los Contextos y su impacto
+Se debe describir el contexto actual relacionado al proyecto y luego describir el impacto que generará el proyecto
+
+Social
+Análisis del contexto
+
+Impacto en el contexto
+Cultural
+Análisis del contexto
+
+Impacto en el contexto
+
+Económico
+Análisis del contexto
+
+Impacto en el contexto
+
+Político
+Análisis del contexto
+
+Impacto en el contexto
+
+Legal
+Análisis del contexto
+
+Impacto en el contexto
+
+Medio Ambiente
+Análisis del contexto
+
+Impacto en el contexto
+
+Seguridad
+Análisis del contexto
+
+Impacto en el contexto
+
+Matriz comparativa de los impactos de las soluciones
+
+Contexto
+Impacto 
+Social
+
+Cultural
+
+Económico
+
+Político
+
+Legal
+
+Medio Ambiente 
+
+Seguridad
+
+
+
+Importancia del impacto del proyecto
+Justifica el impacto de la solución a un problema complejo de ingeniería documentando la importancia en el proyecto capstone.
+
+Diseño de la alternativa seleccionada
+Descripción detallada de la alternativa seleccionada el modelado del sistema software , arquitecturas, prototipos
+
+
+Business Case
+Incluir matriz de trazabilidad de requerimientos
+Cronograma del proyecto y EDT del proyecto
+Plan de Gestión de Riesgos
+Roles y Responsabilidades
+Se definen los integrantes del equipo encargados de Liderar, Ejecutar o Apoyar (dar soporte) a la Gestión de Riesgos. Asimismo, define las responsabilidades de cada uno.
+
+Presupuesto
+Estimado de los fondos (dinero) necesario, basado en la asignación de recursos, para su inclusión en el presupuesto.
+
+Matriz de riegos
+
+Plan de Gestión de Interesados
+Registro de interesados
+En esta sección se incluyen los datos recopilados en el registro de los interesados del proyecto.
+
+
+Nombre
+Puesto / Org. / Empresa
+Rol en el proyecto
+Requisitos / Expectativas
+Fase de mayor interés
+Partidario / Neutral / Reticente
+Grado de influencia
+Grado de interés
+Nombre y apellido completo del interesado
+Posición o cargo que la persona desempeña en la organización.
+
+Aquí se escribe que es lo principal que el interesado requiere del proyecto en términos de entregables o información. Usualmente se relaciona con los requerimientos detallados que se levantan en la fase de identificación de requerimientos (que forma parte de la definición de alcance del proyecto). Beneficios que el interesado espera obtener del proyecto, o también que esperan ganar (o perder) como consecuencia del proyecto. Balancear las expectativas de todos los interesados puede llegar a ser todo un reto para la Gerencia de proyectos.
+Fase del ciclo de vida del proyecto en la cual el interesado está más involucrado, concentra sus intereses o tiene mayor grado de actividad.
+Un aspecto importante de la gerencia de interesados es poder identificar la postura de estos frente al proyecto, dado que las estrategias de gestión de cada interesado pueden variar dependiendo si el interesado ejerce su influencia para favorecer el proyecto, obstaculizarlo o se muestra neutral.
+Es el grado de "poder" que el interesado tiene para afectar positiva o negativamente el resultado o éxito del proyecto.
+Es el grado en el cual el interesado es afectado positiva o negativamente (según su punto de vista) por el proyecto, pudiendo ser Bajo, Medio y Alto.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Alcance e impacto del proyecto sobre los interesados
+En esta sección se documenta el impacto y cambios que para los interesados significa el proyecto, partiendo de los interesados incluidos en el registro.
+
+Nombre / Grupo / Interesado
+Descripción del impacto que significa el proyecto
+
+
+
+
+
+
+
+
+
+
+Presupuesto del proyecto
+Utilizar formato para un trabajo más ordenado
+
+Plan de seguridad
+
+Se realiza el plan de seguridad para BASE DE DATOS, APLICACIÓN e INFRAESTRUCTURA de acuerdo a lo indicado en la sesión
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Plan de Calidad de software
+
+Objetivo
+Garantizar que el software cumpla con los requisitos funcionales, no funcionales y de satisfacción del cliente, aplicando buenas prácticas de calidad.
+Estándares
+Estándar
+Uso
+ISO/IEC 25010
+Calidad del producto
+
+
+Procesos de Calidad
+Pruebas: unitarias, integración, aceptación y rendimiento.
+
+Roles
+Rol
+Funciones
+Líder de Calidad
+Supervisa cumplimiento del plan
+
+
+Herramientas
+Herramienta
+Funcionalidad
+Selenium
+Pruebas Unitarias
+
+
+
+
+Métricas
+Métrica
+Valor
+N° de defectos en producción
+5
+
+
+
+
+Riesgos
+Riego
+Acción
+Baja cobertura de pruebas
+Monitoreo continuo.
+
+
+
+
+
+
+
+
+METODOLOGÍA DE DESARROLLO A UTILIZAR
+Desarrollo de la metodología
+
+Desarrollo de la metodología o marco de trabajo a usar para la elaboración de lasolución y la aplicación de estándares seleccionados.
+Se debe hacer un análisis de las características de las metodologías contempladas de forma que se seleccione aquella que mejor se adapte a la problemática abordada, justificando la selección teniendo en cuenta restricciones realistas. 
+Cronograma de desarrollo del producto:
+Las definiciones de la parte técnica, la ST, lo constituyen básicamente 5 asuntos: 
+Planificación (EDT y cronograma del proyecto)
+Análisis
+Desarrollo
+Ir presentando resultados de producto en cada etapa de la metodología.
+Considerar la evidencia de la consideración de la protección de datos en el producto software y en la investigación
+
+Pruebas de Calidad
+
+Pruebas unitarias
+Indicar el software utilizado para las pruebas, cuantas se realizaron, las funciones probadas, etc
+Evidencia de las pruebas unitarias
+
+Pruebas de aceptación
+
+Indicar el software utilizado para las pruebas, cuantas se realizaron, las funciones probadas, etc
+Evidencia de las pruebas de aceptación
+
+
+Despliegue
+Describir el plan de despliegue
+Describir el proceso del despliegue
+Evidencia del despliegue realizado y cómo los usuarios los están utilizando
+
+Resultados de medición de variable independiente
+
+Colocar los resultados de la medición de los indicadores de la variable independiente en base a sus dimensiones e indicadores usando el instrumento validado.
+
+
+
+RESULTADOS: EVALUACIÓN OPERATIVA Y ECONÓMICA
+
+
+
+
+
+Análisis de Viabilidad técnica y tecnológica
+
+Análisis de la viabilidad (de diferente tipo) y/o beneficio económico
+Uso de indicadores y ratios
+Análisis de la sostenibilidad
+Discusión de resultados
+Discutir los resultados obtenidos con todos los antecedentes
+
+Resultados en base a los objetivos del proyecto
+Resultados del Objetivo específico 01:
+Resultados del Objetivo específico 02:
+Resultados del Objetivo específico 03:
+Resultados del Objetivo General:
+Resultados de la visita a cachimbos
+Resultados de la validación de usuarios finales
+
+RECOMENDACIONES FINALES
+
+
+
+Conclusiones
+Se debe considerar  una conclusión por cada objetivo específico y general declarado.
+
+Recomendaciones respaldadas por información y análisis
+Recomendaciones para futuras implementaciones en base a información y análisis realizado
+
+COMPROMISO ÉTICO EN EL EJERCICIO PROFESIONAL
+
+Compromiso ético personal
+(Individual, es decir, se debe contar con un párrafo personalizado del compromiso ético por cada miembro del grupo respecto a su proyecto y su profesión)
+
+Elaborar un compromiso ético sobre su actuar considerando aspectos de respeto al grupo humano y a su profesión tomando en cuenta los principios:  honestidad, responsabilidad, solidaridad, respeto e inclusión social. El compromiso debe incluir el sustento de la importancia del ejercicio ético a nivel profesional teniendo en cuenta el marco legal pertinente y respeto hacia la diversidad de los grupos humanos.
+
+Importancia del ejercicio ético a nivel profesional
+(Individual, es decir, se debe contar con un párrafo personalizado de la importancia del ejercicio ético a nivel profesional por cada miembro del grupo)
+
+Sustentar la importancia del ejercicio ético a nivel profesional teniendo en cuenta el marco legal pertinente y respeto hacia la diversidad de los grupos humanos vinculando con el ejercicio profesional.
+
+REFERENCIAS O BIBLIOGRAFÍA
+Ahmad, I., Yang, Y., Yue, Y., Ye, C., Hassan, M., Cheng, X., Wu, Y., & Zhang, Y. (2022). Deep learning based detector YOLOv5 for identifying insect pests. Applied Sciences, 12(19), 10167.https://doi.org/10.3390/app121910167
+
+Ahmad, U., Alvino, A., & Marino, S. (2021). A review of crop water stress assessment using remote sensing. Remote Sensing, 13(20), 4155. https://doi.org/10.3390/rs13204155
+
+ANEXOS
+
+
+
+
+
+Anexo 01: Link de video de proyecto
+Anexo 02: Link de repositorio de proyecto
+
+
+
+
+
+
+NOTAS ACLARATORIAS
+Consideraciones para formación de equipos
+
+El número de integrantes de cada equipo debe ser 3 a 5 persona (lo ideal es que la cantidad de integrantes de los equipos sean impares)
+
+Consideraciones para el desarrollo del proyecto
+
+El proyecto debe terminar con un producto software y/o hardware implementado alineado al perfil de egreso. 
+
+Consideraciones para el informe y video
+El Informe de proyecto de fin de curso será redactado con procesador de textos en fuente Arial, tamaño 12, alineación justificada, interlineado 1,5, hoja A4. Utilizar formato APA 7ma edición.
+Sobre el tema de proyecto
+Integración con el aprendizaje previo (temas aprendidos en otros cursos)
+Promueve un nuevo aprendizaje
+Brinda experiencias realistas
+Balance entre complejidad y carga de trabajo
+Comunicación 
+Lenguaje profesional
+Organización de la presentación
+Presentación efectiva
+Figuras y formato
+Redacción y gramática
+Video
+La presentación de los estudiantes debe ser formal.
+Usar office 365 para alojar su video
+El videopresentado debe contener los puntos indicados en el informe, considerando que se debe cumplir con las indicaciones sobre el tema del proyecto y la comunicación.
+El video debe tener una duración máxima de10 minutos (3min parte teórica y 7min de producto).
+Teórica: 
+Motivación del proyecto.
+Impacto social, cultural, político, según corresponda.
+Identificación y formulación del problema
+Objetivos.
+Producto software (Mientras va mostrando el producto)
+Metodología usada indicando puntos importantes de las fases
+Herramientas utilizadas justificando 
+Justificación de la solución elegida
+Resultados (Mostrar el resultado al que se llegó en base a los requisitos identificados)
+Conclusiones
+
+Ejemplo de compromiso ético individual 
+(Se sugiere que cada estudiante personalice el texto en base a su compromiso)
+Yo ………………………………………………., como estudiante de la carrera de Ingeniería de sistemas Computacionales de la Universidad Privada del Norte, me comprometo a respetar los principios, valores y normativas que rigen a esta institución para el desarrollo de trabajos académicos, cumpliendo con las indicaciones para el desarrollo de estos trabajos. De tal manera respetar la información de otros autores citando correctamente, tener la autorización de uso de información de la empresa en la cual se está trabajando el proyecto. 
+
+Asimismo, me comprometo en cumplir con las normativas éticas del ejercicio profesional de un ingeniero y aportar de manera positiva tanto en el campo profesional, social y académico por qué. (complementar)
+

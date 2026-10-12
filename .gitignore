@@ -1,0 +1,21 @@
+# Generated development state and outputs (already tracked historical files are not removed)
+.gradle/
+**/build/
+**/.idea/
+local.properties
+app/local.properties
+wrapper/dists/
+*.sqlite-wal
+*.sqlite-shm
+
+# Python/ML environments and generated image material
+**/__pycache__/
+**/.venv/
+ml/.dependencies/
+ml/data/
+ml/outputs/
+ml/artifacts/
+
+# Document render intermediates
+docs/qa/
+docs/rendered/

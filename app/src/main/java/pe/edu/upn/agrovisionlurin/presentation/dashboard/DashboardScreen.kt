@@ -172,7 +172,7 @@ private fun DashboardHeader(pendingCount: Int) {
                 )
             }
             Text(
-                text = "Valle de Lurín",
+                text = "Cooperativa Agraria LIMONORT-PERU, Sullana",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color(0xFF5E636E)
@@ -253,7 +253,7 @@ private fun HeroScanCard(onClick: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "Analizar hojas de cebolla en el lote",
+                    text = "Analizar hojas de limón sutil en el lote",
                     fontSize = 13.sp,
                     color = Color.White.copy(alpha = 0.85f)
                 )

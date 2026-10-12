@@ -151,25 +151,43 @@ fun GuidedCameraScreen(
             }
         }
 
-        // Overlay: Retículo tubular para Allium cepa (Cebolla Roja)
+        // Overlay: Guía visual neutra para encuadre de hoja de limón sutil
         Box(
             modifier = Modifier
                 .align(Alignment.Center)
-                .width(120.dp)
-                .height(400.dp)
-                .border(2.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(60.dp))
+                .width(220.dp)
+                .height(300.dp)
+                .border(2.dp, Color.White.copy(alpha = 0.6f), RoundedCornerShape(32.dp))
         )
 
-        // Overlay: Píldora de Iluminación
-        Box(
+        // Overlay: Indicadores superiores de iluminación e instrucción de captura
+        Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(top = 48.dp)
-                .clip(CircleShape)
-                .background(Color.Black.copy(alpha = 0.6f))
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(top = 48.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text("Iluminación Óptima", color = Color.White, style = Typography.labelMedium)
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(Color.Black.copy(alpha = 0.6f))
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                Text("Iluminación Óptima", color = Color.White, style = Typography.labelMedium)
+            }
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.Black.copy(alpha = 0.6f))
+                    .padding(horizontal = 14.dp, vertical = 6.dp)
+            ) {
+                Text(
+                    text = "Encuadre la hoja de limón dentro de la guía",
+                    color = Color.White,
+                    style = Typography.labelMedium
+                )
+            }
         }
 
         // Top Right: Control de Linterna / Flash

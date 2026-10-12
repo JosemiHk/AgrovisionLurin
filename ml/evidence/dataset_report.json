@@ -1,0 +1,943 @@
+{
+  "source_url": "https://data.mendeley.com/datasets/8d9fv6kpt3/2",
+  "provenance_confirmed": false,
+  "local_limonort": false,
+  "sutil_variety_confirmed": false,
+  "early_stage_confirmed": false,
+  "files_found": 17586,
+  "published_count": 17609,
+  "difference_from_publication": -23,
+  "classes": {
+    "Algal_Leaf_Spot": 869,
+    "Anthracnose": 1079,
+    "Bacterial Blight": 244,
+    "Black Spot": 837,
+    "Citrus Canker": 1789,
+    "Citrus Hindu Mite": 544,
+    "Citrus Leafminer": 900,
+    "Citrus_Pest": 542,
+    "Citrus_Scab": 333,
+    "Curl Leaf": 1853,
+    "Dry Leaf": 390,
+    "Greening": 2340,
+    "Healthy": 1638,
+    "Lemon_Sooty_Mold": 1592,
+    "Melanose": 376,
+    "Spider Mites": 250,
+    "Swallowtail Larval Herbivory (Deficiency)": 1340,
+    "Yellow_Spot": 670
+  },
+  "split_counts": {
+    "challenge": 13581,
+    "excluded_conflict": 2168,
+    "train": 1286,
+    "test": 275,
+    "validation": 276
+  },
+  "selected_class_split_counts": {
+    "MINADOR_COMPATIBLE:train": 463,
+    "MINADOR_COMPATIBLE:excluded_conflict": 239,
+    "MINADOR_COMPATIBLE:test": 99,
+    "MINADOR_COMPATIBLE:validation": 99,
+    "SIN_SINTOMAS_VISIBLES:validation": 177,
+    "SIN_SINTOMAS_VISIBLES:train": 823,
+    "SIN_SINTOMAS_VISIBLES:excluded_conflict": 462,
+    "SIN_SINTOMAS_VISIBLES:test": 176
+  },
+  "valid_duplicate_groups": 3190,
+  "max_group_size": 832,
+  "cross_class_conflicts": [
+    {
+      "group": "g_4568b190bb5a3471",
+      "classes": [
+        "Algal_Leaf_Spot",
+        "Citrus Canker",
+        "Citrus_Pest",
+        "Greening",
+        "Healthy",
+        "Yellow_Spot"
+      ],
+      "count": 76
+    },
+    {
+      "group": "g_bfc03957e38e6eb8",
+      "classes": [
+        "Algal_Leaf_Spot",
+        "Healthy"
+      ],
+      "count": 10
+    },
+    {
+      "group": "g_7250dfd501a99d98",
+      "classes": [
+        "Algal_Leaf_Spot",
+        "Healthy"
+      ],
+      "count": 12
+    },
+    {
+      "group": "g_d725611d2479f2b2",
+      "classes": [
+        "Algal_Leaf_Spot",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_d0c89ed6bf2f3117",
+      "classes": [
+        "Algal_Leaf_Spot",
+        "Healthy"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_b9d7c9e5ebe3458f",
+      "classes": [
+        "Algal_Leaf_Spot",
+        "Citrus_Scab",
+        "Healthy"
+      ],
+      "count": 18
+    },
+    {
+      "group": "g_2a3f900b3de71b17",
+      "classes": [
+        "Anthracnose",
+        "Bacterial Blight",
+        "Black Spot",
+        "Citrus Canker",
+        "Citrus Hindu Mite",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Dry Leaf",
+        "Greening",
+        "Healthy",
+        "Lemon_Sooty_Mold",
+        "Melanose",
+        "Spider Mites",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 832
+    },
+    {
+      "group": "g_dcb249fb14470d2c",
+      "classes": [
+        "Anthracnose",
+        "Black Spot",
+        "Citrus Canker",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Dry Leaf",
+        "Greening",
+        "Melanose",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 42
+    },
+    {
+      "group": "g_6fe5b0c1bc003701",
+      "classes": [
+        "Anthracnose",
+        "Black Spot",
+        "Citrus Canker",
+        "Citrus Hindu Mite",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Dry Leaf",
+        "Greening",
+        "Lemon_Sooty_Mold",
+        "Spider Mites",
+        "Swallowtail Larval Herbivory (Deficiency)",
+        "Yellow_Spot"
+      ],
+      "count": 135
+    },
+    {
+      "group": "g_68228804426624c8",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Citrus Hindu Mite",
+        "Curl Leaf",
+        "Dry Leaf",
+        "Greening",
+        "Healthy"
+      ],
+      "count": 16
+    },
+    {
+      "group": "g_8fd80cf6546dd809",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Healthy",
+        "Spider Mites"
+      ],
+      "count": 7
+    },
+    {
+      "group": "g_1032f56a0e11dab9",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Greening",
+        "Healthy"
+      ],
+      "count": 7
+    },
+    {
+      "group": "g_127ab6551011c893",
+      "classes": [
+        "Anthracnose",
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_b3e7b53838843353",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Greening",
+        "Healthy",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 604
+    },
+    {
+      "group": "g_2811382613584f43",
+      "classes": [
+        "Anthracnose",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_3417f1a9ce5fe81d",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Greening",
+        "Healthy",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 35
+    },
+    {
+      "group": "g_546eb960ce13af70",
+      "classes": [
+        "Anthracnose",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_dce24912c72a30b3",
+      "classes": [
+        "Anthracnose",
+        "Curl Leaf",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_3b482647e47567fd",
+      "classes": [
+        "Anthracnose",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Greening",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 13
+    },
+    {
+      "group": "g_93e9cf83852c7026",
+      "classes": [
+        "Anthracnose",
+        "Citrus Leafminer"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_a0de6e39e4e9a0ba",
+      "classes": [
+        "Anthracnose",
+        "Citrus Leafminer"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_c542bcb34a104746",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 8
+    },
+    {
+      "group": "g_d36e54a4c66f7af4",
+      "classes": [
+        "Anthracnose",
+        "Citrus Leafminer",
+        "Citrus_Pest",
+        "Curl Leaf",
+        "Greening",
+        "Healthy"
+      ],
+      "count": 14
+    },
+    {
+      "group": "g_4655d3d8873c7a03",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_0e7c38c3ef979adf",
+      "classes": [
+        "Anthracnose",
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 7
+    },
+    {
+      "group": "g_ad277c8a15ab5aa2",
+      "classes": [
+        "Anthracnose",
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Greening",
+        "Healthy"
+      ],
+      "count": 9
+    },
+    {
+      "group": "g_2ed4977ceaa04caf",
+      "classes": [
+        "Bacterial Blight",
+        "Healthy",
+        "Spider Mites",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 10
+    },
+    {
+      "group": "g_2dd97de68e632527",
+      "classes": [
+        "Black Spot",
+        "Healthy"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_73915fe42faa186f",
+      "classes": [
+        "Black Spot",
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_8599dd4e35836295",
+      "classes": [
+        "Black Spot",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_3b5af98c611f977c",
+      "classes": [
+        "Black Spot",
+        "Citrus Leafminer"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_a0caa9f9c2e43d6b",
+      "classes": [
+        "Citrus Canker",
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_c377d41810b020a1",
+      "classes": [
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_b8c0a8dc6d5d4242",
+      "classes": [
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_4f7f0cdb24e2daa4",
+      "classes": [
+        "Citrus Canker",
+        "Healthy",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_cf9e59c972fa12f4",
+      "classes": [
+        "Citrus Canker",
+        "Citrus Leafminer"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_e2651a665e83c1d6",
+      "classes": [
+        "Citrus Canker",
+        "Citrus Hindu Mite",
+        "Greening",
+        "Healthy",
+        "Lemon_Sooty_Mold",
+        "Melanose"
+      ],
+      "count": 12
+    },
+    {
+      "group": "g_5a692693b2f00823",
+      "classes": [
+        "Citrus Canker",
+        "Citrus Leafminer"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_0ac0dd562445fad8",
+      "classes": [
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_80110264888a4897",
+      "classes": [
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_07ad96a8928a62a4",
+      "classes": [
+        "Citrus Canker",
+        "Citrus Leafminer"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_e17b5bcbbf214043",
+      "classes": [
+        "Citrus Canker",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_e67beb315952260f",
+      "classes": [
+        "Citrus Canker",
+        "Citrus Leafminer",
+        "Greening",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_0ba833b0f2ea11c9",
+      "classes": [
+        "Citrus Hindu Mite",
+        "Dry Leaf",
+        "Healthy"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_76ab59e8af933a07",
+      "classes": [
+        "Citrus Hindu Mite",
+        "Citrus Leafminer",
+        "Greening",
+        "Healthy",
+        "Melanose"
+      ],
+      "count": 17
+    },
+    {
+      "group": "g_f87d17b057207993",
+      "classes": [
+        "Citrus Hindu Mite",
+        "Citrus Leafminer"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_83f571bfcc47b9d1",
+      "classes": [
+        "Citrus Hindu Mite",
+        "Curl Leaf",
+        "Greening",
+        "Healthy",
+        "Lemon_Sooty_Mold",
+        "Yellow_Spot"
+      ],
+      "count": 9
+    },
+    {
+      "group": "g_7cc6cf4c4ad7b387",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 6
+    },
+    {
+      "group": "g_5a12f01a3136b27d",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_0432d35d581ca6c1",
+      "classes": [
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_621baeb4f48d5d98",
+      "classes": [
+        "Citrus Leafminer",
+        "Dry Leaf"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_768b51fbe6b15f07",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_68142063aeba8cb8",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_a4538521837a6069",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_d56043c71c9361b5",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_5dfa9b631e5965d1",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_c6d1f26ed05201e5",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_2a063a82d295bd78",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_e57dd1a995a88c52",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_9c12a94f03c3efca",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_ddf8b5d473b18009",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_34708d73f51db085",
+      "classes": [
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_2e548bda1319f4f7",
+      "classes": [
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_46b557c3069a65cf",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_428e5d2e71c2a85b",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_386feb248eac56bd",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_36f453d1b3476355",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_b94e228ea25b5eeb",
+      "classes": [
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 7
+    },
+    {
+      "group": "g_de4682745ea4fa9d",
+      "classes": [
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_c413a65889a66899",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_ff4b18b99ccff8e5",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_ed0f04f5bc56f86b",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_0d35265c77083bf3",
+      "classes": [
+        "Citrus Leafminer",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_c4165b0f81ba48bb",
+      "classes": [
+        "Citrus Leafminer",
+        "Greening"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_db50d5744a6a9c4b",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_184a64552838da79",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_5c8ea87bbc9fb405",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_52786e9516e43d8e",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_1cc74b0227a74a35",
+      "classes": [
+        "Citrus Leafminer",
+        "Curl Leaf"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_1d89fef801c6dfa7",
+      "classes": [
+        "Citrus Leafminer",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_67672a4fc7fd9ceb",
+      "classes": [
+        "Citrus_Pest",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_169beaba21181758",
+      "classes": [
+        "Curl Leaf",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_064bffe9568005c5",
+      "classes": [
+        "Curl Leaf",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_d5d6f0cde9e9c40f",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_734178802b399e78",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_b4c48b3ee3321a7d",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_0b014a7153bb146a",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_44d5850b79c0f99e",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_218fa11362439706",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_7671922ae8f75f2f",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_dad66a6d13b3b7a4",
+      "classes": [
+        "Greening",
+        "Healthy"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_df4a70bfdaaffc4f",
+      "classes": [
+        "Greening",
+        "Healthy",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 4
+    },
+    {
+      "group": "g_8d90a9fc2af9feec",
+      "classes": [
+        "Healthy",
+        "Lemon_Sooty_Mold"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_64a111f75245d962",
+      "classes": [
+        "Healthy",
+        "Yellow_Spot"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_c8f9192821aad185",
+      "classes": [
+        "Healthy",
+        "Lemon_Sooty_Mold",
+        "Yellow_Spot"
+      ],
+      "count": 21
+    },
+    {
+      "group": "g_28567ad648ff8e0f",
+      "classes": [
+        "Healthy",
+        "Lemon_Sooty_Mold"
+      ],
+      "count": 2
+    },
+    {
+      "group": "g_446d041701dcc0bf",
+      "classes": [
+        "Healthy",
+        "Yellow_Spot"
+      ],
+      "count": 3
+    },
+    {
+      "group": "g_9dcf0c3b65027c44",
+      "classes": [
+        "Healthy",
+        "Yellow_Spot"
+      ],
+      "count": 5
+    },
+    {
+      "group": "g_80bc6b6ec07f6492",
+      "classes": [
+        "Healthy",
+        "Swallowtail Larval Herbivory (Deficiency)"
+      ],
+      "count": 2
+    }
+  ],
+  "seed": 20261012,
+  "phash_distance": 4,
+  "manifest_sha256": "3fb4ccb36ba61c8bf6e3bc4829848bc8826d51b1bab68e865f916855c4a8f007",
+  "limitations": [
+    "pHash groups do not establish plant/session independence; these identifiers were not supplied",
+    "Unverified copy provenance; publication totals differ",
+    "External dataset is not local agronomic validation"
+  ]
+}

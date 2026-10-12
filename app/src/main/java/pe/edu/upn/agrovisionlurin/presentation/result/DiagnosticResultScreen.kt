@@ -72,7 +72,7 @@ fun DiagnosticResultScreen(
                 ) {
                     Text(
                         text = "Analizado en ${diag.latencyMs / 1000.0}s (Inferencia Local)",
-                        style = Typography.labelSmall,
+                        style = Typography.labelMedium,
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                         color = Color.DarkGray
                     )
@@ -104,7 +104,7 @@ fun DiagnosticResultScreen(
                         }
                         Icon(icon, contentDescription = null, tint = borderColor, modifier = Modifier.size(48.dp))
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(diag.className, style = Typography.headlineMedium, color = borderColor, fontWeight = FontWeight.Bold)
+                        Text(diag.className, style = Typography.titleLarge, color = borderColor, fontWeight = FontWeight.Bold)
                         Text("Confianza: ${(diag.confidence * 100).toInt()}% • Severidad: ${diag.severityLevel}", style = Typography.bodyMedium)
                     }
                 }

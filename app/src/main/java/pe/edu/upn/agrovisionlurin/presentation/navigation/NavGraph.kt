@@ -9,13 +9,14 @@ import androidx.navigation.compose.rememberNavController
 import pe.edu.upn.agrovisionlurin.presentation.camera.GuidedCameraScreen
 import pe.edu.upn.agrovisionlurin.presentation.dashboard.DashboardScreen
 import pe.edu.upn.agrovisionlurin.presentation.history.HistorySyncScreen
+import pe.edu.upn.agrovisionlurin.presentation.login.LoginScreen
 import pe.edu.upn.agrovisionlurin.presentation.result.DiagnosticResultScreen
 import pe.edu.upn.agrovisionlurin.presentation.settings.SettingsScreen
 
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Screen.Dashboard.route,
+    startDestination: String = Screen.Login.route,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -23,6 +24,15 @@ fun NavGraph(
         startDestination = startDestination,
         modifier = modifier
     ) {
+        composable(Screen.Login.route) {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate(Screen.Dashboard.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                }
+            )
+        }
         composable(Screen.Dashboard.route) {
             DashboardScreen(
                 onNavigateToCamera = { navController.navigate(Screen.Camera.route) },
@@ -35,7 +45,7 @@ fun NavGraph(
         composable(Screen.Camera.route) {
             GuidedCameraScreen(
                 onBack = { navController.popBackStack() },
-                onCaptureComplete = { inspectionId -> 
+                onCaptureComplete = { inspectionId ->
                     navController.navigate(Screen.Result.createRoute(inspectionId)) {
                         popUpTo(Screen.Dashboard.route)
                     }
@@ -67,7 +77,13 @@ fun NavGraph(
             )
         }
         composable(Screen.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(
+                onLogout = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+            )
         }
     }
 }

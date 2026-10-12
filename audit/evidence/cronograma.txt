@@ -1,0 +1,83 @@
+SHEET Cronograma de Hitos
+B2=PROYECTO CAPSTONE: AGROVISION-LURIN (CICLO ACADÉMICO 2026-2)
+B3=Sistema Inteligente para la Detección Temprana de Plagas y Déficit Hídrico en Cebolla Roja en los Valles de Lurín
+B4=CRONOGRAMA DE HITOS Y ENTREGABLES PRINCIPALES (17 AGOSTO - 30 NOVIEMBRE 2026 | CLASES: LUNES 7:30 - 10:40 PM)
+B5=Desarrollado por Fabrizio Ortiz y José Perea
+B7=ID Hito | C7=Semana / Sesión | D7=Fase Relacionada | E7=Evento / Hito Principal | F7=Entregable Asociado | G7=Fecha Programada | H7=Criterio de Aceptación / Quality Gate | I7=Responsable
+B8=H-01 | C8=Semana 02 (Clase) | D8=1. Iniciación y Gestión | E8=Constitución Formal del Proyecto y Definición de Alcance | F8=Project Charter, Plan de Gestión de Proyecto y Registro de Interesados | G8=2026-08-24 00:00:00 | H8=Aprobación formal del alcance y equipo por el Ing. Cesar Aguirre en sesión de clase | I8=J. Perea / F. Ortiz
+B9=H-02 | C9=Semana 04 (Clase) | D9=2. Análisis y Requisitos | E9=Línea Base de Requisitos de Software y Protocolo de Campo | F9=Documento SRS validado, Matriz de Trazabilidad y Protocolo de muestreo Lurín | G9=2026-09-07 00:00:00 | H9=Revisión y visto bueno del SRS en clase del lunes 07/09; 100% requisitos mapeados | I9=F. Ortiz / J. Perea
+B10=H-03 | C10=Semana 07 (Clase) | D10=3. Datos y Preprocesamiento | E10=Consolidación del Dataset Agrícola Curado y Etiquetado | F10=Dataset de 600 imágenes de Lurín (200 sanas, 200 plagas, 200 déficit hídrico) con data augmentation | G10=2026-09-28 00:00:00 | H10=Verificación del banco de imágenes y partición Train/Val/Test aprobada | I10=J. Perea / F. Ortiz
+B11=H-04 | C11=Semana 09 (Clase) | D11=4. Diseño y Arquitectura | E11=Línea Base de Arquitectura e Inferencia Offline-First | F11=Documento SAD, diagramas de arquitectura C4, modelo de datos local y prototipos UI/UX | G11=2026-10-12 00:00:00 | H11=Arquitectura aprobada con soporte para zonas rurales de baja conectividad | I11=F. Ortiz
+B12=H-05 | C12=Semana 12 (Clase) | D12=5. Desarrollo e IA | E12=Convergencia de Modelos de Visión Artificial y Agente de Decisión | F12=Pesos optimizados (YOLOv8/MobileNet) y motor de inferencia de recomendaciones agronómicas | G12=2026-11-02 00:00:00 | H12=Accuracy >= 85%, Recall >= 80% y tiempo de inferencia < 3.5 segundos demostrados | I12=J. Perea
+B13=H-06 | C13=Semana 13 (Clase) | D13=5. Desarrollo e IA | E13=Release Candidate (RC) de la Aplicación Móvil | F13=APK compilada e integrada (Frontend + Modelos locales + SQLite) lista para campo | G13=2026-11-09 00:00:00 | H13=Pruebas de integración aprobadas y presentación técnica del APK en sesión de clase | I13=F. Ortiz / J. Perea
+B14=H-07 | C14=Semana 15 (Clase) | D14=6. Pruebas y Validación | E14=Reporte de Validación Experimental en Campo con Agricultores | F14=Reporte técnico de pruebas en Lurín con los 5 agricultores piloto y matriz de confusión real | G14=2026-11-23 00:00:00 | H14=Pruebas de campo concluidas, satisfacción de usabilidad >= 85% y tiempos validados | I14=J. Perea / F. Ortiz
+B15=H-08 | C15=Semana 16 (Clase Final) | D15=7. Cierre del Proyecto | E15=Aprobación de Memoria Final de Capstone y Sustentación Oficial | F15=Informe Final Completo, Manual de Usuario/Técnico, Video demostrativo y Sustentación | G15=2026-11-30 00:00:00 | H15=Sustentación final de 10 min y entrega integral de Capstone Project 2026-2 aprobada | I15=J. Perea / F. Ortiz
+SHEET Cronograma Detallado
+B3=CRONOGRAMA DETALLADO Y DIAGRAMA DE GANTT - AGROVISION-LURIN (UPN 2026-2)
+B4=Horario de Clase: Lunes 7:30 - 10:40 PM | Duración: 17/08/2026 al 30/11/2026 (16 Semanas) | Estado a Hoy (06/09/2026): Cierre de Sem 03
+B5=Desarrollado por Fabrizio Ortiz y José Perea
+B7=EDT | C7=Nombre de la Tarea / Actividad | D7=Predecesoras | E7=Duración (Días) | F7=Fecha Inicio | G7=Fecha Fin | H7=Responsable | I7=Ruta Crítica (CPM) | J7=Estado al 06/09 | K7=Sem 01
+(17/08) | L7=Sem 02
+(24/08) | M7=Sem 03
+(31/08) | N7=Sem 04
+(07/09) | O7=Sem 05
+(14/09) | P7=Sem 06
+(21/09) | Q7=Sem 07
+(28/09) | R7=Sem 08
+(05/10) | S7=Sem 09
+(12/10) | T7=Sem 10
+(19/10) | U7=Sem 11
+(26/10) | V7=Sem 12
+(02/11) | W7=Sem 13
+(09/11) | X7=Sem 14
+(16/11) | Y7=Sem 15
+(23/11) | Z7=Sem 16
+(30/11)
+B8=1.0 | C8=FASE 1: INICIACIÓN Y PLANIFICACIÓN DEL PROYECTO | E8=10 | F8=2026-08-17 00:00:00 | G8=2026-08-28 00:00:00 | H8=Equipo Capstone | I8=SÍ | J8=100% Completado
+B9=1.1 | C9=Reunión de alineamiento de equipo y formulación del problema agronómico en Lurín | D9=- | E9=2 | F9=2026-08-17 00:00:00 | G9=2026-08-18 00:00:00 | H9=J. Perea / F. Ortiz | I9=SÍ | J9=Completado
+B10=1.2 | C10=Elaboración del Project Charter y alcance inicial del Capstone | D10=1.1 | E10=3 | F10=2026-08-19 00:00:00 | G10=2026-08-21 00:00:00 | H10=J. Perea | I10=SÍ | J10=Completado
+B11=1.3 | C11=Identificación, análisis de expectativas y Registro Formal de Interesados | D11=1.2 | E11=2 | F11=2026-08-24 00:00:00 | G11=2026-08-25 00:00:00 | H11=F. Ortiz | I11=NO | J11=Completado
+B12=1.4 | C12=Elaboración del Plan de Gestión de Proyecto y Líneas Base (Alcance, Tiempo, Costo) | D12=1.2 | E12=3 | F12=2026-08-26 00:00:00 | G12=2026-08-28 00:00:00 | H12=J. Perea / F. Ortiz | I12=SÍ | J12=Completado
+B13=1.5 | C13=HITO 1: Revisión y aprobación del Inicio de Proyecto en clase de Capstone (Lunes 7:30 PM) | D13=1.4 | E13=0 | F13=2026-08-24 00:00:00 | G13=2026-08-24 00:00:00 | H13=Ing. Cesar Aguirre | I13=SÍ | J13=Aprobado | L13=◆
+B14=2.0 | C14=FASE 2: INGENIERÍA DE REQUISITOS Y DIAGNÓSTICO EN CAMPO | E14=10 | F14=2026-08-31 00:00:00 | G14=2026-09-11 00:00:00 | H14=Equipo Capstone | I14=SÍ | J14=En Progreso (80%)
+B15=2.1 | C15=Diseño de instrumentos técnicos y fichas de observación para inspección foliar | D15=1.4 | E15=2 | F15=2026-08-31 00:00:00 | G15=2026-09-01 00:00:00 | H15=J. Perea | I15=SÍ | J15=Completado
+B16=2.2 | C16=Visita de diagnóstico a parcelas de Lurín con los 12 agricultores empadronados | D16=2.1 | E16=3 | F16=2026-09-02 00:00:00 | G16=2026-09-04 00:00:00 | H16=J. Perea / F. Ortiz | I16=SÍ | J16=Completado
+B17=2.3 | C17=Levantamiento y redacción de Requerimientos Funcionales y No Funcionales (SRS) | D17=2.2 | E17=3 | F17=2026-09-07 00:00:00 | G17=2026-09-09 00:00:00 | H17=F. Ortiz | I17=SÍ | J17=Por Iniciar (Sem 4)
+B18=2.4 | C18=Elaboración de Matriz de Trazabilidad de Requisitos y criterios de calidad (ISO 25010) | D18=2.3 | E18=2 | F18=2026-09-10 00:00:00 | G18=2026-09-11 00:00:00 | H18=J. Perea | I18=SÍ | J18=Por Iniciar (Sem 4)
+B19=2.5 | C19=HITO 2: Aprobación formal de Línea Base de Requisitos en clase (Lunes 07/09 7:30 PM) | D19=2.2 | E19=0 | F19=2026-09-07 00:00:00 | G19=2026-09-07 00:00:00 | H19=Ing. Cesar Aguirre | I19=SÍ | J19=Programado Sem 4 | N19=◆
+B20=3.0 | C20=FASE 3: RECOLECCIÓN, CURACIÓN Y ETIQUETADO DE DATOS | E20=15 | F20=2026-09-14 00:00:00 | G20=2026-10-02 00:00:00 | H20=Equipo Capstone | I20=SÍ | J20=Pendiente
+B21=3.1 | C21=Jornadas de captura fotográfica en parcelas de Lurín (meta: 600 imágenes de alta calidad) | D21=2.4 | E21=5 | F21=2026-09-14 00:00:00 | G21=2026-09-18 00:00:00 | H21=J. Perea / F. Ortiz | I21=SÍ | J21=Pendiente
+B22=3.2 | C22=Filtro de calidad fotográfica, depuración de desenfoques y balanceo de clases | D22=3.1 | E22=3 | F22=2026-09-21 00:00:00 | G22=2026-09-23 00:00:00 | H22=F. Ortiz | I22=SÍ | J22=Pendiente
+B23=3.3 | C23=Anotación y etiquetado de regiones de plagas y déficit hídrico (Roboflow / LabelImg) | D23=3.2 | E23=4 | F23=2026-09-24 00:00:00 | G23=2026-09-29 00:00:00 | H23=J. Perea / F. Ortiz | I23=SÍ | J23=Pendiente
+B24=3.4 | C24=Data Augmentation (rotación, contraste, iluminación) y partición Train (70)/Val (20)/Test (10) | D24=3.3 | E24=3 | F24=2026-09-30 00:00:00 | G24=2026-10-02 00:00:00 | H24=J. Perea | I24=SÍ | J24=Pendiente
+B25=3.5 | C25=HITO 3: Revisión de Dataset consolidado y balanceado en clase (Lunes 28/09 7:30 PM) | D25=3.3 | E25=0 | F25=2026-09-28 00:00:00 | G25=2026-09-28 00:00:00 | H25=Ing. Cesar Aguirre | I25=SÍ | J25=Pendiente | Q25=◆
+B26=4.0 | C26=FASE 4: DISEÑO Y ARQUITECTURA DEL SISTEMA | E26=10 | F26=2026-10-05 00:00:00 | G26=2026-10-16 00:00:00 | H26=F. Ortiz / J. Perea | I26=SÍ | J26=Pendiente
+B27=4.1 | C27=Diseño de la arquitectura del software (SAD) y pipeline de inferencia híbrida | D27=3.4 | E27=3 | F27=2026-10-05 00:00:00 | G27=2026-10-07 00:00:00 | H27=F. Ortiz | I27=SÍ | J27=Pendiente
+B28=4.2 | C28=Diseño de la base de datos local SQLite y sincronización asíncrona para modo offline | D28=4.1 | E28=2 | F28=2026-10-08 00:00:00 | G28=2026-10-09 00:00:00 | H28=J. Perea | I28=NO | J28=Pendiente
+B29=4.3 | C29=Diseño UI/UX adaptado al agricultor de Lurín (iconografía de alto contraste) | D29=4.1 | E29=3 | F29=2026-10-12 00:00:00 | G29=2026-10-14 00:00:00 | H29=F. Ortiz | I29=SÍ | J29=Pendiente
+B30=4.4 | C30=Modelado de base de reglas agronómicas y motor de agentes de decisión | D30=4.1 | E30=2 | F30=2026-10-15 00:00:00 | G30=2026-10-16 00:00:00 | H30=J. Perea | I30=SÍ | J30=Pendiente
+B31=4.5 | C31=HITO 4: Presentación y aprobación de Arquitectura de Software en clase (Lunes 12/10 7:30 PM) | D31=4.1 | E31=0 | F31=2026-10-12 00:00:00 | G31=2026-10-12 00:00:00 | H31=Ing. Cesar Aguirre | I31=SÍ | J31=Pendiente | S31=◆
+B32=5.0 | C32=FASE 5: DESARROLLO DE MODELOS DE IA Y APLICACIÓN MÓVIL | E32=20 | F32=2026-10-19 00:00:00 | G32=2026-11-13 00:00:00 | H32=Equipo Capstone | I32=SÍ | J32=Pendiente
+B33=5.1 | C33=Entrenamiento del modelo de Deep Learning (YOLOv8 / MobileNet) con dataset local | D33=4.4 | E33=6 | F33=2026-10-19 00:00:00 | G33=2026-10-26 00:00:00 | H33=J. Perea | I33=SÍ | J33=Pendiente
+B34=5.2 | C34=Ajuste de hiperparámetros, cuantización y exportación a formato móvil (TFLite/ONNX) | D34=5.1 | E34=4 | F34=2026-10-27 00:00:00 | G34=2026-10-30 00:00:00 | H34=J. Perea | I34=SÍ | J34=Pendiente
+B35=5.3 | C35=Codificación de interfaz móvil, cámara y almacenamiento local en smartphone | D35=4.3 | E35=8 | F35=2026-10-19 00:00:00 | G35=2026-10-28 00:00:00 | H35=F. Ortiz | I35=NO | J35=Pendiente
+B36=5.4 | C36=Implementación de lógica del agente de decisión y generación de alertas de manejo | D36=5.2 | E36=4 | F36=2026-11-02 00:00:00 | G36=2026-11-05 00:00:00 | H36=J. Perea | I36=SÍ | J36=Pendiente
+B37=5.5 | C37=HITO 5: Demostración en clase de métricas del modelo (Accuracy >= 85%) (Lunes 02/11 7:30 PM) | D37=5.2 | E37=0 | F37=2026-11-02 00:00:00 | G37=2026-11-02 00:00:00 | H37=J. Perea | I37=SÍ | J37=Pendiente | V37=◆
+B38=5.6 | C38=Integración Frontend móvil + Modelos de Visión + Agente de Decisión | D38=5.4, 5.3 | E38=5 | F38=2026-11-06 00:00:00 | G38=2026-11-12 00:00:00 | H38=F. Ortiz / J. Perea | I38=SÍ | J38=Pendiente
+B39=5.7 | C39=HITO 6: Presentación de Release Candidate (APK) en clase de Capstone (Lunes 09/11 7:30 PM) | D39=5.6 | E39=0 | F39=2026-11-09 00:00:00 | G39=2026-11-09 00:00:00 | H39=Equipo Capstone | I39=SÍ | J39=Pendiente | W39=◆
+B40=6.0 | C40=FASE 6: DESPLIEGUE, PRUEBAS Y VALIDACIÓN EN CAMPO | E40=10 | F40=2026-11-16 00:00:00 | G40=2026-11-27 00:00:00 | H40=Equipo Capstone | I40=SÍ | J40=Pendiente
+B41=6.1 | C41=Despliegue e instalación del APK en smartphones de los 5 agricultores piloto de Lurín | D41=5.6 | E41=2 | F41=2026-11-16 00:00:00 | G41=2026-11-17 00:00:00 | H41=F. Ortiz | I41=SÍ | J41=Pendiente
+B42=6.2 | C42=Taller de inducción y acompañamiento en campo a los productores sobre el uso de la app | D42=6.1 | E42=1 | F42=2026-11-18 00:00:00 | G42=2026-11-18 00:00:00 | H42=J. Perea / F. Ortiz | I42=SÍ | J42=Pendiente
+B43=6.3 | C43=Ejecución de pruebas operativas: detección en tiempo real vs. inspección tradicional | D43=6.2 | E43=5 | F43=2026-11-19 00:00:00 | G43=2026-11-25 00:00:00 | H43=J. Perea / F. Ortiz | I43=SÍ | J43=Pendiente
+B44=6.4 | C44=Levantamiento de métricas de campo: tiempo de respuesta, exactitud y feedback de UX | D44=6.3 | E44=2 | F44=2026-11-26 00:00:00 | G44=2026-11-27 00:00:00 | H44=J. Perea | I44=SÍ | J44=Pendiente
+B45=6.5 | C45=HITO 7: Sustentación de resultados de campo en clase de Capstone (Lunes 23/11 7:30 PM) | D45=6.3 | E45=0 | F45=2026-11-23 00:00:00 | G45=2026-11-23 00:00:00 | H45=Ing. Cesar Aguirre | I45=SÍ | J45=Pendiente | Y45=◆
+B46=7.0 | C46=FASE 7: CIERRE DEL PROYECTO Y SUSTENTACIÓN FINAL | E46=5 | F46=2026-11-28 00:00:00 | G46=2026-11-30 00:00:00 | H46=Equipo Capstone | I46=SÍ | J46=Pendiente
+B47=7.1 | C47=Consolidación de la memoria final de Capstone (conclusiones, viabilidad económica) | D47=6.4 | E47=2 | F47=2026-11-28 00:00:00 | G47=2026-11-29 00:00:00 | H47=J. Perea / F. Ortiz | I47=SÍ | J47=Pendiente
+B48=7.2 | C48=Elaboración de manuales de usuario/técnico y video formal de presentación (10 min) | D48=7.1 | E48=1 | F48=2026-11-29 00:00:00 | G48=2026-11-30 00:00:00 | H48=F. Ortiz | I48=SÍ | J48=Pendiente
+B49=7.3 | C49=Cierre de compromisos éticos, subida a Canvas y repositorio final GitHub | D49=7.2 | E49=1 | F49=2026-11-30 00:00:00 | G49=2026-11-30 00:00:00 | H49=J. Perea / F. Ortiz | I49=SÍ | J49=Pendiente
+B50=7.4 | C50=HITO 8: Sustentación Oficial de Fin de Curso (Lunes 30/11 de 7:30 a 10:40 PM) | D50=7.3 | E50=0 | F50=2026-11-30 00:00:00 | G50=2026-11-30 00:00:00 | H50=Jurado UPN / Asesor | I50=SÍ | J50=Programado | Z50=◆
+B53=LEYENDA DEL CRONOGRAMA ACADÉMICO:
+B54=     | C54=Ruta Crítica (CPM - Actividad indispensable sin holgura)
+B55=     | C55=Actividad Normal (Desarrollo en paralelo con margen)
+B56=     | C56=Fase / Agrupador Principal de WBS
+B57=     | C57=Hito de Control y Entrega en Clase de Lunes (◆)

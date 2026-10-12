@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AgroVision Sullana</string>
+    <string name="organization_name">Cooperativa Agraria LIMONORT-PERU</string>
+    <string name="location_name">Sullana, Piura</string>
+    <string name="crop_name">Limón Sutil</string>
+    <string name="course_name">Capstone Project</string>
+    <string name="capture_instruction">Encuadre la hoja de limón dentro de la guía</string>
+</resources>

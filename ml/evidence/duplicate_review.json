@@ -1,0 +1,1005 @@
+{
+  "group_split_leakage": false,
+  "selected_original_count": 2538,
+  "selected_after_exclusion": 1837,
+  "selected_excluded_by_class": {
+    "Citrus Leafminer": 239,
+    "Healthy": 462
+  },
+  "largest_groups": [
+    {
+      "group": "g_2a3f900b3de71b17",
+      "n": 832,
+      "classes": {
+        "Anthracnose": 62,
+        "Bacterial Blight": 20,
+        "Black Spot": 42,
+        "Citrus Canker": 172,
+        "Citrus Hindu Mite": 25,
+        "Citrus Leafminer": 80,
+        "Curl Leaf": 103,
+        "Dry Leaf": 74,
+        "Greening": 90,
+        "Healthy": 9,
+        "Lemon_Sooty_Mold": 1,
+        "Melanose": 44,
+        "Spider Mites": 24,
+        "Swallowtail Larval Herbivory (Deficiency)": 86
+      },
+      "splits": {
+        "excluded_conflict": 832
+      }
+    },
+    {
+      "group": "g_b3e7b53838843353",
+      "n": 604,
+      "classes": {
+        "Anthracnose": 46,
+        "Citrus Canker": 52,
+        "Citrus Leafminer": 77,
+        "Curl Leaf": 37,
+        "Greening": 74,
+        "Healthy": 313,
+        "Swallowtail Larval Herbivory (Deficiency)": 5
+      },
+      "splits": {
+        "excluded_conflict": 604
+      }
+    },
+    {
+      "group": "g_6fe5b0c1bc003701",
+      "n": 135,
+      "classes": {
+        "Anthracnose": 26,
+        "Black Spot": 6,
+        "Citrus Canker": 22,
+        "Citrus Hindu Mite": 1,
+        "Citrus Leafminer": 4,
+        "Curl Leaf": 40,
+        "Dry Leaf": 6,
+        "Greening": 10,
+        "Lemon_Sooty_Mold": 1,
+        "Spider Mites": 2,
+        "Swallowtail Larval Herbivory (Deficiency)": 15,
+        "Yellow_Spot": 2
+      },
+      "splits": {
+        "excluded_conflict": 135
+      }
+    },
+    {
+      "group": "g_4568b190bb5a3471",
+      "n": 76,
+      "classes": {
+        "Algal_Leaf_Spot": 31,
+        "Citrus Canker": 4,
+        "Citrus_Pest": 1,
+        "Greening": 21,
+        "Healthy": 9,
+        "Yellow_Spot": 10
+      },
+      "splits": {
+        "excluded_conflict": 76
+      }
+    },
+    {
+      "group": "g_dcb249fb14470d2c",
+      "n": 42,
+      "classes": {
+        "Anthracnose": 2,
+        "Black Spot": 6,
+        "Citrus Canker": 16,
+        "Citrus Leafminer": 2,
+        "Curl Leaf": 2,
+        "Dry Leaf": 2,
+        "Greening": 4,
+        "Melanose": 2,
+        "Swallowtail Larval Herbivory (Deficiency)": 6
+      },
+      "splits": {
+        "excluded_conflict": 42
+      }
+    },
+    {
+      "group": "g_3417f1a9ce5fe81d",
+      "n": 35,
+      "classes": {
+        "Anthracnose": 12,
+        "Citrus Canker": 3,
+        "Citrus Leafminer": 2,
+        "Curl Leaf": 5,
+        "Greening": 11,
+        "Healthy": 1,
+        "Swallowtail Larval Herbivory (Deficiency)": 1
+      },
+      "splits": {
+        "excluded_conflict": 35
+      }
+    },
+    {
+      "group": "g_1d68998af2ca7cca",
+      "n": 26,
+      "classes": {
+        "Anthracnose": 2,
+        "Bacterial Blight": 2,
+        "Citrus Hindu Mite": 1,
+        "Curl Leaf": 4,
+        "Melanose": 4,
+        "Spider Mites": 4,
+        "Swallowtail Larval Herbivory (Deficiency)": 8,
+        "Yellow_Spot": 1
+      },
+      "splits": {
+        "challenge": 26
+      }
+    },
+    {
+      "group": "g_74ed9737ccccb35f",
+      "n": 22,
+      "classes": {
+        "Algal_Leaf_Spot": 13,
+        "Citrus Canker": 5,
+        "Greening": 4
+      },
+      "splits": {
+        "challenge": 22
+      }
+    },
+    {
+      "group": "g_c8f9192821aad185",
+      "n": 21,
+      "classes": {
+        "Healthy": 15,
+        "Lemon_Sooty_Mold": 4,
+        "Yellow_Spot": 2
+      },
+      "splits": {
+        "excluded_conflict": 21
+      }
+    },
+    {
+      "group": "g_b9d7c9e5ebe3458f",
+      "n": 18,
+      "classes": {
+        "Algal_Leaf_Spot": 7,
+        "Citrus_Scab": 3,
+        "Healthy": 8
+      },
+      "splits": {
+        "excluded_conflict": 18
+      }
+    },
+    {
+      "group": "g_c115b0277b8e9ecd",
+      "n": 18,
+      "classes": {
+        "Bacterial Blight": 2,
+        "Dry Leaf": 4,
+        "Greening": 4,
+        "Melanose": 2,
+        "Spider Mites": 2,
+        "Swallowtail Larval Herbivory (Deficiency)": 4
+      },
+      "splits": {
+        "challenge": 18
+      }
+    },
+    {
+      "group": "g_76ab59e8af933a07",
+      "n": 17,
+      "classes": {
+        "Citrus Hindu Mite": 2,
+        "Citrus Leafminer": 4,
+        "Greening": 6,
+        "Healthy": 3,
+        "Melanose": 2
+      },
+      "splits": {
+        "excluded_conflict": 17
+      }
+    },
+    {
+      "group": "g_68228804426624c8",
+      "n": 16,
+      "classes": {
+        "Anthracnose": 2,
+        "Citrus Canker": 4,
+        "Citrus Hindu Mite": 1,
+        "Curl Leaf": 2,
+        "Dry Leaf": 2,
+        "Greening": 4,
+        "Healthy": 1
+      },
+      "splits": {
+        "excluded_conflict": 16
+      }
+    },
+    {
+      "group": "g_36d4b14e63b34d59",
+      "n": 16,
+      "classes": {
+        "Bacterial Blight": 4,
+        "Citrus Hindu Mite": 2,
+        "Dry Leaf": 2,
+        "Greening": 6,
+        "Spider Mites": 2
+      },
+      "splits": {
+        "challenge": 16
+      }
+    },
+    {
+      "group": "g_e4a7f654061fcda0",
+      "n": 15,
+      "classes": {
+        "Algal_Leaf_Spot": 15
+      },
+      "splits": {
+        "challenge": 15
+      }
+    },
+    {
+      "group": "g_d36e54a4c66f7af4",
+      "n": 14,
+      "classes": {
+        "Anthracnose": 5,
+        "Citrus Leafminer": 2,
+        "Citrus_Pest": 2,
+        "Curl Leaf": 2,
+        "Greening": 2,
+        "Healthy": 1
+      },
+      "splits": {
+        "excluded_conflict": 14
+      }
+    },
+    {
+      "group": "g_3b482647e47567fd",
+      "n": 13,
+      "classes": {
+        "Anthracnose": 5,
+        "Citrus Leafminer": 4,
+        "Curl Leaf": 1,
+        "Greening": 1,
+        "Swallowtail Larval Herbivory (Deficiency)": 2
+      },
+      "splits": {
+        "excluded_conflict": 13
+      }
+    },
+    {
+      "group": "g_9ff2e488374149d5",
+      "n": 13,
+      "classes": {
+        "Citrus Canker": 13
+      },
+      "splits": {
+        "challenge": 13
+      }
+    },
+    {
+      "group": "g_bbf90a08854abe5c",
+      "n": 13,
+      "classes": {
+        "Greening": 13
+      },
+      "splits": {
+        "challenge": 13
+      }
+    },
+    {
+      "group": "g_9c9508ad76d4545b",
+      "n": 12,
+      "classes": {
+        "Algal_Leaf_Spot": 7,
+        "Citrus Canker": 5
+      },
+      "splits": {
+        "challenge": 12
+      }
+    }
+  ],
+  "candidate_direct_cross_class_pairs": [
+    {
+      "a": "Citrus Canker/Citrus Canker_1581.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_003.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_008.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_003.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_659.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_009.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1560.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_009.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_259.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_009.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1553.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_009.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1427.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_011.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1559.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_011.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1511.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_011.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1612.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_017.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_5a692693b2f00823"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_017.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_018.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1610.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_018.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1673.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_019.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_034.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_019.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_743.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_020.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_648.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_028.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_3b5af98c611f977c"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1658.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_030.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1566.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_032.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1634.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_032.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1671.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_032.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1463.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_032.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_033.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_032.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_1167.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_032.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Hindu Mite/Citrus Hindu Mite_384.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_035.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_f87d17b057207993"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1603.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_046.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_046.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_051.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_6fe5b0c1bc003701"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_1070.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_051.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_6fe5b0c1bc003701"
+    },
+    {
+      "a": "Citrus Hindu Mite/Citrus Hindu Mite_091.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_051.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_6fe5b0c1bc003701"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1406.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_051.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_6fe5b0c1bc003701"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1691.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_056.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_039.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1550.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_657.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1463.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_014.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_1054.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 0,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1670.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1595.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1537.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1544.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1529.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1402.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1682.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_058.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1538.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_059.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1634.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_059.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_659.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_059.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1560.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_059.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1513.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_059.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1550.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1463.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_014.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_1054.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1595.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1537.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1575.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1544.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1529.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1402.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Hindu Mite/Citrus Hindu Mite_285.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_061.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_1167.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_066.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1553.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_066.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_1168.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_075.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_017.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_076.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_027.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_076.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Black Spot/Black Spot_678.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_076.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_028.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_076.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1568.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_076.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_2a3f900b3de71b17"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1451.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_079.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_dcb249fb14470d2c"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_833.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_095.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_ad277c8a15ab5aa2"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_360.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_100.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_549.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_100.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_796.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_102.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_369.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_112.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_860.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_114.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_3417f1a9ce5fe81d"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_980.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_114.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_3417f1a9ce5fe81d"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_791.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_121.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_d36e54a4c66f7af4"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_967.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_184.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_587.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_201.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1393.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_207.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_534.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_212.jpg",
+      "hamming_distance": 2,
+      "exact_sha256": false,
+      "group": "g_a0de6e39e4e9a0ba"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_390.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_213.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_967.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_216.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_296.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_257.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_127ab6551011c893"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_645.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_257.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_127ab6551011c893"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1110.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_300.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_a0caa9f9c2e43d6b"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_545.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_310.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_969.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_310.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1169.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_312.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_441.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_349.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_369.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_360.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_369.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_364.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_357.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_371.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1196.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_375.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_543.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_504.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1326.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_504.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_818.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_508.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1349.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_508.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Anthracnose/Anthracnose_769.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_517.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_3b482647e47567fd"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_1336.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_538.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_b3e7b53838843353"
+    },
+    {
+      "a": "Citrus Canker/Citrus Canker_911.jpg",
+      "b": "Citrus Leafminer/Citrus Leafminer_558.jpg",
+      "hamming_distance": 4,
+      "exact_sha256": false,
+      "group": "g_07ad96a8928a62a4"
+    }
+  ],
+  "interpretation": "Pairs are pHash screening candidates, not expert-confirmed duplicates. Transitive chains may put dissimilar endpoints in one conservative group. Review exclusions manually; no plant/session identity is inferred."
+}

@@ -1,0 +1,91 @@
+Estructura de Desglose del Trabajo (EDT)
+
+Sistema inteligente basado en visión artificial y agentes de decisión para la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja en los valles de Lurín – 2026
+Fecha: 06/09/2026
+
+Información del Proyecto
+Empresa / Organización
+Universidad Privada del Norte – Campus Chorrillos (Comité de Regantes Valle de Lurín)
+Proyecto
+AGROVISION-LURIN: Sistema Inteligente de Monitoreo Fitosanitario e Hídrico en Allium cepa
+Fecha de preparación
+06 de septiembre de 2026
+Gerente de Proyecto
+ORTIZ SIFUENTES, Fabrizio Alexander / PEREA VALDIVIA, Jose Miguel
+Vista de Lista
+1.0 Proyecto AGROVISION-LURIN: Sistema Inteligente de Monitoreo Fitosanitario e Hídrico
+1.1 Documento de Análisis y Gestión del Proyecto
+1.1.1 Project Charter y Registro Formal de Interesados
+1.1.2 Plan de Gestión de Proyecto y Líneas Base (Alcance, Cronograma, Costos)
+1.1.3 Fichas de Diagnóstico Agrícola en los Valles de Lurín (Población 12 Agricultores)
+1.1.4 Especificación Funcional de Requisitos de Software (SRS - ISO/IEC 29148)
+1.1.4.1 Requerimientos Funcionales (RF01 al RF10)
+1.1.4.2 Requerimientos No Funcionales (ISO/IEC 25010)
+1.1.4.3 Matriz de Trazabilidad de Requisitos (RTM)
+1.2 Documento de Diseño y Arquitectura
+1.2.1 Especificación de Diseño Funcional y Casos de Uso del Sistema
+1.2.2 Especificación de Diseño Técnico y Arquitectura C4 (SAD)
+1.2.3 Diseño de Interfaz de Usuario Rural (UI/UX Móvil de Alto Contraste)
+1.2.4 Diseño del Modelo de Reglas Agronómicas del Agente de Decisión
+1.2.5 Diseño de Casos de Prueba (Unitarias, Integración y Aceptación en Campo)
+1.3 Recolección, Curación y Preprocesamiento de Datos
+1.3.1 Campañas de Captura Fotográfica en Parcelas de Cebolla Roja (Lurín)
+1.3.2 Curación, Depuración de Ruido Óptico y Filtro de Nitidez (Laplacian)
+1.3.3 Etiquetado de Regiones de Interés (Sano, Plagas/Trips, Déficit Hídrico - 600 fotos)
+1.3.4 Data Augmentation y Partición del Dataset (Train 70% / Val 20% / Test 10%)
+1.4 Software Desarrollado e Instalado (Release Candidate)
+1.4.1 Preparación de Ambiente de Desarrollo y Pipeline de Inferencia Edge
+1.4.2 Módulo 1: Visión Artificial y Detección Foliar
+1.4.2.1 Pipeline de Preprocesamiento de Imágenes y Normalización Tensorial
+1.4.2.2 Modelo de Detección de Plagas Foliares Entrenado (YOLOv8/MobileNet)
+1.4.2.3 Clasificador Morfológico y Cromático de Déficit Hídrico
+1.4.2.4 Cuantización y Exportación de Modelos a Formato Móvil (TFLite int8)
+1.4.3 Módulo 2: Agente de Decisión Agronómico
+1.4.3.1 Base de Conocimiento de Reglas Fitosanitarias e Hídricas
+1.4.3.2 Motor de Inferencia y Cruce con Etapa Fenológica del Cultivo
+1.4.3.3 Generador de Recomendaciones Técnicas Accionables y Niveles de Alerta
+1.4.4 Módulo 3: Aplicación Móvil de Inspección en Campo
+1.4.4.1 Capa de Presentación e Interfaz con el Usuario (UI Rural Adaptada)
+1.4.4.2 Controlador de Cámara y Guía Visual de Encuadre en Tiempo Real
+1.4.4.3 Módulo de Inferencia Local de Baja Latencia (< 3.5 segundos)
+1.4.4.4 Generador de Fichas Técnicas de Inspección en Formato PDF
+1.4.5 Módulo 4: Persistencia Local y Sincronización Asíncrona
+1.4.5.1 Base de Datos Relacional Local Embebida (SQLite)
+1.4.5.2 Gestor de Transacciones y Persistencia Offline de Diagnósticos
+1.4.5.3 Servicio en Segundo Plano para Sincronización Automática con la Nube
+1.5 Pruebas de Calidad y Validación Experimental
+1.5.1 Ejecución de Pruebas Unitarias y de Integración Automatizadas
+1.5.2 Evaluación Experimental de Métricas de IA (Accuracy, Recall, Matriz de Confusión)
+1.5.3 Despliegue de APK en Smartphones de los 5 Agricultores Piloto de Lurín
+1.5.4 Jornadas de Validación de Campo y Medición de Usabilidad (Escala SUS)
+1.6 Cierre del Proyecto y Memoria Final
+1.6.1 Informe Final de Capstone Project Sistemas 2026-2
+1.6.2 Manuales Técnicos y de Usuario de la Herramienta
+1.6.3 Video Demostrativo del Producto Software (10 Minutos)
+1.6.4 Sustentación Oficial ante el Jurado Evaluador UPN
+
+Vista de Árbol
+
+
+Control de Versiones
+Version
+Elaborada por
+Revisada por
+Fecha
+Comentarios
+1.0
+Ortiz Sifuentes, FabrizioPerea Valdivia, Jose Miguel
+Ortiz Sifuentes, FabrizioPerea Valdivia, Jose Miguel
+06/09/2026
+Estructuración formal de la EDT (WBS) para la Práctica de Campo de Semana 3.
+1.1
+Ortiz Sifuentes, FabrizioPerea Valdivia, Jose Miguel
+Ing. Cesar Aguirre Rodriguez
+07/09/2026
+Aprobación de la línea base del alcance en la sesión de clase de Semana 4.
+
+
+
+
+
+

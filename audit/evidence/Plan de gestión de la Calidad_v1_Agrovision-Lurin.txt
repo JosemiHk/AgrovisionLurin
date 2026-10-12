@@ -1,0 +1,147 @@
+
+CONTROL DE VERSIONES
+Versión
+Hecha por
+Revisada por
+Aprobada por
+Fecha
+Motivo
+1.0
+Ortiz Sifuentes, Fabrizio Alexander
+
+Perea Valdivia, Jose Miguel
+
+Ortiz Sifuentes, Fabrizio Alexander
+
+Perea Valdivia, Jose Miguel 
+
+Ing. Cesar Edinson Aguirre Rodriguez
+06/09/2026
+Elaboración del Plan de Gestión de la Calidad del Software adaptado a la norma ISO/IEC 25010.
+
+PLAN DE GESTIÓN DE LA CALIDAD
+
+Nombre del Proyecto
+Siglas del Proyecto
+Implementación de un software inteligente basado en visión artificial y agentes de decisión para mejorar el monitoreo fitosanitario y la toma de decisiones en el cultivo de cebolla roja en los valles de Lurín, 2026.
+AGROVISION-LURIN. 
+
+
+Estándar o Norma de Calidad aplicable
+Paquete de Trabajo
+Estándar o Norma de Calidad aplicable
+EDT 2.0: Requerimientos y Especificaciones
+ISO/IEC/IEEE 29148:2018: Procesos de ingeniería de requerimientos y especificación estructurada (SRS) con trazabilidad.
+EDT 3.0: Dataset y Curación de Datos
+ISO/IEC 5259 (Data QualityforAnalytics and ML): Integridad, balanceo de clases fotográficas (200 sanas, 200 plagas, 200 estrés hídrico) y consistencia en etiquetado.
+EDT 4.0: Arquitectura de Software y UI/UX
+ISO/IEC/IEEE 42010: Descripción de arquitectura de sistemas y ISO 9241-11 / 210: Ergonomía y usabilidad para interfaces de usuario en entornos rurales.
+EDT 5.0 y 6.0: Producto Software, Modelos IA y Pruebas
+ISO/IEC 25010 (SQuaRE): Modelo de calidad de producto software (Adecuación funcional, Eficiencia de desempeño, Usabilidad, Fiabilidad, Portabilidad) e ISO/IEC/IEEE 29119: Estándar de pruebas de software.
+Objetivos de Calidad
+Precisión y Eficacia Diagnóstica (Adecuación Funcional - ISO 25010): Alcanzar una exactitud global (Accuracy)≥85%, con métricas de Recall≥80% y Precision≥ 80% en la clasificación multiclase de plagas foliares y déficit hídrico sobre el dataset de prueba. 
+Eficiencia de Desempeño y Latencia Temporal: Lograr un tiempo de inferencia y respuesta menor a 3.5 segundos por captura fotográfica evaluada en el smartphone, garantizando fluidez durante el muestreo en campo. 
+Usabilidad Rural y Satisfacción: Obtener una tasa de éxito en tareas de diagnóstico ≥90% y una satisfacción del usuario final ≥85% evaluada mediante la escala SUS (SystemUsabilityScale) con los 5 productores piloto del Valle de Lurín. 
+Fiabilidad y Tolerancia a Fallos en Campo: Asegurar operatividad continua del sistema en modo offline-first, garantizando 0% de pérdida de registros o fotos ante pérdida de conectividad 3G/4G. 
+Calidad de Código y Estabilidad: Mantener una cobertura de pruebas unitarias ≥80% en módulos críticos y registrar un máximo admisible de 0 defectos bloqueantes o críticos en la versión Release Candidate. 
+
+Roles para la Gestión de la Calidad:especificar los roles que serán necesarios en el equipo de proyecto para desarrollar los entregables y actividades de Gestión de la Calidad.
+
+Rol No 1 :Líder de Calidad y Pruebas de Software (QA Lead)
+
+Objetivos del rol:Garantizar el cumplimiento de las normas ISO/IEC 25010 y 29119, coordinando la ejecución de pruebas unitarias, de integración, rendimiento y aceptación.
+
+Funciones del rol:Diseñar casos de prueba, automatizar scripts de validación, auditar la cobertura de código, supervisar la matriz de defectos y validar la aceptación con usuarios.
+
+Niveles de autoridad:Autoridad para vetar o aprobar el paso de compilaciones (Release Candidate) a despliegue en campo.
+
+Reporta a: Docente Asesor del Curso (Ing. Cesar Aguirre).
+
+Supervisa a: Equipo de desarrollo en aspectos de calidad y testing.
+
+Requisitos de conocimientos:Automatización de pruebas (PyTest, Selenium, Flutter Test), estándar ISO/IEC 25010 y Git workflow.
+
+Requisitos de habilidades:Pensamiento crítico, rigor analítico, resolución estructurada de incidencias y comunicación técnica.
+
+Requisitos de experiencia:Formación avanzada en Ingeniería de Sistemas y diseño de suites de prueba de software.
+
+Rol No 2 :Ingeniero de Calidad de Datos y Modelos de IA (ML QualityEngineer)
+
+Objetivos del rol:Asegurar la calidad, consistencia y representatividad del dataset agrícola, así como el desempeño matemático de las redes neuronales y del agente de decisión.
+
+Funciones del rol:Validar el balanceo del dataset (600 imágenes), auditar etiquetados (bounding boxes), calcular matrices de confusión, verificar sobreajuste (overfitting) y monitorear el tiempo de inferencia.
+
+Niveles de autoridad :Autoridad técnica para rechazar datasets mal etiquetados y exigir el reentrenamiento de modelos que no superen el 85% de exactitud.
+
+Reporta a:Líder de Calidad / Docente Asesor.
+
+Supervisa a:Proceso de curación, aumento y etiquetado de imágenes.
+
+Requisitos de conocimientos:Visión artificial (YOLOv8, MobileNet), métricas de aprendizaje supervisado (mAP, F1-Score, Recall) y Python/PyTorch.
+
+Requisitos de habilidades:Análisis matemático, síntesis de métricas estadísticas y manejo de datos no estructurados.
+
+Requisitos de experiencia:Manejo de pipelines de ComputerVision y optimización de modelos para dispositivos edge/móviles.
+
+Rol No 3 :Auditor de Usabilidad y Validación de Campo (Field UX Evaluator)
+
+Objetivos del rol:Garantizar que la aplicación móvil se adapte eficazmente a las condiciones ergonómicas, culturales y ambientales de los productores de Lurín.
+
+Funciones del rol:Ejecutar pruebas de aceptación en parcelas reales, medir tiempos de operación manual del agricultor, recolectar encuestas SUS y verificar la legibilidad bajo luz solar.
+
+Niveles de autoridad:Facultad para solicitar ajustes prioritarios en flujos de usuario, contraste de pantalla, iconografía y tamaño tipográfico.
+
+Reporta a:Líder de Calidad.
+
+Supervisa a:Grupo de validación con los 5 agricultores piloto de Lurín.
+
+Requisitos de conocimientos:Métodos de evaluación de usabilidad, diseño accesible (alto contraste, iconografía rural) e instrumentos tipo Likert/SUS.
+
+Requisitos de habilidades:Empatía, facilitación pedagógica, recolección de feedback cualitativo y adaptabilidad a campo.
+
+Requisitos de experiencia: Aplicación de pruebas piloto con usuarios finales en proyectos de ingeniería.
+
+
+Revisiones de Calidad
+Entregables/ Procesos
+Revisiones de Calidad
+Línea Base de Requisitos (SRS)
+Revisión Formal de Requisitos: Inspección estática con lista de cotejo para verificar consistencia, ausencia de ambigüedades y cobertura de las necesidades de los agricultores.
+Dataset de Imágenes Agrícolas (EDT 3.0)
+Auditoría de Calidad de Datos: Verificación muestral del 100% de imágenes respecto a enfoque, resolución (≥ 8MP), iluminación y correspondencia de etiquetas en el banco de 600 fotos. 
+Pesos y Modelos de IA (EDT 5.1 / 5.2)
+Evaluación Experimental de Métricas: Inspección de curvas de pérdida (loss), matrices de confusión y cálculo de
+sobre el set de prueba ciego 
+Código Fuente y Compilaciones APK (EDT 5.6)
+Revisión de Código por Pares y Análisis Estático: Verificación de estándares de codificación, pruebas unitarias automatizadas y análisis de vulnerabilidades previas a la generación del APK.
+Piloto Operativo en Parcelas (EDT 6.3 / 6.4)
+Revisión de Aceptación de Campo: Evaluación in situ con los 5 productores de cebolla roja en Lurín mediante escenarios reales de inspección y cotejo de alertas.
+Actividades de Control y Gestión de la Calidad
+Actividades de Control de la Calidad
+Ejecución de Pruebas Unitarias e Integración: Ejecución automatizada de pruebas funcionales para los algoritmos de inferencia, controladores de cámara y sincronización SQLite con PyTest y suites móviles.  
+
+Validación de la Matriz de Confusión: Medición cuantitativa de falsos positivos y falsos negativos en la detección foliar para evitar alarmas erróneas en campo.  
+
+Pruebas de Estrés y Latencia: Medición cronometrada del tiempo de inferencia bajo ráfagas continuas de procesamiento fotográfico para validar el cumplimiento del umbral < 3.5s.  
+
+Pruebas de Conectividad Intermitente: Simulación de modo avión y pérdida súbita de señal móvil para verificar la persistencia local de diagnósticos y su posterior sincronización.  
+Actividades de  Gestión de la Calidad
+Auditoría del Proceso de Etiquetado: Definición y cumplimiento del manual de anotación foliar para estandarizar el criterio técnico entre ambos evaluadores. 
+
+Integración Continua (CI): Implementación de pipelines en GitHub Actions que impiden la fusión (merge) de código si fallan las pruebas unitarias o la cobertura desciende del 80%. 
+
+Reuniones de Retrospectiva y Ajuste: Análisis quincenal de los defectos reportados durante el desarrollo para corregir desviaciones en la lógica del agente o en el preprocesamiento de imágenes. 
+
+Revisión Semanal de Métricas en Clase: Presentación y evaluación de indicadores de calidad en las sesiones presenciales de los lunes de 7:30 a 10:40 pm con el docente. 
+Herramientas de Calidad
+PyTest / Unittest: Framework de pruebas para automatizar la ejecución de pruebas unitarias sobre los módulos de inferencia, preprocesamiento y reglas del agente. 
+RoboflowQualityAssurance Tool: Plataforma para inspección de dataset, detección de anotaciones huérfanas, balanceo de clases y generación de aumentaciones controladas. 
+SonarQube / Flake8: Herramientas de análisis estático de código para identificar olores de código (codesmells), complejidad ciclomática excesiva y vulnerabilidades de seguridad. 
+Matriz de Confusión y TensorBoard: Herramientas analíticas para el seguimiento visual de la convergencia del entrenamiento, pérdida de validación y cálculo de precisión/recall de la red. 
+Formularios de Evaluación SUS (SystemUsabilityScale): Instrumento psicométrico validado para la medición de la facilidad de uso y satisfacción de los agricultores en campo.
+Procedimientos Relevantes de la Calidad
+Procedimiento de Gestión de Defectos (Bug Tracking): Todo defecto detectado en desarrollo o pruebas se registra en el gestor de incidentes de GitHub clasificándolo por severidad (Crítico, Mayor, Menor, Trivial). Ninguna versión pasa a fase de campo con incidencias críticas o mayores abiertas. 
+Procedimiento de Aprobación de Dataset (Quality Gate de Datos): Ninguna imagen se incorpora al set de entrenamiento si no cuenta con validación visual dual (resolución mínima de 8 MP, luz natural diurna, ausencia de desenfoque y presencia confirmada de la patología o estado de hidratación). 
+Procedimiento de Validación de Modelos de IA: Los pesos exportados a formato móvil (.tflite / .onnx) deben someterse a una prueba ciega con 60 capturas independientes reservadas, exigiéndose una exactitud de clasificación mínima del 85% para autorizar su integración en el APK final. 
+Procedimiento de Aceptación con Usuarios Finales en Lurín: Se aplica un protocolo formal donde el agricultor realiza tres capturas consecutivas en su propia parcela; la prueba se valida exitosamente si el productor interpreta correctamente el diagnóstico y la recomendación sin requerir intervención técnica del equipo. 
+

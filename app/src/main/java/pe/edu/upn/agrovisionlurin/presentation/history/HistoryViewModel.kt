@@ -75,17 +75,7 @@ class HistoryViewModel(
     }
 
     fun syncPending() {
-        viewModelScope.launch {
-            _isSyncing.value = true
-            try {
-                val pending = dao.getPendingSyncInspections()
-                if (pending.isNotEmpty()) {
-                    delay(800) // Simulación breve de transferencia de datos
-                    dao.markAllAsSynced(pending.map { it.id })
-                }
-            } finally {
-                _isSyncing.value = false
-            }
-        }
+        // Compatibility screen is no longer routed. Remote sync is excluded; preserve local records.
+        _isSyncing.value = false
     }
 }

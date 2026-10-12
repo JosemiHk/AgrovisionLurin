@@ -1,0 +1,227 @@
+CONTROL DE VERSIONES
+Versión
+Hecha por
+Revisada por
+Aprobada por
+Fecha
+Motivo
+1.0
+Ortiz Sifuentes, Fabrizio Alexander
+
+Perea Valdivia, Jose Miguel 
+
+Ortiz Sifuentes, Fabrizio Alexander
+
+Perea Valdivia, Jose Miguel 
+
+Ing. Cesar Edinson Aguirre Rodriguez
+06/09/2026
+Elaboración del Plan de Gestión de los Costos basado en la estimación por Puntos de Función (FPA).
+
+PLAN DE GESTIÓN DE LOS COSTOS
+
+Nombre del Proyecto
+Siglas del Proyecto
+Nombre del Proyecto: Implementación de un software inteligente basado en visión artificial y agentes de decisión para mejorar el monitoreo fitosanitario y la toma de decisiones en el cultivo de cebolla roja en los valles de Lurín, 2026. 
+Siglas del Proyecto: AGROVISION-LURIN.
+
+Unidades de Medida: Unidades de medida a utilizar, para estimar y trabajar cada tipo de recurso.
+Tipo de Recurso
+Unidades de Medida
+Recursos Humanos (Ingeniería de Software / IA)
+Horas Hombre (HH) calculadas a partir de Puntos de Función Ajustados (AFP).
+Tamaño Funcional del Software
+Puntos de Función (PF / UFP / AFP) bajo el estándar IFPUG CPM 4.3.1.
+Servicios de Cómputo e Infraestructura Cloud
+Horas de cómputo GPU / Mes de suscripción en plataforma cloud.
+Logística y Trabajo de Campo en Lurín
+Visitas técnicas realizadas / Días de trabajo de campo por investigador.
+Materiales e Insumos Técnicos
+Unidades (piezas/kits de sujeción para smartphones, cartas de calibración de color, papelería).
+Moneda del Proyecto
+Soles Peruanos (PEN / S/) para costos locales y dólares estadounidenses (USD / $) para facturación de servicios cloud internacionales.
+
+
+Nivel de Precisión: Consiste en el grado de redondeo, hacia arriba o hacia abajo, que se aplicará
+a las estimaciones del costo de las actividades (ejm $100.49 a $ 100).
+Tipo de Estimación
+Modo de Formulación
+Nivel de Precisión
+Esfuerzo de Desarrollo (HH)
+Horas calculadas paramétricamente multiplicando los Puntos de Función Ajustados (130.80 AFP) por la tasa de productividad (9.0 HH/PF).
+Redondeo al entero más cercano (ejemplo: 141.26 HH se redondea a 141 HH).
+Costo de Mano de Obra Directa
+Multiplicación de las Horas Hombre devengadas por la tarifa horaria fijada (S/. 25.00/HH).
+Redondeo a números enteros en Soles (S/. 1.00).
+Servicios Cloud e Infraestructura
+Conversión de la tarifa mensual de suscripción USD a moneda local al tipo de cambio oficial de compra/venta.
+Redondeo a dos decimales (S/. 0.01).
+Logística y Viáticos de Campo
+Rendición de comprobantes de movilidad, pasajes y alimentación en el Valle de Lurín.
+Redondeo a dos decimales (S/. 0.01).
+Presupuesto Total y Reservas
+Sumatoria de costos directos más reserva de contingencia (10%).
+Redondeo al entero más cercano en Soles (S/. 1.00).
+
+
+
+
+Nivel de exactitud: Se especifica el rango aceptable (ejm. -15% +25%).
+Tipo de Estimación
+Modo de Formulación
+Nivel de exactitud: 
+Estimación de Orden de Magnitud (ROM)
+Estimación análoga preliminar basada en proyectos afines de visión artificial en el sector agrario elaborada en la fase de iniciación.
+-25% a +50%
+Estimación Presupuestaria de Requisitos
+Estimación paramétrica inicial a partir de los casos de uso preliminares y levantamiento inicial en campo.
+-15% a +25%
+Estimación Definitiva (Línea Base por FPA)
+Conteo formal de Puntos de Función (IFPUG) tras cerrar la especificación de requerimientos (SRS) al cierre de la Semana 3.
+-5% a +10%
+Estimación de Costos de Infraestructura Cloud
+Cotización directa con la calculadora de precios de Google Cloud Platform y/o Azure y tarifas fijas de procesamiento.
+-5% a +5%
+Estimación de Reserva De Contingencia
+Cálculo del 10% sobre la base presupuestal asignado a la mitigación de los riesgos R01, R02 y R03.
++-0%(Fondo cerrado de reserva)
+Enlaces con los procedimientos de la organización: Especificar de qué forma se relaciona el Plan de Gestión con procedimientos precedentes o subsecuentes. 
+El Plan de Gestión de Costos se encuentra alineado estrictamente con la estructura de gobierno del curso de Capstone Project de la Universidad Privada del Norte (UPN) y los estándares del PMI: 
+
+Enlace con la Estructura de Desglose del Trabajo (EDT / WBS): Cada cuenta de costo corresponde directamente a un paquete de trabajo del primer y segundo nivel de la EDT (1.0 a 7.0). No se imputa gasto alguno a actividades no registradas en la línea base del alcance. 
+Enlace con el Plan de Gestión de Cambios: Si una solicitud de cambio altera el número de funciones transaccionales (EI, EO, EQ) o de datos (ILF, EIF), se recalcula el conteo de Puntos de Función y se actualiza la línea base de costos previa aprobación del docente del curso. 
+Enlace con los Hitos Académicos: La revisión del gasto devengado e imputación de HH se evalúa quincenalmente en las sesiones síncronas de Capstone, utilizándose como insumo directo para el informe de estado (Status Report) y la memoria final de titulación. 
+Parámetros de variación permitida antes de exigir acciones correctivas formales: 
+Umbrales de Control
+Alcance: Proyecto/Fase/Entregable
+Variación Permitida
+Acción a tomar si la variación excede lo permitido
+Costo Total del Proyecto (Línea Base S/. 33,913.00)
++-5% del presupuesto base
+Reunión de emergencia del equipo de desarrollo, auditoría del devengado de horas e informe explicativo al docente asesor.
+Esfuerzo en Desarrollo e IA (EDT 5.0)
++10% en Horas Hombre (HH)
+Revisión de hiperparámetros de entrenamiento, simplificación de la arquitectura de la red (ej. migrar de YOLOv8x a YOLOv8n) y congelamiento de alcance.
+Costo de Infraestructura Cloud
++15 sobre la cuota mensual
+Migración inmediata de procesos no críticos a entornos de cómputo local (GPUs de laboratorio) y apagado automático de instancias cloud ociosas.
+Logística de Trabajo de Campo en Lurín (EDT 2.2, 3.1, 6.3)
++10 en gastos de traslado
+Consolidación de visitas de campo: unificar sesiones de muestreo fotográfico con pruebas operativas en una sola jornada intensiva.
+Entregables por Fase (Quality Gates)
++-8% de variación de costo de fase
+Reprogramación interna de tareas no críticas dentro de la holgura del cronograma sin comprometer el hito de sustentación final.
+
+
+Reglas para la Medición del Desempeño
+Alcance: Proyecto/Fase/Entregable
+(especificar si el método de medición aplica a todo el proyecto, una fase, un grupo de entregables o un entregable específico).
+Método de Medición
+(especificar el método de medición que se usará para calcular el valor ganado de los entregables  especificados).
+Modo de Medición
+(especificar en detalle el modo de medición, indicando el quién, cómo, cuándo, dónde).
+Entregables de Documentación y Gestión (Fases 1, 2 y 7)
+Regla 0 / 100: El valor ganado (EV) es 0% hasta que el documento está completamente redactado, revisado y aprobado por el docente asesor, momento en el cual se computa el 100%. 
+
+Quién: Ortiz Sifuentes, Fabrizio.
+Cómo: Verificación en rúbrica UPN.
+Cuándo: Semanas 2, 4 y 16 en horario de clase de los lunes.
+Dónde: Plataforma Blackboard UPN / Sesión de clase. 
+
+Construcción del Dataset y Etiquetado (Fase 3)
+Unidades Completadas:
+
+Quién: Perea Valdivia, Jose Miguel.
+Cómo: Conteo en plataforma Roboflow / LabelImg.
+Cuándo: Semanalmente los días viernes.
+Dónde: Repositorio de datos del proyecto
+
+Modelado de IA y Aplicación Móvil (Fase 5)
+HitosPonderados:
+- Modelo entrenado con métricas base: 40%
+- Cuantización y exportación TFLite: 20%
+- Integración con frontend móvil: 40%.
+
+Quién: Equipo Capstone (Ortiz / Perea).
+Cómo: Verificación en pipeline de GitHub Actions y pruebas de inferencia.
+Cuándo: Al cierre de los Sprints quincenales.
+Dónde: Laboratorio de desarrollo / Reunión técnica. 
+
+Validación y Pruebas en Campo (Fase 6)
+Hitos Ponderados:
+- Instalación del APK en los 5 agricultores: 30%
+- Ejecución del piloto de monitoreo: 40%
+- Matriz de confusión y tiempos levantados: 30%.
+
+Quién: Perea Valdivia, Jose Miguel.
+Cómo: Fichas de campo firmadas por los productores.
+Cuándo: Semanas 14 y 15.
+Dónde: Parcelas del Valle de Lurín. 
+
+Medición Integral del Proyecto (EVM Global)
+Índices de Rendimiento:
+
+
+
+
+Quién: Perea Valdivia, Jose Miguel.
+Cómo: Cálculo en hoja de cálculo de gestión presupuestal.
+Cuándo: Lunes de cada semana (7:30 - 10:40 pm).
+Dónde: Sesión de revisión de Capstone. 
+
+Formatos de Gestión de Costos: Descripción detallada de los formatos de gestión de costos que se utilizarán durante la gestión de proyectos.
+Formato de Gestión de Costos
+Descripción: qué, quién, cómo, cuándo, dónde, con qué
+Hoja de Conteo de Puntos de Función (FPA-Calc)
+Qué: Registro detallado de componentes funcionales (ILF, EIF, EI, EO, EQ), pesos de complejidad y cálculo de AFP. 
+Quién: Ortiz Sifuentes y Perea Valdivia. 
+Cómo: Formato estandarizado en Excel aplicando fórmulas IFPUG. 
+Cuándo: Al cierre de Semana 3 y ante cualquier solicitud de cambio de alcance. 
+Dónde / Con qué: Almacenado en la carpeta de gestión del repositorio GitHub del proyecto. 
+
+Registro Semanal de Imputación de Horas (TimeSheet)
+Qué: Registro individualizado de horas hombre trabajadas vinculadas al código EDT específico. 
+Quién: Cada integrante del equipo (Ortiz / Perea). 
+Cómo: Ingreso de horas dedicadas diarias multiplicadas por la tarifa base (S/. 25.00/HH). 
+Cuándo: Cierre de cada semana lectiva (domingos 11:59 pm). 
+Dónde / Con qué: Plantilla compartida en Google Sheets / Excel Online. 
+
+Reporte de Variación y Desempeño Presupuestal (EVM-Report)
+Qué: Consolidado de métricas de valor ganado ($PV, EV, AC, CV, SV, CPI, SPI$) y estimación al término ($EAC$). 
+Quién: Responsable de gestión del proyecto (Perea Valdivia). 
+Cómo: Procesamiento automatizado de costos acumulados vs. avance físico. 
+Cuándo: Quincenalmente, previo a la sesión de asesoría de los lunes. 
+Dónde / Con qué: Documento de reporte adjunto al informe de Capstone. 
+
+Planilla de Control de Gastos de Campo y Cloud (ExpenseLog)
+Qué: Control de comprobantes de pago de servicios en la nube (facturas en USD de Google Cloud) y viáticos a Lurín. 
+Quién: Ortiz Sifuentes, Fabrizio. 
+Cómo: Registro cronológico de facturas/recibos con tipo de cambio y fecha de consumo. 
+Cuándo: Inmediatamente después de realizada cada compra o visita de campo. 
+Dónde / Con qué: Carpeta compartida con respaldos digitales en PDF. 
+
+
+
+Detalles adicionales de la gestión de Costos: Descripción  de algunos detalles adicionales sobre la gestión de costos.
+selección del financiamiento: Descripción detallada dela selección del financiamiento.
+El proyecto AGROVISION-LURIN se categoriza formalmente como un proyecto de investigación aplicada y desarrollo tecnológico de pregrado. El financiamiento es de carácter no reembolsable mediante autofinanciamiento directo (recursos propios de los investigadores) en lo relativo a costos operativos directos (S/. 1,400.00 destinados a computación cloud GPU, viáticos a parcelas de Lurín y adquisición de soportes técnicos). 
+El costo correspondiente a la mano de obra de desarrollo de software (S/. 29,430.00 derivado de las 1,177.20 Horas Hombre cuantificadas por el análisis FPA) representa una inversión de capital de trabajo académico/profesional (esfuerzo no monetizado directamente en efectivo, pero valorizado contablemente) indispensable para medir el valor económico y la viabilidad técnica del producto frente a soluciones comerciales de mercado. 
+
+Fluctuaciones en los tipos de cambio: Descripción detallada del proceso empleado para tener en cuenta las fluctuaciones en los tipos de cambio.
+Los servicios de procesamiento e infraestructura en la nube (Google Cloud Platformy/o Azure y Google Colab Pro) se facturan periódicamente en Dólares Estadounidenses (USD): 
+
+Tipo de Cambio de Referencia: Para la línea base presupuestal se establece un tipo de cambio contable fijo conservador de S/. 3.50 por cada 1.00 USD. 
+
+Mitigación del Riesgo Cambiario: Los costos en moneda extranjera representan una porción reducida del presupuesto total (<S/ 500.00). Ante una devaluación imprevista del Sol que supere el 5%, la diferencia resultante se absorberá automáticamente de la Reserva de Contingencia de Costos (S/. 3,083.00) sin requerir una ampliación de la línea base ni comprometer fondos de otras actividades. 
+
+Registro de los costos: Descripción detallada para el registro de los costos del proyecto.
+Plan de Cuentas Contable: Todos los egresos y devengados se clasifican obligatoriamente bajo tres cuentas de control:
+CTA-01: Mano de Obra de Ingeniería (HH de Ortiz y Perea). 
+CTA-02: Infraestructura y Servicios Tecnológicos (GPU Cloud y Licencias). 
+CTA-03: Logística Operativa y Muestreo en Lurín (Movilidad, Materiales y Validación). 
+
+Criterio de Reconocimiento: Los costos de mano de obra se reconocen por avance devengado según el cierre quincenal de los Sprints de desarrollo. Los costos operativos se registran bajo el principio de caja con la presentación del comprobante digital o recibo de traslado correspondiente. 
+Custodia y Trazabilidad: Todo registro de costo se almacena en el control de versiones de documentación del repositorio oficial institucional, garantizando la trazabilidad exigida por el marco de Capstone Project 2026-2. 
+
+
+
