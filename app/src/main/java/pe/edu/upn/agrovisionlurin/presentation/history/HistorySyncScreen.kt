@@ -11,8 +11,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CloudDone
-import androidx.compose.material.icons.rounded.CloudUpload
+import androidx.compose.material.icons.rounded.PhoneAndroid
+import androidx.compose.material.icons.rounded.PendingActions
 import androidx.compose.material.icons.rounded.SearchOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -27,7 +27,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import pe.edu.upn.agrovisionlurin.data.local.InspectionEntity
 import pe.edu.upn.agrovisionlurin.presentation.components.LeafThumbnail
 import java.text.SimpleDateFormat
@@ -38,10 +41,22 @@ import java.util.*
 fun HistorySyncScreen(
     @Suppress("UNUSED_PARAMETER") onBack: () -> Unit = {},
     onNavigateToDetail: (String) -> Unit = {},
-    viewModel: HistoryViewModel = viewModel()
+    session: LocalMvpViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
+    val inspections by session.inspections.collectAsStateWithLifecycle(initialValue = emptyList())
+    val busy by session.busy.collectAsStateWithLifecycle()
+    val message by session.message.collectAsStateWithLifecycle()
+    var selectedFilter by rememberSaveable { mutableStateOf("Todos") }
+    val pendingCount = inspections.count { it.state in listOf("BORRADOR", "ERROR", "NO_CONCLUYENTE") }
+    val filteredInspections = inspections.filter {
+        when (selectedFilter) {
+            "Minador" -> it.state == "VALIDO" && it.classCode == "MINADOR_COMPATIBLE"
+            "Sin síntomas" -> it.state == "VALIDO" && it.classCode == "SIN_SINTOMAS_VISIBLES"
+            "Revisar" -> it.state in listOf("BORRADOR", "ERROR", "NO_CONCLUYENTE")
+            "Legado" -> it.state == "LEGADO"
+            else -> true
+        }
+    }.sortedByDescending { it.createdAt }
 
     Scaffold(
         topBar = {
@@ -71,27 +86,26 @@ fun HistorySyncScreen(
         ) {
             // 1. Top Sync Banner
             item(key = "sync_banner") {
-                SyncBanner(
-                    pendingCount = uiState.pendingSyncCount,
-                    isSyncing = isSyncing,
-                    onSyncNow = { viewModel.syncPending() }
-                )
+                LocalBanner(pendingCount = pendingCount)
+            }
+            if (busy) {
+                item(key = "loading") { LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), color = Color(0xFF1B5E20)) }
+            }
+            if (message.isNotBlank()) {
+                item(key = "operation_message") { Text(message, color = Color(0xFF5E636E), fontSize = 13.sp) }
             }
 
             // 2. Horizontal Filter Chips
             item(key = "filter_chips") {
                 FilterChipsRow(
-                    selectedFilter = uiState.selectedFilter,
-                    totalCount = uiState.totalLocalCount,
-                    pestCount = uiState.pestCount,
-                    waterStressCount = uiState.waterStressCount,
-                    healthyCount = uiState.healthyCount,
-                    onFilterSelected = { viewModel.setFilter(it) }
+                    selectedFilter = selectedFilter,
+                    inspections = inspections,
+                    onFilterSelected = { selectedFilter = it }
                 )
             }
 
             // 3. Inspections List or Empty State
-            if (uiState.inspections.isEmpty()) {
+            if (filteredInspections.isEmpty()) {
                 item(key = "empty_state") {
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
@@ -127,7 +141,7 @@ fun HistorySyncScreen(
                 }
             } else {
                 items(
-                    items = uiState.inspections,
+                    items = filteredInspections,
                     key = { it.id }
                 ) { inspection ->
                     HistoryItemCard(
@@ -141,101 +155,35 @@ fun HistorySyncScreen(
 }
 
 @Composable
-private fun SyncBanner(
-    pendingCount: Int,
-    isSyncing: Boolean,
-    onSyncNow: () -> Unit
-) {
-    if (pendingCount > 0) {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            color = Color(0xFFFEF3C7),
-            border = BorderStroke(1.dp, Color(0xFFFDE68A))
+private fun LocalBanner(pendingCount: Int) {
+    val pending = pendingCount > 0
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        color = if (pending) Color(0xFFFEF3C7) else Color(0xFFECFDF5),
+        border = BorderStroke(1.dp, if (pending) Color(0xFFFDE68A) else Color(0xFFA7F3D0))
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 14.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    modifier = Modifier.weight(1f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.CloudUpload,
-                        contentDescription = null,
-                        tint = Color(0xFFD97706),
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Text(
-                            text = "$pendingCount por sincronizar",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFF92400E)
-                        )
-                        Text(
-                            text = "Guardado local en Room",
-                            fontSize = 12.sp,
-                            color = Color(0xFFB45309)
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                if (isSyncing) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(24.dp),
-                        strokeWidth = 2.5.dp,
-                        color = Color(0xFFD97706)
-                    )
-                } else {
-                    Surface(
-                        modifier = Modifier.clickable(onClick = onSyncNow),
-                        shape = RoundedCornerShape(20.dp),
-                        color = Color(0xFFD97706)
-                    ) {
-                        Text(
-                            text = "Subir ahora",
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White,
-                            modifier = Modifier.padding(horizontal = 14.dp, vertical = 7.dp)
-                        )
-                    }
-                }
-            }
-        }
-    } else {
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            color = Color(0xFFECFDF5),
-            border = BorderStroke(1.dp, Color(0xFFA7F3D0))
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.CloudDone,
-                    contentDescription = null,
-                    tint = Color(0xFF059669),
-                    modifier = Modifier.size(20.dp)
+            Icon(
+                imageVector = if (pending) Icons.Rounded.PendingActions else Icons.Rounded.PhoneAndroid,
+                contentDescription = null,
+                tint = if (pending) Color(0xFFD97706) else Color(0xFF059669),
+                modifier = Modifier.size(24.dp)
+            )
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(
+                    text = if (pending) "$pendingCount por revisar" else "Inspecciones guardadas en el dispositivo",
+                    fontSize = 14.sp, fontWeight = FontWeight.Bold,
+                    color = if (pending) Color(0xFF92400E) else Color(0xFF065F46)
                 )
                 Text(
-                    text = "Todo sincronizado con el servidor",
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xFF065F46)
+                    text = "Historial local · disponible sin internet",
+                    fontSize = 12.sp,
+                    color = if (pending) Color(0xFFB45309) else Color(0xFF065F46)
                 )
             }
         }
@@ -244,39 +192,24 @@ private fun SyncBanner(
 
 @Composable
 private fun FilterChipsRow(
-    selectedFilter: HistoryFilter,
-    totalCount: Int,
-    pestCount: Int,
-    waterStressCount: Int,
-    healthyCount: Int,
-    onFilterSelected: (HistoryFilter) -> Unit
+    selectedFilter: String,
+    inspections: List<InspectionEntity>,
+    onFilterSelected: (String) -> Unit
 ) {
+    val counts = linkedMapOf(
+        "Todos" to inspections.size,
+        "Minador" to inspections.count { it.state == "VALIDO" && it.classCode == "MINADOR_COMPATIBLE" },
+        "Sin síntomas" to inspections.count { it.state == "VALIDO" && it.classCode == "SIN_SINTOMAS_VISIBLES" },
+        "Revisar" to inspections.count { it.state in listOf("BORRADOR", "ERROR", "NO_CONCLUYENTE") },
+        "Legado" to inspections.count { it.state == "LEGADO" }
+    )
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState()),
+        modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        FilterChipItem(
-            label = "Todos ($totalCount)",
-            isSelected = selectedFilter == HistoryFilter.ALL,
-            onClick = { onFilterSelected(HistoryFilter.ALL) }
-        )
-        FilterChipItem(
-            label = "Plagas ($pestCount)",
-            isSelected = selectedFilter == HistoryFilter.PESTS,
-            onClick = { onFilterSelected(HistoryFilter.PESTS) }
-        )
-        FilterChipItem(
-            label = "Déficit Hídrico ($waterStressCount)",
-            isSelected = selectedFilter == HistoryFilter.WATER_STRESS,
-            onClick = { onFilterSelected(HistoryFilter.WATER_STRESS) }
-        )
-        FilterChipItem(
-            label = "Sanos ($healthyCount)",
-            isSelected = selectedFilter == HistoryFilter.HEALTHY,
-            onClick = { onFilterSelected(HistoryFilter.HEALTHY) }
-        )
+        counts.forEach { (label, count) ->
+            FilterChipItem("$label ($count)", selectedFilter == label) { onFilterSelected(label) }
+        }
     }
 }
 
@@ -310,25 +243,18 @@ private fun HistoryItemCard(
     item: InspectionEntity,
     onClick: () -> Unit
 ) {
-    val (statusLabel, statusColor, statusBg, statusBorder) = when (item.diagnosisClass) {
-        1 -> Quadruple(
-            "Trips",
-            Color(0xFFBA1A1A),
-            Color(0xFFFEE2E2),
-            Color(0xFFFECACA)
-        )
-        2 -> Quadruple(
-            "Déficit Hídrico",
-            Color(0xFFD97706),
-            Color(0xFFFEF3C7),
-            Color(0xFFFDE68A)
-        )
-        else -> Quadruple(
-            "Sano",
-            Color(0xFF059669),
-            Color(0xFFECFDF5),
-            Color(0xFFA7F3D0)
-        )
+    val label = when (item.state) {
+        "LEGADO" -> "Legado"
+        "BORRADOR" -> "Borrador"
+        "ERROR" -> "Error"
+        "NO_CONCLUYENTE" -> "No concluyente"
+        else -> item.classLabel.ifBlank { "Sin etiqueta" }
+    }
+    val (statusLabel, statusColor, statusBg, statusBorder) = when {
+        item.state == "LEGADO" -> Quadruple(label, Color(0xFF64748B), Color(0xFFF1F5F9), Color(0xFFE2E8F0))
+        item.state != "VALIDO" -> Quadruple(label, Color(0xFFD97706), Color(0xFFFEF3C7), Color(0xFFFDE68A))
+        item.classCode == "MINADOR_COMPATIBLE" -> Quadruple(label, Color(0xFFBA1A1A), Color(0xFFFEE2E2), Color(0xFFFECACA))
+        else -> Quadruple(label, Color(0xFF059669), Color(0xFFECFDF5), Color(0xFFA7F3D0))
     }
 
     val formattedDate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date(item.createdAt))
@@ -357,7 +283,7 @@ private fun HistoryItemCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = item.subPlot.ifBlank { "Surco sin definir" },
+                    text = item.plotCodeSnapshot.ifBlank { "Parcela" } + item.subPlot.takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty(),
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF1C1B1F),
@@ -372,7 +298,14 @@ private fun HistoryItemCard(
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "${item.latencyMs} ms · ${(item.confidence * 100).toInt()}% confianza",
+                    text = when (item.state) {
+                        "VALIDO", "NO_CONCLUYENTE" -> "${item.latencyMs} ms · ${(item.confidence * 100).toInt()}% puntuación"
+                        "ERROR" -> item.errorMessage.ifBlank { "Análisis no disponible" }
+                        "LEGADO" -> "Registro histórico · resultado original conservado"
+                        else -> "Captura pendiente de análisis"
+                    },
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     fontSize = 11.sp,
                     color = Color(0xFF5E636E).copy(alpha = 0.8f)
                 )
@@ -399,6 +332,9 @@ private fun HistoryItemCard(
                     )
                     Text(
                         text = statusLabel,
+                        modifier = Modifier.widthIn(max = 120.dp),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         color = statusColor

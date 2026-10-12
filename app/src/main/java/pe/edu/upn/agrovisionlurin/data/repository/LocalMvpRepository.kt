@@ -3,6 +3,7 @@ package pe.edu.upn.agrovisionlurin.data.repository
 import androidx.room.withTransaction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import pe.edu.upn.agrovisionlurin.data.local.*
 import pe.edu.upn.agrovisionlurin.domain.model.DiagnosticResult
 import java.util.Locale
@@ -12,6 +13,14 @@ import java.util.UUID
 class LocalMvpRepository(private val db: AppDatabase) {
     private val accounts=db.accountDao(); private val records=db.inspectionDao()
     val plots=accounts.plots(); val inspections=records.getAllInspections()
+    fun visibleInspections(actorId:String):Flow<List<InspectionEntity>> = combine(accounts.users(),records.getAllInspections()) { users,rows ->
+        val requester=users.firstOrNull { it.id==actorId && it.active && it.role!="LEGADO" }
+        when {
+            requester==null -> emptyList()
+            requester.role=="ADMIN" -> rows
+            else -> rows.filter { it.userId==actorId }
+        }
+    }
     fun visibleUsers(actorId:String):Flow<List<LocalUser>> = accounts.users().map { rows ->
         val requester=rows.firstOrNull { it.id==actorId }
         if(requester?.active!=true || requester.role!="ADMIN") emptyList()

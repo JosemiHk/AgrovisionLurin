@@ -1,6 +1,5 @@
 package pe.edu.upn.agrovisionlurin.presentation.settings
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,25 +14,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import pe.edu.upn.agrovisionlurin.data.local.UserPreferencesManager
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    onLogout: () -> Unit = {}
+    session: LocalMvpViewModel,
+    onLogout: () -> Unit,
+    onManageUsers: () -> Unit,
+    onManagePlots: () -> Unit
 ) {
-    val context = LocalContext.current
-    val prefsManager = remember { UserPreferencesManager.getInstance(context) }
-    val coroutineScope = rememberCoroutineScope()
-    var isCheckingAzure by remember { mutableStateOf(false) }
     var showLogoutDialog by remember { mutableStateOf(false) }
-    var azureStatusMessage by remember { mutableStateOf<String?>(null) }
+    var showPlotDialog by remember { mutableStateOf(false) }
+    val user by session.user.collectAsState()
+    val plots by session.plots.collectAsState(initial = emptyList())
+    val selectedId by session.selectedPlot.collectAsState()
+    val plot = plots.firstOrNull { it.id == selectedId && it.active }
+    val modelVersion by session.modelVersion.collectAsState()
+    val modelAvailable by session.modelAvailable.collectAsState()
+    val inspections by session.inspections.collectAsState(initial = emptyList())
+    val lastInference = inspections.filter { it.state in listOf("VALIDO", "NO_CONCLUYENTE") }
+        .maxByOrNull { it.createdAt }
+    val busy by session.busy.collectAsState()
 
     Scaffold(
         topBar = {
@@ -67,7 +73,7 @@ fun SettingsScreen(
                     SettingsRow(
                         icon = Icons.Rounded.Place,
                         label = "Nombre de parcela",
-                        value = "Parcela 04 - LIMONORT"
+                        value = plot?.let { "${it.code} · ${it.name}" } ?: "Sin seleccionar"
                     )
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
                     SettingsRow(
@@ -79,8 +85,10 @@ fun SettingsScreen(
                     SettingsRow(
                         icon = Icons.Rounded.LocationOn,
                         label = "Ubicación",
-                        value = "Sullana, Piura - LIMONORT-PERU"
+                        value = "Sullana, Piura"
                     )
+                    HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
+                    SettingsActionRow(Icons.Rounded.SwapHoriz, "Seleccionar parcela", "Para tus próximas inspecciones", !busy) { showPlotDialog = true }
                 }
             }
 
@@ -96,131 +104,58 @@ fun SettingsScreen(
                     SettingsRow(
                         icon = Icons.Rounded.Psychology,
                         label = "Modelo",
-                        value = "MobileNetV2 INT8"
+                        value = modelVersion.ifBlank { "No disponible" }
                     )
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
                     SettingsRowWithBadge(
                         icon = Icons.Rounded.WifiOff,
                         label = "Estado",
-                        value = "Listo sin internet",
-                        badgeText = "Activo"
+                        value = if (modelAvailable) "Sin internet" else "Revisar modelo",
+                        badgeText = if (modelAvailable) "Disponible" else "Ausente",
+                        available = modelAvailable
                     )
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
                     SettingsRow(
                         icon = Icons.Rounded.Speed,
-                        label = "Latencia estimada",
-                        value = "~120 ms"
+                        label = "Última inferencia",
+                        value = lastInference?.let { "${it.latencyMs} ms" } ?: "Sin medición"
                     )
                 }
             }
 
-            // Grupo 3: Datos y Nube
+            // Los datos permanecen en el dispositivo; no se simula respaldo remoto.
             item(key = "group_data") {
-                SettingsGroup(title = "DATOS Y NUBE") {
-                    SettingsRow(
-                        icon = Icons.Rounded.Storage,
-                        label = "Almacenamiento local",
-                        value = "SQLite Room"
-                    )
+                SettingsGroup(title = "DATOS LOCALES") {
+                    SettingsRow(Icons.Rounded.Storage, "Almacenamiento", "SQLite Room")
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
-                    SettingsRow(
-                        icon = Icons.Rounded.CloudQueue,
-                        label = "Destino de nube",
-                        value = "Azure Blob & CosmosDB"
-                    )
+                    SettingsRow(Icons.Rounded.History, "Inspecciones", inspections.size.toString())
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
-
-                    // Acción: Comprobar conexión Azure
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable(enabled = !isCheckingAzure) {
-                                coroutineScope.launch {
-                                    isCheckingAzure = true
-                                    azureStatusMessage = null
-                                    delay(1000)
-                                    azureStatusMessage = "Dispositivo en modo local (sin internet disponible)."
-                                    isCheckingAzure = false
-                                }
-                            }
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.Sync,
-                                contentDescription = null,
-                                tint = Color(0xFF1B5E20),
-                                modifier = Modifier.size(22.dp)
-                            )
-                            Column {
-                                Text(
-                                    text = "Comprobar conexión Azure",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF1B5E20)
-                                )
-                                Text(
-                                    text = "Verificar conectividad de enlace",
-                                    fontSize = 12.sp,
-                                    color = Color(0xFF5E636E)
-                                )
-                            }
-                        }
-
-                        if (isCheckingAzure) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(20.dp),
-                                strokeWidth = 2.dp,
-                                color = Color(0xFF1B5E20)
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Rounded.ChevronRight,
-                                contentDescription = null,
-                                tint = Color(0xFF5E636E),
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                    }
-
-                    AnimatedVisibility(visible = azureStatusMessage != null) {
-                        Surface(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp),
-                            shape = RoundedCornerShape(8.dp),
-                            color = Color(0xFFFEF3C7)
-                        ) {
-                            Text(
-                                text = azureStatusMessage ?: "",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color(0xFF92400E),
-                                modifier = Modifier.padding(10.dp)
-                            )
-                        }
-                    }
+                    SettingsRow(Icons.Rounded.WifiOff, "Funcionamiento", "Sin conexión")
                 }
             }
 
+            if (user?.role == "ADMIN") {
+                item(key = "group_management") {
+                    SettingsGroup(title = "ADMINISTRACIÓN") {
+                        SettingsActionRow(Icons.Rounded.People, "Usuarios", "Cuentas, roles y acceso local", !busy, onManageUsers)
+                        HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
+                        SettingsActionRow(Icons.Rounded.Landscape, "Parcelas", "Organiza los registros de campo", !busy, onManagePlots)
+                    }
+                }
+            }
             // Grupo 4: Sesión Activa
             item(key = "group_session") {
                 SettingsGroup(title = "SESIÓN ACTIVA") {
                     SettingsRow(
                         icon = Icons.Rounded.AccountCircle,
                         label = "Usuario",
-                        value = prefsManager.loggedInUsername.ifBlank { "—" }
+                        value = user?.username ?: "—"
                     )
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
                     SettingsRow(
                         icon = Icons.Rounded.Badge,
                         label = "Rol",
-                        value = prefsManager.loggedInRole.ifBlank { "—" }
+                        value = if (user?.role == "ADMIN") "Administrador" else "Operador"
                     )
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
 
@@ -228,7 +163,7 @@ fun SettingsScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { showLogoutDialog = true }
+                            .clickable(enabled = !busy) { showLogoutDialog = true }
                             .padding(horizontal = 16.dp, vertical = 14.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -255,7 +190,7 @@ fun SettingsScreen(
                     SettingsRow(
                         icon = Icons.Rounded.Info,
                         label = "Versión",
-                        value = "v1.0.0 (Tesis UPN 2026)"
+                        value = "v1.0 (Tesis UPN 2026)"
                     )
                     HorizontalDivider(color = Color(0xFFF1F5F9), thickness = 1.dp)
                     SettingsRow(
@@ -270,6 +205,40 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
+    }
+
+    if (showPlotDialog) {
+        AlertDialog(
+            onDismissRequest = { showPlotDialog = false },
+            title = { Text("Seleccionar parcela", fontWeight = FontWeight.Bold) },
+            text = {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (plots.none { it.active }) {
+                        item { Text("No hay parcelas activas. Un administrador puede crearlas en Configuración.") }
+                    }
+                    plots.filter { it.active }.forEach { candidate ->
+                        item(key = candidate.id) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth().clickable(enabled = !busy) {
+                                    session.selectedPlot.value = candidate.id
+                                    showPlotDialog = false
+                                }.padding(vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                RadioButton(selected = candidate.id == selectedId, onClick = null)
+                                Column(modifier = Modifier.padding(start = 12.dp)) {
+                                    Text(candidate.name, fontWeight = FontWeight.Medium)
+                                    Text(candidate.code, color = Color(0xFF5E636E), fontSize = 12.sp)
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            confirmButton = { TextButton(onClick = { showPlotDialog = false }) { Text("Cerrar") } },
+            containerColor = Color.White,
+            shape = RoundedCornerShape(20.dp)
+        )
     }
 
     // Diálogo de confirmación de cierre de sesión
@@ -291,7 +260,7 @@ fun SettingsScreen(
             },
             text = {
                 Text(
-                    text = "¿Deseas cerrar la sesión de \"${prefsManager.loggedInDisplayName}\"? Tus datos locales se conservarán.",
+                    text = "¿Deseas cerrar la sesión de \"${user?.displayName ?: ""}\"? Tus datos locales se conservarán.",
                     fontSize = 14.sp
                 )
             },
@@ -299,7 +268,6 @@ fun SettingsScreen(
                 TextButton(
                     onClick = {
                         showLogoutDialog = false
-                        prefsManager.clearSession()
                         onLogout()
                     }
                 ) {
@@ -360,6 +328,7 @@ private fun SettingsRow(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
+            modifier = Modifier.weight(1f),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -378,6 +347,8 @@ private fun SettingsRow(
         }
         Text(
             text = value,
+            modifier = Modifier.widthIn(max = 170.dp).padding(start = 8.dp),
+            textAlign = TextAlign.End,
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
             color = Color(0xFF5E636E)
@@ -386,11 +357,29 @@ private fun SettingsRow(
 }
 
 @Composable
+private fun SettingsActionRow(icon: ImageVector, label: String, subtitle: String, enabled: Boolean, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth().clickable(enabled = enabled, onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Icon(icon, contentDescription = null, tint = Color(0xFF1B5E20), modifier = Modifier.size(22.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(label, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
+            Text(subtitle, fontSize = 12.sp, color = Color(0xFF5E636E))
+        }
+        Icon(Icons.Rounded.ChevronRight, contentDescription = null, tint = Color(0xFF5E636E), modifier = Modifier.size(20.dp))
+    }
+}
+
+@Composable
 private fun SettingsRowWithBadge(
     icon: ImageVector,
     label: String,
     value: String,
-    badgeText: String
+    badgeText: String,
+    available: Boolean = true
 ) {
     Row(
         modifier = Modifier
@@ -427,16 +416,17 @@ private fun SettingsRowWithBadge(
             )
             Surface(
                 shape = CircleShape,
-                color = Color(0xFFE8F5E9)
+                color = if (available) Color(0xFFE8F5E9) else Color(0xFFFFF3E0)
             ) {
                 Text(
                     text = badgeText,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1B5E20),
+                    color = if (available) Color(0xFF1B5E20) else Color(0xFF92400E),
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                 )
             }
         }
     }
 }
+

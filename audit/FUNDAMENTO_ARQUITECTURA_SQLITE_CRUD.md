@@ -12,7 +12,7 @@ La solución tendrá una arquitectura por capas y presentación MVVM. Las pantal
 
 Al iniciar esta intervención la app declaraba solo InspectionEntity en AppDatabase, versión 1 y exportSchema=false. plotId era texto sin FK. Usuarios y parcelas del SQL documental no alimentaban automáticamente la base interna Android. InspectionDao incluía inserciones y consultas, pero no CRUD completos de usuarios y parcelas. El login comparaba contra una lista de credenciales en código. Por tanto la arquitectura elegida era viable, pero ese estado no bastaba para demostrar el requisito del profesor.
 
-En el flujo anterior Dashboard, History y Result accedían directamente al DAO; Camera construía su clasificador. Había interfaces de repositorio, pero ese flujo las utilizaba de forma incompleta. No corresponde presentar el punto de partida como Clean Architecture completamente implementada. La entrada nueva utiliza LocalMvpScreen, LocalMvpViewModel y LocalMvpRepository; la verificación debe seguir esa ruta efectiva, no las pantallas antiguas conservadas como referencia.
+En el flujo anterior Dashboard, History y Result accedían directamente al DAO; Camera construía su clasificador. Había interfaces de repositorio, pero ese flujo las utilizaba de forma incompleta. No corresponde presentar el punto de partida como Clean Architecture completamente implementada. La entrada activa vuelve a MainScaffold y NavGraph con las pantallas Compose originales: login, dashboard, cámara CameraX, historial, resultado y configuración. Estas reciben una instancia compartida de LocalMvpViewModel y usan LocalMvpRepository; usuarios y parcelas añaden CRUD con el mismo estilo visual. LocalMvpScreen queda fuera de la navegación activa.
 
 ## Equivalencias para explicar la solución al profesor
 

@@ -71,9 +71,14 @@ class LemonClassifier(private val context: Context, private val manifestAsset: S
                 val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
                 BitmapFactory.decodeFile(imageFile.path, bounds)
                 require(bounds.outWidth > 0 && bounds.outHeight > 0) { "Imagen corrupta o formato no compatible" }
-                var sample = 1
-                while (bounds.outWidth / sample > 1024 || bounds.outHeight / sample > 1024) sample *= 2
-                val decoded = BitmapFactory.decodeFile(imageFile.path, BitmapFactory.Options().apply { inSampleSize = sample })
+                // JPEG subsampling before resize would change the training contract.
+                // Bound the allocation explicitly instead of silently changing pixels.
+                require(bounds.outWidth.toLong() * bounds.outHeight <= 16_000_000L) {
+                    "Imagen demasiado grande: captura a 16 megapíxeles o menos"
+                }
+                val decoded = BitmapFactory.decodeFile(imageFile.path, BitmapFactory.Options().apply {
+                    inPreferredConfig = Bitmap.Config.ARGB_8888; inScaled = false; inSampleSize = 1
+                })
                     ?: error("No se pudo decodificar la imagen")
                 val orientation = try { ExifInterface(imageFile.path).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL) }
                     catch(ignored:java.io.IOException) { ExifInterface.ORIENTATION_NORMAL }
@@ -86,10 +91,7 @@ class LemonClassifier(private val context: Context, private val manifestAsset: S
                 }
                 val rotated = Bitmap.createBitmap(decoded,0,0,decoded.width,decoded.height,matrix,true)
                 if(rotated !== decoded) decoded.recycle()
-                val scaled = Bitmap.createScaledBitmap(rotated,224,224,true)
-                if(scaled !== rotated) rotated.recycle()
-                val pixels = IntArray(224*224)
-                scaled.getPixels(pixels,0,224,0,0,224,224); scaled.recycle()
+                val pixels = try { PillowBilinearResizer.resizePixels(rotated) } finally { rotated.recycle() }
                 val low=intArrayOf(255,255,255);val high=intArrayOf(0,0,0)
                 pixels.forEach { pixel ->
                     val rgb=intArrayOf((pixel shr 16) and 255,(pixel shr 8) and 255,pixel and 255)

@@ -26,7 +26,11 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
     private val _user=MutableStateFlow<LocalUser?>(null); val user=_user.asStateFlow()
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     val users=user.flatMapLatest { actor -> if(actor==null) flowOf(emptyList<LocalUser>()) else repo.visibleUsers(actor.id) }
-    val plots=repo.plots; val inspections=repo.inspections
+    val plots=repo.plots
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+    val inspections=user.flatMapLatest { actor -> if(actor==null) flowOf(emptyList<InspectionEntity>()) else repo.visibleInspections(actor.id) }
+    private val _modelVersion=MutableStateFlow(""); val modelVersion=_modelVersion.asStateFlow()
+    private val _modelAvailable=MutableStateFlow(false); val modelAvailable=_modelAvailable.asStateFlow()
     private val _setup=MutableStateFlow(false); val setup=_setup.asStateFlow()
     private val _ready=MutableStateFlow(false); val ready=_ready.asStateFlow()
     private val _message=MutableStateFlow(""); val message=_message.asStateFlow()
@@ -38,6 +42,14 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
         _setup.value=repo.needsSetup()
         _user.value=repo.restore(preferences.getString("user_id",null))
         if(_user.value==null) preferences.edit().clear().apply()
+        try {
+            val assets=getApplication<Application>().assets
+            val metadata=org.json.JSONObject(assets.open("models/model_manifest.json").bufferedReader().use { it.readText() })
+            val bytes=assets.open("models/${metadata.getString("model_file")}").use { it.readBytes() }
+            val hash=java.security.MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
+            _modelAvailable.value=hash==metadata.getString("model_sha256")
+            _modelVersion.value=metadata.getString("model_version")
+        } catch(cause:Exception) { if(cause is CancellationException) throw cause; _modelAvailable.value=false }
         _ready.value=true
     } }
     private fun actorId()=_user.value?.id ?: error("Inicia sesión")
@@ -55,7 +67,7 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
         val account=repo.login(username,password,displayName)
         preferences.edit().putString("user_id",account.id).apply();_user.value=account;_setup.value=false
     }
-    fun logout() { preferences.edit().clear().apply();_user.value=null;_detail.value=null;selectedPlot.value="" }
+    fun logout() { preferences.edit().clear().apply();_user.value=null;_detail.value=null;selectedPlot.value="";_message.value="" }
     fun saveUser(id:String?,username:String,name:String,password:String,role:String,active:Boolean)=action {
         repo.saveUser(actorId(),id,username,name,password,role,active)
         _user.value=repo.restore(actorId());_message.value="Usuario guardado"
@@ -79,7 +91,10 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
     }
     fun captureFinished(success:Boolean) = finishPending(success,null)
     fun galleryFinished(uri:android.net.Uri?) = finishPending(uri!=null,uri)
-    private fun finishPending(success:Boolean,uri:android.net.Uri?) {
+    fun finishCapturedFile(success:Boolean,onComplete:(String)->Unit) = finishPending(success,null,onComplete)
+    fun importGallery(uri:android.net.Uri,onComplete:(String)->Unit) = finishPending(true,uri,onComplete)
+    fun discardPendingCapture() { if(pendingCaptureId!=null) finishPending(false,null) }
+    private fun finishPending(success:Boolean,uri:android.net.Uri?,onComplete:(String)->Unit = {}) {
         // Restored ActivityResult callbacks may arrive while the persisted session is being checked.
         viewModelScope.launch {
             busy.first { !it }
@@ -99,10 +114,12 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
                         } catch(cause:Exception) {
                             if(cause is CancellationException) throw cause
                             _detail.value=repo.complete(actorId(),id,pe.edu.upn.agrovisionlurin.domain.model.DiagnosticResult(-1,"Importación fallida",0f,0,state="ERROR",errorMessage=cause.message ?: "Error de lectura"))
+                            withContext(Dispatchers.Main) { onComplete(id) }
                             return@action
                         }
                     }
                     evaluate(record)
+                    withContext(Dispatchers.Main) { onComplete(id) }
                 }
             }
         }

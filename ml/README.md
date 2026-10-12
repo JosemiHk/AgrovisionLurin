@@ -74,7 +74,11 @@ Los JPEG y tensores están en `app/src/androidTest/assets/models/parity_images`,
 El JSON
 separa fixtures uniformes de `natural_fixtures`. Comparar primero runtime con el
 mismo tensor y luego decodificación/resize de JPEG. Python usa Pillow BILINEAR
-con filtro de reducción; Android puede diferir. La tolerancia propuesta de entrada
+con filtro de reducción; Android ahora usa un filtro separable equivalente, con
+coeficientes normalizados a 22 bits y redondeo por eje. `verify_resize.py` compara
+esa matemática sobre RGB con Pillow en ocho casos, sin diferencia de píxeles.
+Decodificación JPEG y orientación Android todavía requieren prueba de dispositivo.
+La tolerancia propuesta de entrada
 2/127.5 para entrada; runtime con tensor idéntico 0.002 y comparación de fotografía en la prueba Android 0.02 para salida requieren verificación en dispositivo; no son resultados
 de paridad ya logrado en Android.
 

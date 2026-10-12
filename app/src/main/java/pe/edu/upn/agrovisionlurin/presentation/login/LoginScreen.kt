@@ -5,6 +5,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,18 +35,28 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import pe.edu.upn.agrovisionlurin.presentation.theme.PrimaryGreen
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
 
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
-    viewModel: LoginViewModel = viewModel()
+    viewModel: LoginViewModel = viewModel(),
+    session: LocalMvpViewModel
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val form by viewModel.uiState.collectAsStateWithLifecycle()
+    val busy by session.busy.collectAsStateWithLifecycle()
+    val message by session.message.collectAsStateWithLifecycle()
+    val setup by session.setup.collectAsStateWithLifecycle()
+    val user by session.user.collectAsStateWithLifecycle()
+    val uiState=form.copy(isLoading=busy,errorMessage=message.takeIf { it.isNotBlank() },loginSuccess=user!=null)
+    var displayName by rememberSaveable { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
+    val submit: () -> Unit = { focusManager.clearFocus();session.login(form.username,form.password,displayName) }
 
     // Navegar cuando el login es exitoso
     LaunchedEffect(uiState.loginSuccess) {
         if (uiState.loginSuccess) {
+            viewModel.onPasswordChange("")
             onLoginSuccess()
         }
     }
@@ -84,6 +97,10 @@ fun LoginScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .imePadding()
+                .verticalScroll(rememberScrollState())
+                .statusBarsPadding()
+                .navigationBarsPadding()
                 .padding(horizontal = 28.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -152,18 +169,25 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Text(
-                        text = "Iniciar sesión",
+                        text = if(setup) "Configura tu cuenta" else "Iniciar sesión",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF1C1B1F)
                     )
                     Text(
-                        text = "Ingresa tus credenciales de acceso al sistema.",
+                        text = if(setup) "Crea el primer administrador para empezar." else "Ingresa tus credenciales de acceso al sistema.",
                         fontSize = 13.sp,
                         color = Color(0xFF5E636E)
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))
+
+                    if(setup) OutlinedTextField(
+                        value=displayName,onValueChange={displayName=it},label={Text("Nombre completo")},
+                        leadingIcon={Icon(Icons.Rounded.Badge,contentDescription=null,tint=PrimaryGreen)},
+                        singleLine=true,enabled=!busy,modifier=Modifier.fillMaxWidth(),shape=RoundedCornerShape(14.dp),
+                        colors=OutlinedTextFieldDefaults.colors(focusedBorderColor=PrimaryGreen,focusedLabelColor=PrimaryGreen,cursorColor=PrimaryGreen)
+                    )
 
                     // Campo: Usuario
                     OutlinedTextField(
@@ -236,7 +260,7 @@ fun LoginScreen(
                         keyboardActions = KeyboardActions(
                             onDone = {
                                 focusManager.clearFocus()
-                                viewModel.onLoginClick()
+                                submit()
                             }
                         ),
                         modifier = Modifier.fillMaxWidth(),
@@ -287,7 +311,7 @@ fun LoginScreen(
                     Button(
                         onClick = {
                             focusManager.clearFocus()
-                            viewModel.onLoginClick()
+                            submit()
                         },
                         enabled = !uiState.isLoading,
                         modifier = Modifier
@@ -317,7 +341,7 @@ fun LoginScreen(
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Text(
-                                    text = "Ingresar",
+                                    text = if(setup) "Crear cuenta e ingresar" else "Ingresar",
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White
@@ -330,10 +354,10 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(28.dp))
 
-            // ── Hint de credenciales demo ─────────────────────────────────
+            // Información de acceso con contraste sobre el fondo claro.
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = Color.White.copy(alpha = 0.12f)
+                color = Color(0xFFE8F5E9)
             ) {
                 Column(
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 14.dp),
@@ -347,26 +371,26 @@ fun LoginScreen(
                         Icon(
                             Icons.Rounded.Key,
                             contentDescription = null,
-                            tint = Color.White.copy(alpha = 0.7f),
+                            tint = PrimaryGreen,
                             modifier = Modifier.size(14.dp)
                         )
                         Text(
                             text = "Acceso local SQLite",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White.copy(alpha = 0.7f)
+                            color = PrimaryGreen
                         )
                     }
                     Text(
-                        text = "Usa una cuenta creada por tu administrador",
+                        text = if(setup) "La cuenta se guarda en este dispositivo" else "Usa una cuenta creada por tu administrador",
                         fontSize = 11.sp,
-                        color = Color.White.copy(alpha = 0.55f),
+                        color = Color(0xFF5E636E),
                         textAlign = TextAlign.Center
                     )
                     Text(
                         text = "No hay credenciales predefinidas",
                         fontSize = 11.sp,
-                        color = Color.White.copy(alpha = 0.55f)
+                        color = Color(0xFF5E636E)
                     )
                 }
             }
@@ -375,9 +399,9 @@ fun LoginScreen(
 
             // Pie de página
             Text(
-                text = "AgroVision LIMONORT v1.0 · UPN Capstone 2026",
+                text = "AgroVision Sullana · UPN Capstone 2026",
                 fontSize = 11.sp,
-                color = Color.White.copy(alpha = 0.40f)
+                color = Color(0xFF5E636E)
             )
         }
     }

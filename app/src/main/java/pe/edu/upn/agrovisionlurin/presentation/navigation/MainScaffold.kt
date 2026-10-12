@@ -1,6 +1,7 @@
 package pe.edu.upn.agrovisionlurin.presentation.navigation
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -14,40 +15,43 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import pe.edu.upn.agrovisionlurin.data.local.AppDatabase
-import pe.edu.upn.agrovisionlurin.data.local.UserPreferencesManager
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
 
 @Composable
-fun MainScaffold() {
-    val context = LocalContext.current
-
-    // Determinar destino inicial en base a sesión persistida
-    val prefsManager = remember { UserPreferencesManager.getInstance(context) }
-    val startDestination = if (prefsManager.isLoggedIn) {
-        Screen.Dashboard.route
-    } else {
-        Screen.Login.route
+fun MainScaffold(session: LocalMvpViewModel = viewModel()) {
+    val ready by session.ready.collectAsStateWithLifecycle()
+    val user by session.user.collectAsStateWithLifecycle()
+    val inspections by session.inspections.collectAsStateWithLifecycle(initialValue=emptyList())
+    if(!ready) {
+        Box(Modifier.fillMaxSize(),contentAlignment=Alignment.Center) { CircularProgressIndicator(color=Color(0xFF1B5E20)) }
+        return
     }
+    val startDestination = remember { if(user!=null) Screen.Dashboard.route else Screen.Login.route }
 
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    val pendingSyncCount by remember(context) {
-        AppDatabase.getDatabase(context).inspectionDao().getPendingSyncCount()
-    }.collectAsStateWithLifecycle(initialValue = 0)
+    val pendingReviewCount = inspections.count { it.state in listOf("BORRADOR","ERROR","NO_CONCLUYENTE") }
+    LaunchedEffect(user?.id,currentRoute) {
+        if(user==null && currentRoute!=null && currentRoute!=Screen.Login.route) {
+            navController.navigate(Screen.Login.route) { popUpTo(navController.graph.id) { inclusive=true }; launchSingleTop=true }
+        }
+    }
 
     // Ocultar NavigationBar en login, captura y detalle diagnóstico
-    val showBottomBar = currentRoute in listOf(
+    val showBottomBar = user!=null && currentRoute in listOf(
         Screen.Dashboard.route,
         Screen.History.route,
         Screen.Settings.route
@@ -102,7 +106,7 @@ fun MainScaffold() {
                             )
                         )
 
-                        // 2. Historial (con BadgedBox reactivo a Room)
+                        // 2. Historial (inspecciones que requieren revisión)
                         val isHistorySelected = currentRoute == Screen.History.route
                         NavigationBarItem(
                             selected = isHistorySelected,
@@ -120,12 +124,12 @@ fun MainScaffold() {
                             icon = {
                                 BadgedBox(
                                     badge = {
-                                        if (pendingSyncCount > 0) {
+                                        if (pendingReviewCount > 0) {
                                             Badge(
                                                 containerColor = Color(0xFFD97706),
                                                 contentColor = Color.White
                                             ) {
-                                                Text(pendingSyncCount.toString())
+                                                Text(pendingReviewCount.toString())
                                             }
                                         }
                                     }
@@ -194,7 +198,8 @@ fun MainScaffold() {
         NavGraph(
             navController = navController,
             startDestination = startDestination,
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues),
+            session = session
         )
     }
 }

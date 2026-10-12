@@ -65,3 +65,11 @@ Se entregan además cuatro JPEG de validación (dos por clase), tensores esperad
 FLOAT32 y probabilidades para medir paridad de fotografías. Estas pruebas no
 consultan el test externo. Pillow y Android pueden reducir imágenes con filtros
 distintos; EXIF, decodificación y resize aún requieren comparación en teléfono.
+
+Se detectó efectivamente una diferencia de 0,02085 en la probabilidad de una
+fotografía al usar el resize Android original. Se reemplazó ese filtro por la
+reducción bilinear compatible con Pillow, incluidos soporte ampliado y redondeos
+de 22 bits en dos ejes. La comprobación matemática RGB produjo diferencia cero
+frente a Pillow en cuatro casos sintéticos y las cuatro fotografías. El resultado
+debe confirmarse ejecutando nuevamente la prueba Android, sin ampliar tolerancia.
+El modelo, umbral, versión y tensores de referencia permanecen iguales.

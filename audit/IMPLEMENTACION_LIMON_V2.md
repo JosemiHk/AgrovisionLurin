@@ -8,13 +8,13 @@ Fecha: 12 de octubre de 2026. Se mantuvieron login y CRUD relacionales porque el
 - Primer inicio configura administrador real; login local verifica contraseñas derivadas con PBKDF2 y sal individual. Usuarios administrativos y operarios se conservan en Room. No hay credenciales demo activas.
 - Administrador crea, consulta, edita y elimina usuarios/parcelas no referenciados. No puede eliminar o desactivar su propia cuenta ni dejar el sistema sin administrador. Datos referenciados se conservan mediante restricción y posibilidad de desactivación.
 - Usuarios operarios no reciben el listado de cuentas ni hashes/salts. Pueden registrar y consultar sus propias inspecciones; el administrador puede acceder al conjunto.
-- Captura mediante cámara del dispositivo o importación de galería. Se registra borrador antes de abrir el proveedor externo. Error de imagen/modelo produce ERROR explícito; no diagnóstico ficticio.
+- Captura CameraX integrada con guía y linterna, o importación de galería. Se registra borrador antes de capturar/importar. Error de imagen/modelo produce ERROR explícito; no diagnóstico ficticio.
 - Historial y detalle se recuperan por ID. Editar una nota no modifica el resultado, puntuación o versión del modelo. Resultados completados quedan congelados; una nueva evaluación corresponde a una inspección nueva.
 - CSV compartible con campos entrecomillados y neutralización de prefijos de fórmula. Guarda clase y metadatos de la inspección seleccionada, incluyendo recomendaciones originales.
 - Room v2 con usuarios, parcelas e inspecciones; PK, FK, unicidad e índices. Migración conserva diagnósticos anteriores como LEGADO, sin convertir trips/agua en minador.
 - Sin sincronización falsa, recomendaciones de cebolla/riego ni severidad deducida de confianza. El antiguo flag sync se conserva exclusivamente como dato legado.
 
-Las pantallas anteriores se conservaron para respetar los cambios existentes del usuario, pero la entrada activa utiliza el MVP nuevo. No describir funcionalidades antiguas desconectadas como capacidades del producto actual.
+La entrada activa vuelve a MainScaffold/NavGraph y conserva la experiencia de las pantallas Compose originales. Login, dashboard, cámara, historial, resultados y configuración se conectaron al repositorio funcional mediante un ViewModel compartido. Los CRUD nuevos conservan tarjetas, formas y colores de esa interfaz. El listado de inspecciones respeta el usuario y rol autenticados.
 
 ## Modelo generado y límites
 
@@ -39,10 +39,12 @@ El umbral no es un detector universal de hojas ni una garantía de rechazo fuera
 
 ## Verificación obtenida
 
-- Compilación final después del ajuste de autorización: assembleDebug, testDebugUnitTest y assembleDebugAndroidTest terminaron correctamente. Dos pruebas JVM de contraseñas/CSV pasaron; el APK de pruebas instrumentadas se generó, sin ejecutarlo en dispositivo.
+- assembleDebug, testDebugUnitTest y assembleDebugAndroidTest terminaron correctamente. Dos pruebas JVM de contraseñas/CSV pasaron.
 - Seis pruebas Python del pipeline pasaron tras los cambios finales: partición, similitud, corrupción, normalización y denominadores con abstención.
 - El chequeo SQLite conservó cinco inspecciones de la base de ejemplo y confirmó dos FKs, unicidad y rechazo de borrado referenciado. Columnas/índices/FKs coinciden con el esquema Room compilado.
-- Pruebas instrumentadas preparadas para migración, autenticación, permisos, CRUD, identidad A/B, congelación, imagen inválida, modelo ausente y paridad numérica. No ejecutadas: no había dispositivo Android conectado.
+- Ocho pruebas instrumentadas ejecutadas: migración, autenticación, permisos, CRUD, identidad A/B, congelación, imagen inválida, modelo ausente y paridad numérica. Resultado: OK (8 tests), evidencia en audit/ui_review/android_tests.txt. Se ejecutó el runner directamente porque el ejecutor Gradle requería un componente UTP no disponible offline.
+- La prueba de fotografías detectó diferencia entre el resize Skia y Pillow. Se corrigió el filtro bilinear de reducción sin modificar modelo, versión, umbral o tolerancias; la prueba completa pasó. Imágenes mayores de 16 MP se rechazan explícitamente para limitar memoria.
+- Revisión visual manual de login, dashboard, configuración, usuarios, parcelas, cámara y resultado en emuladores. En el emulador separado se creó cuenta/parcela de prueba y se importó una fotografía del conjunto de validación: inferencia real y registro local. Estas comprobaciones no acreditan rendimiento en teléfono ni validación agronómica.
 - Cronograma Excel propuesto recalculado y revisado por rangos, conservando la línea base histórica. Ocho propuestas Word y un documento de acta/protocolo se entregan como borradores, no como tesis final.
 
 ## Primera demostración manual
@@ -61,4 +63,4 @@ Confirmación del asesor sobre título/diseño y nueva línea base; procedencia/
 
 Los DOCX no tienen revisión visual completa: falta LibreOffice soffice.exe en el runtime empaquetado usado por el renderizador. El control de documentos exige renderizar e inspeccionar páginas antes de considerar aprobado el formato. Su estructura fue comprobada, pero deben revisarse en Word antes de una entrega formal. El informe principal todavía requiere antecedentes verificados, resultados, discusión y conclusiones.
 
-No se crearon commits ni se publicaron archivos. Los originales académicos de OneDrive permanecieron intactos. Todas las modificaciones de implementación se realizaron en la rama solicitada limon-v2, manteniendo el applicationId anterior.
+Commit previo a la restauración visual: 802fc09 (checkpoint local MVP). La adaptación a la interfaz original queda como cambios posteriores revisables en limon-v2; no se hizo push. Los originales académicos de OneDrive permanecieron intactos y se mantuvo el applicationId anterior.
