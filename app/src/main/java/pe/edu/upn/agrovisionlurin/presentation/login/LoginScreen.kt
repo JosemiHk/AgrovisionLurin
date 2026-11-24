@@ -66,14 +66,13 @@ fun LoginScreen(
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF1B5E20),
-                        Color(0xFF2E7D32),
-                        Color(0xFF388E3C),
-                        Color(0xFFF8F9FA)
-                    ),
-                    startY = 0f,
-                    endY = 1200f
+                    colorStops = arrayOf(
+                        0.0f to Color(0xFF1B5E20),
+                        0.26f to Color(0xFF2E7D32),
+                        0.46f to Color(0xFF388E3C),
+                        0.58f to Color(0xFFF8F9FA),
+                        1.0f to Color(0xFFF8F9FA)
+                    )
                 )
             )
     ) {
@@ -99,12 +98,17 @@ fun LoginScreen(
                 .fillMaxSize()
                 .imePadding()
                 .verticalScroll(rememberScrollState())
-                .statusBarsPadding()
-                .navigationBarsPadding()
-                .padding(horizontal = 28.dp),
+                .safeDrawingPadding()
+                .padding(horizontal = 24.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .widthIn(max = 460.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
             // ── Logo y Título ──────────────────────────────────────────────
             AnimatedVisibility(
@@ -403,6 +407,7 @@ fun LoginScreen(
                 fontSize = 11.sp,
                 color = Color(0xFF5E636E)
             )
+            }
         }
     }
 }

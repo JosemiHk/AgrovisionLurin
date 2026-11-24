@@ -77,13 +77,17 @@ fun HistorySyncScreen(
         },
         containerColor = Color(0xFFF8F9FA)
     ) { innerPadding ->
-        LazyColumn(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
-            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(innerPadding)
         ) {
+            val horizontalPadding = ((maxWidth - 840.dp) / 2).coerceAtLeast(20.dp)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
             // 1. Top Sync Banner
             item(key = "sync_banner") {
                 LocalBanner(pendingCount = pendingCount)
@@ -149,6 +153,7 @@ fun HistorySyncScreen(
                         onClick = { onNavigateToDetail(inspection.id) }
                     )
                 }
+            }
             }
         }
     }

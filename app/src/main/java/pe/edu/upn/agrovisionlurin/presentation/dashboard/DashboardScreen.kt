@@ -47,13 +47,17 @@ fun DashboardScreen(
     Scaffold(
         containerColor = Color(0xFFF8F9FA)
     ) { paddingValues ->
-        LazyColumn(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
-            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(paddingValues)
         ) {
+            val horizontalPadding = ((maxWidth - 840.dp) / 2).coerceAtLeast(20.dp)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
             // 1. Header Row
             item(key = "header_row") {
                 DashboardHeader(pendingCount = pendingCount)
@@ -151,6 +155,7 @@ fun DashboardScreen(
                         onClick = { onNavigateToDetail(inspection.id) }
                     )
                 }
+            }
             }
         }
     }

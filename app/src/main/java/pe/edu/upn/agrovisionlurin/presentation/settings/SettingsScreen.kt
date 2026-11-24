@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,8 +29,8 @@ fun SettingsScreen(
     onManageUsers: () -> Unit,
     onManagePlots: () -> Unit
 ) {
-    var showLogoutDialog by remember { mutableStateOf(false) }
-    var showPlotDialog by remember { mutableStateOf(false) }
+    var showLogoutDialog by rememberSaveable { mutableStateOf(false) }
+    var showPlotDialog by rememberSaveable { mutableStateOf(false) }
     val user by session.user.collectAsState()
     val plots by session.plots.collectAsState(initial = emptyList())
     val selectedId by session.selectedPlot.collectAsState()
@@ -60,13 +61,17 @@ fun SettingsScreen(
         },
         containerColor = Color(0xFFF8F9FA)
     ) { innerPadding ->
-        LazyColumn(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
-            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+                .padding(innerPadding)
         ) {
+            val horizontalPadding = ((maxWidth - 760.dp) / 2).coerceAtLeast(20.dp)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
             // Grupo 1: Lote y Parcela
             item(key = "group_plot") {
                 SettingsGroup(title = "LOTE Y PARCELA") {
@@ -203,6 +208,7 @@ fun SettingsScreen(
 
             item(key = "footer_space") {
                 Spacer(modifier = Modifier.height(16.dp))
+            }
             }
         }
     }
@@ -347,7 +353,7 @@ private fun SettingsRow(
         }
         Text(
             text = value,
-            modifier = Modifier.widthIn(max = 170.dp).padding(start = 8.dp),
+            modifier = Modifier.weight(0.9f, fill = false).padding(start = 12.dp),
             textAlign = TextAlign.End,
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
