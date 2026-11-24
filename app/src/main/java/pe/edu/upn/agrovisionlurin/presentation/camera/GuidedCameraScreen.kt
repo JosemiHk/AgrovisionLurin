@@ -26,6 +26,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -156,165 +158,467 @@ fun GuidedCameraScreen(
             }
         }
 
-        // Overlay: Guía visual neutra para encuadre de hoja de limón sutil
-        Box(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .width(220.dp)
-                .height(300.dp)
-                .border(2.dp, Color.White.copy(alpha = 0.6f), RoundedCornerShape(32.dp))
-        )
+        val activePlots = plots.filter { it.active }
+        val selectedPlotLabel = plots.firstOrNull { it.id == selectedPlot }?.let { "Parcela ${it.code}" } ?: "Seleccionar parcela"
+        val errorText = cameraError.ifBlank { message }
 
-        // Instrucciones de captura: no se presentan como mediciones automáticas.
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(top = 48.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(Color.Black.copy(alpha = 0.6f))
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                Text("Busca luz uniforme, sin sombras", color = Color.White, style = Typography.labelMedium)
-            }
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color.Black.copy(alpha = 0.6f))
-                    .padding(horizontal = 14.dp, vertical = 6.dp)
-            ) {
-                Text(
-                    text = "Encuadre la hoja de limón dentro de la guía",
-                    color = Color.White,
-                    style = Typography.labelMedium
-                )
-            }
-            Box {
-                Surface(
-                    onClick = { selectingPlot = true },
-                    color = Color.Black.copy(alpha = 0.65f),
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    Row(modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Rounded.Place, null, tint = PrimaryGreen, modifier = Modifier.size(18.dp))
-                        Spacer(Modifier.width(8.dp))
-                        Text(plots.firstOrNull { it.id == selectedPlot }?.let { "Parcela ${it.code}" } ?: "Seleccionar parcela", color = Color.White, style = Typography.labelMedium)
-                        Icon(Icons.Rounded.ArrowDropDown, null, tint = Color.White)
-                    }
-                }
-                DropdownMenu(expanded = selectingPlot, onDismissRequest = { selectingPlot = false }) {
-                    plots.filter { it.active }.forEach { plot ->
-                        DropdownMenuItem(text = { Text("${plot.code} · ${plot.name}") }, onClick = { session.selectedPlot.value = plot.id; selectingPlot = false })
-                    }
-                    if (plots.none { it.active }) DropdownMenuItem(text = { Text("Crea una parcela en Configuración") }, onClick = { selectingPlot = false })
+        val onCloseClick: () -> Unit = {
+            if (!captureInProgress && !isAnalyzing) onBack()
+        }
+        val onFlashToggle: () -> Unit = {
+            isFlashOn = !isFlashOn
+            cameraControl?.enableTorch(isFlashOn)
+        }
+        val onGalleryClick: () -> Unit = {
+            session.createCapture { galleryLauncher.launch("image/*") }
+        }
+        val onCaptureClick: () -> Unit = {
+            val capture = imageCapture
+            if (capture != null) {
+                cameraError = ""
+                session.createCapture { path ->
+                    captureInProgress = true
+                    val photoFile = File(path)
+                    val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+                    capture.takePicture(
+                        outputOptions,
+                        ContextCompat.getMainExecutor(context),
+                        object : ImageCapture.OnImageSavedCallback {
+                            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                captureInProgress = false
+                                session.finishCapturedFile(true, onCaptureComplete)
+                            }
+
+                            override fun onError(exception: ImageCaptureException) {
+                                Log.e("CameraX", "Fallo al guardar imagen: ${exception.message}", exception)
+                                captureInProgress = false
+                                cameraError = "No se pudo guardar la fotografía. Intenta de nuevo."
+                                session.discardPendingCapture()
+                            }
+                        }
+                    )
                 }
             }
-            val error = cameraError.ifBlank { message }
-            if (error.isNotBlank()) Text(error, color = Color.White, style = Typography.labelMedium,
-                modifier = Modifier.background(Color.Black.copy(alpha = 0.75f), RoundedCornerShape(8.dp)).padding(10.dp))
         }
 
-        IconButton(onClick = { if (!captureInProgress && !isAnalyzing) onBack() }, modifier = Modifier.align(Alignment.TopStart).padding(top = 48.dp, start = 16.dp).background(Color.Black.copy(alpha = 0.5f), CircleShape)) {
-            Icon(Icons.Rounded.Close, contentDescription = "Volver", tint = Color.White)
-        }
-
-        // Top Right: Control de Linterna / Flash
-        Box(
+        // Overlay adaptativo según el área disponible de la ventana (incluidos insets del sistema)
+        BoxWithConstraints(
             modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(top = 48.dp, end = 24.dp)
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(Color.Black.copy(alpha = 0.5f))
-                .clickable {
-                    isFlashOn = !isFlashOn
-                    cameraControl?.enableTorch(isFlashOn)
-                },
-            contentAlignment = Alignment.Center
+                .fillMaxSize()
+                .safeDrawingPadding()
+                .padding(16.dp)
         ) {
-            Icon(
-                imageVector = if (isFlashOn) Icons.Rounded.FlashOn else Icons.Rounded.FlashOff,
-                contentDescription = "Flash",
-                tint = Color.White
-            )
-        }
+            val isSideControls = maxWidth > maxHeight && maxWidth >= 520.dp
+            val isCompactWidth = maxWidth < 340.dp
+            val isCompactHeight = maxHeight < 520.dp
 
-        // Overlay: Controles de Captura Accesibles (>= 56dp)
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .padding(bottom = 32.dp, start = 32.dp, end = 32.dp)
-        ) {
-            if (isAnalyzing || captureInProgress) {
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
+            if (isSideControls) {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    CircularProgressIndicator(color = PrimaryGreen)
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text("Analizando tejido foliar...", color = Color.White, style = Typography.labelLarge)
-                }
-            } else {
-                // Selector de Galería
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .size(56.dp)
-                        .clip(CircleShape)
-                        .background(Color.Black.copy(alpha = 0.5f))
-                        .clickable(enabled = captureEnabled) {
-                            session.createCapture { galleryLauncher.launch("image/*") }
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(Icons.Rounded.PhotoLibrary, contentDescription = "Galería", tint = Color.White)
-                }
-
-                // Botón de Disparo File-First
-                Button(
-                    onClick = {
-                        val capture = imageCapture ?: return@Button
-                        cameraError = ""
-                        session.createCapture { path ->
-                        captureInProgress = true
-                        val photoFile = File(path)
-                        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
-                        capture.takePicture(
-                            outputOptions,
-                            ContextCompat.getMainExecutor(context),
-                            object : ImageCapture.OnImageSavedCallback {
-                                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                    captureInProgress = false
-                                    session.finishCapturedFile(true, onCaptureComplete)
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.Top,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            CameraCloseButton(onClick = onCloseClick)
+                            Column(
+                                modifier = Modifier.weight(1f),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                if (isCompactHeight) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        CameraInstructionPill(
+                                            text = "Encuadre la hoja con luz uniforme",
+                                            modifier = Modifier.weight(1f, fill = false)
+                                        )
+                                        CameraPlotSelector(
+                                            label = selectedPlotLabel,
+                                            expanded = selectingPlot,
+                                            onExpand = { selectingPlot = true },
+                                            onDismiss = { selectingPlot = false },
+                                            activePlots = activePlots,
+                                            onSelectPlot = { plotId ->
+                                                session.selectedPlot.value = plotId
+                                                selectingPlot = false
+                                            }
+                                        )
+                                    }
+                                } else {
+                                    CameraInstructionPill(text = "Busca luz uniforme, sin sombras")
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        CameraInstructionPill(
+                                            text = "Encuadre la hoja de limón dentro de la guía",
+                                            rounded = true,
+                                            modifier = Modifier.weight(1f, fill = false)
+                                        )
+                                        CameraPlotSelector(
+                                            label = selectedPlotLabel,
+                                            expanded = selectingPlot,
+                                            onExpand = { selectingPlot = true },
+                                            onDismiss = { selectingPlot = false },
+                                            activePlots = activePlots,
+                                            onSelectPlot = { plotId ->
+                                                session.selectedPlot.value = plotId
+                                                selectingPlot = false
+                                            }
+                                        )
+                                    }
                                 }
-
-                                override fun onError(exception: ImageCaptureException) {
-                                    Log.e("CameraX", "Fallo al guardar imagen: ${exception.message}", exception)
-                                    captureInProgress = false
-                                    cameraError = "No se pudo guardar la fotografía. Intenta de nuevo."
-                                    session.discardPendingCapture()
+                                if (errorText.isNotBlank()) {
+                                    CameraErrorBanner(errorText)
                                 }
                             }
-                        )
                         }
-                    },
-                    enabled = captureEnabled && hasCameraPermission && imageCapture != null,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(72.dp),
-                    shape = CircleShape,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                    contentPadding = PaddingValues(0.dp)
+
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (isAnalyzing || captureInProgress) {
+                                CameraAnalyzingOverlay()
+                            } else {
+                                ResponsiveLeafGuide()
+                            }
+                        }
+                    }
+
+                    // Columna derecha para controles en ventanas anchas con poca altura
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(84.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        CameraFlashButton(isFlashOn = isFlashOn, onClick = onFlashToggle)
+
+                        if (isAnalyzing || captureInProgress) {
+                            Spacer(modifier = Modifier.size(72.dp))
+                            Spacer(modifier = Modifier.size(56.dp))
+                        } else {
+                            CameraShutterButton(
+                                enabled = captureEnabled && hasCameraPermission && imageCapture != null,
+                                onClick = onCaptureClick
+                            )
+                            CameraGalleryButton(
+                                enabled = captureEnabled,
+                                onClick = onGalleryClick
+                            )
+                        }
+                    }
+                }
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(if (isCompactHeight) 6.dp else 10.dp)
                 ) {
-                    Icon(Icons.Rounded.PhotoCamera, contentDescription = "Capturar", tint = Color.Black)
+                    // Fila superior separada de las instrucciones para evitar solapamientos
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        CameraCloseButton(onClick = onCloseClick)
+                        if (!isCompactWidth) {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(horizontal = 8.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CameraPlotSelector(
+                                    label = selectedPlotLabel,
+                                    expanded = selectingPlot,
+                                    onExpand = { selectingPlot = true },
+                                    onDismiss = { selectingPlot = false },
+                                    activePlots = activePlots,
+                                    onSelectPlot = { plotId ->
+                                        session.selectedPlot.value = plotId
+                                        selectingPlot = false
+                                    }
+                                )
+                            }
+                        }
+                        CameraFlashButton(isFlashOn = isFlashOn, onClick = onFlashToggle)
+                    }
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        if (isCompactWidth) {
+                            CameraPlotSelector(
+                                label = selectedPlotLabel,
+                                expanded = selectingPlot,
+                                onExpand = { selectingPlot = true },
+                                onDismiss = { selectingPlot = false },
+                                activePlots = activePlots,
+                                onSelectPlot = { plotId ->
+                                    session.selectedPlot.value = plotId
+                                    selectingPlot = false
+                                }
+                            )
+                        }
+                        if (isCompactHeight) {
+                            CameraInstructionPill(text = "Encuadre la hoja con luz uniforme")
+                        } else {
+                            CameraInstructionPill(text = "Busca luz uniforme, sin sombras")
+                            CameraInstructionPill(
+                                text = "Encuadre la hoja de limón dentro de la guía",
+                                rounded = true
+                            )
+                        }
+                        if (errorText.isNotBlank()) {
+                            CameraErrorBanner(errorText)
+                        }
+                    }
+
+                    // Área libre central para la guía foliar
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (!isAnalyzing && !captureInProgress) {
+                            ResponsiveLeafGuide()
+                        }
+                    }
+
+                    // Controles inferiores accesibles (>= 56dp), acotados en ancho para tablet vertical
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = if (isCompactHeight) 4.dp else 12.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .widthIn(max = 420.dp)
+                                .padding(horizontal = if (isCompactWidth) 8.dp else 16.dp)
+                        ) {
+                            if (isAnalyzing || captureInProgress) {
+                                CameraAnalyzingOverlay(modifier = Modifier.align(Alignment.Center))
+                            } else {
+                                CameraGalleryButton(
+                                    enabled = captureEnabled,
+                                    onClick = onGalleryClick,
+                                    modifier = Modifier.align(Alignment.CenterStart)
+                                )
+                                CameraShutterButton(
+                                    enabled = captureEnabled && hasCameraPermission && imageCapture != null,
+                                    onClick = onCaptureClick,
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ResponsiveLeafGuide() {
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        val availWidth = (maxWidth - 16.dp).coerceAtLeast(0.dp)
+        val availHeight = (maxHeight - 16.dp).coerceAtLeast(0.dp)
+        val targetAspect = 220f / 300f
+        val maxGuideH = minOf(availHeight, 300.dp)
+        val maxGuideW = minOf(availWidth, 220.dp)
+        val guideHeight = minOf(maxGuideH, maxGuideW / targetAspect)
+        val guideWidth = guideHeight * targetAspect
+
+        if (guideHeight >= 72.dp && guideWidth >= 52.dp) {
+            Box(
+                modifier = Modifier
+                    .width(guideWidth)
+                    .height(guideHeight)
+                    .border(2.dp, Color.White.copy(alpha = 0.6f), RoundedCornerShape(32.dp))
+            )
+        }
+    }
+}
+
+@Composable
+private fun CameraInstructionPill(
+    text: String,
+    modifier: Modifier = Modifier,
+    rounded: Boolean = false
+) {
+    Box(
+        modifier = modifier
+            .clip(if (rounded) RoundedCornerShape(8.dp) else CircleShape)
+            .background(Color.Black.copy(alpha = 0.6f))
+            .padding(horizontal = 14.dp, vertical = 6.dp)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            style = Typography.labelMedium,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Composable
+private fun CameraPlotSelector(
+    label: String,
+    expanded: Boolean,
+    onExpand: () -> Unit,
+    onDismiss: () -> Unit,
+    activePlots: List<pe.edu.upn.agrovisionlurin.data.local.LocalPlot>,
+    onSelectPlot: (String) -> Unit
+) {
+    Box {
+        Surface(
+            onClick = onExpand,
+            color = Color.Black.copy(alpha = 0.65f),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Rounded.Place, null, tint = PrimaryGreen, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(6.dp))
+                Text(
+                    text = label,
+                    color = Color.White,
+                    style = Typography.labelMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.widthIn(max = 180.dp)
+                )
+                Icon(Icons.Rounded.ArrowDropDown, null, tint = Color.White)
+            }
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = onDismiss) {
+            activePlots.forEach { plot ->
+                DropdownMenuItem(
+                    text = { Text("${plot.code} · ${plot.name}") },
+                    onClick = { onSelectPlot(plot.id) }
+                )
+            }
+            if (activePlots.isEmpty()) {
+                DropdownMenuItem(
+                    text = { Text("Crea una parcela en Configuración") },
+                    onClick = onDismiss
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CameraErrorBanner(message: String) {
+    Text(
+        text = message,
+        color = Color.White,
+        style = Typography.labelMedium,
+        textAlign = TextAlign.Center,
+        maxLines = 3,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .background(Color.Black.copy(alpha = 0.75f), RoundedCornerShape(8.dp))
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    )
+}
+
+@Composable
+private fun CameraCloseButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+            .size(48.dp)
+            .background(Color.Black.copy(alpha = 0.5f), CircleShape)
+    ) {
+        Icon(Icons.Rounded.Close, contentDescription = "Volver", tint = Color.White)
+    }
+}
+
+@Composable
+private fun CameraFlashButton(isFlashOn: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(Color.Black.copy(alpha = 0.5f))
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = if (isFlashOn) Icons.Rounded.FlashOn else Icons.Rounded.FlashOff,
+            contentDescription = "Flash",
+            tint = Color.White
+        )
+    }
+}
+
+@Composable
+private fun CameraGalleryButton(enabled: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .size(56.dp)
+            .clip(CircleShape)
+            .background(Color.Black.copy(alpha = 0.5f))
+            .clickable(enabled = enabled, onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(Icons.Rounded.PhotoLibrary, contentDescription = "Galería", tint = Color.White)
+    }
+}
+
+@Composable
+private fun CameraShutterButton(enabled: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier.size(72.dp),
+        shape = CircleShape,
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+        contentPadding = PaddingValues(0.dp)
+    ) {
+        Icon(Icons.Rounded.PhotoCamera, contentDescription = "Capturar", tint = Color.Black)
+    }
+}
+
+@Composable
+private fun CameraAnalyzingOverlay(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(16.dp))
+            .padding(horizontal = 20.dp, vertical = 14.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(color = PrimaryGreen)
+        Spacer(modifier = Modifier.height(12.dp))
+        Text("Analizando tejido foliar...", color = Color.White, style = Typography.labelLarge)
     }
 }
