@@ -5,15 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InspectionDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertInspection(inspection: InspectionEntity)
 
     @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertInspections(inspections: List<InspectionEntity>)
 
     @Query("SELECT * FROM inspections WHERE id = :id LIMIT 1")
@@ -29,10 +30,9 @@ interface InspectionDao {
     @Query("SELECT COUNT(*) FROM inspections WHERE syncStatus = 0")
     fun getPendingSyncCount(): Flow<Int>
 
-    @Query("UPDATE inspections SET syncStatus = 1 WHERE id = :id")
-    suspend fun markAsSynced(id: String)
+    @Update
+    suspend fun updateInspection(inspection: InspectionEntity)
 
-    @Transaction
-    @Query("UPDATE inspections SET syncStatus = 1 WHERE id IN (:ids)")
-    suspend fun markAllAsSynced(ids: List<String>)
+    @Query("DELETE FROM inspections WHERE id = :id")
+    suspend fun deleteInspection(id: String)
 }

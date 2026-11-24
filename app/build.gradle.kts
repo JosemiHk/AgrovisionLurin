@@ -105,6 +105,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
 
+ksp { arg("room.schemaLocation", "$projectDir/schemas") }
+
 if (tasks.findByName("prepareKotlinBuildScriptModel") == null) {
     tasks.register("prepareKotlinBuildScriptModel") {}
 }

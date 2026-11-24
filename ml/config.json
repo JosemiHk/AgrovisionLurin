@@ -1,0 +1,16 @@
+{
+  "seed": 20261012,
+  "classes": {"Citrus Leafminer": "MINADOR_COMPATIBLE", "Healthy": "SIN_SINTOMAS_VISIBLES"},
+  "labels": ["MINADOR_COMPATIBLE", "SIN_SINTOMAS_VISIBLES"],
+  "split_ratios": [0.7, 0.15, 0.15],
+  "phash_distance": 4,
+  "input_size": 224,
+  "batch_size": 16,
+  "epochs": 8,
+  "threads": 2,
+  "minimum_abstention_threshold": 0.7,
+  "threshold_protocol_version": 2,
+  "model_version": "sullana-minador-baseline-1-protocol2",
+  "published_count": 17609,
+  "source_url": "https://data.mendeley.com/datasets/8d9fv6kpt3/2"
+}

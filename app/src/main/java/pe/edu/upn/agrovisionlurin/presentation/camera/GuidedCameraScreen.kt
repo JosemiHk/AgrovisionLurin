@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.compose.BackHandler
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -30,18 +31,30 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
 import pe.edu.upn.agrovisionlurin.presentation.theme.PrimaryGreen
 import pe.edu.upn.agrovisionlurin.presentation.theme.Typography
 import java.io.File
-import java.util.concurrent.Executors
 
 @Composable
 fun GuidedCameraScreen(
-    @Suppress("UNUSED_PARAMETER") onBack: () -> Unit,
+    onBack: () -> Unit,
     onCaptureComplete: (String) -> Unit,
-    viewModel: CameraViewModel = viewModel()
+    session: LocalMvpViewModel = viewModel()
 ) {
-    val isAnalyzing by viewModel.isAnalyzing.collectAsStateWithLifecycle()
+    val isAnalyzing by session.busy.collectAsStateWithLifecycle()
+    val plots by session.plots.collectAsStateWithLifecycle(initialValue = emptyList())
+    val selectedPlot by session.selectedPlot.collectAsStateWithLifecycle()
+    val ready by session.ready.collectAsStateWithLifecycle()
+    val user by session.user.collectAsStateWithLifecycle()
+    val message by session.message.collectAsStateWithLifecycle()
+    var cameraError by remember { mutableStateOf("") }
+    var selectingPlot by remember { mutableStateOf(false) }
+    var captureInProgress by remember { mutableStateOf(false) }
+    val captureEnabled = ready && user != null && plots.any { it.id == selectedPlot && it.active } && !isAnalyzing && !captureInProgress
+    BackHandler {
+        if(!isAnalyzing && !captureInProgress) { session.discardPendingCapture();onBack() }
+    }
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -69,7 +82,6 @@ fun GuidedCameraScreen(
     var imageCapture: ImageCapture? by remember { mutableStateOf(null) }
     var cameraControl: CameraControl? by remember { mutableStateOf(null) }
     var isFlashOn by remember { mutableStateOf(false) }
-    val executor = remember { Executors.newSingleThreadExecutor() }
 
     // Limpieza de ciclo de vida para evitar fugas de hardware y memoria
     DisposableEffect(lifecycleOwner) {
@@ -82,7 +94,6 @@ fun GuidedCameraScreen(
             } catch (e: Exception) {
                 Log.e("GuidedCameraScreen", "Error al desvincular CameraProvider", e)
             }
-            executor.shutdown()
         }
     }
 
@@ -90,19 +101,8 @@ fun GuidedCameraScreen(
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        uri?.let {
-            try {
-                val tempFile = File(context.filesDir, "gallery_${System.currentTimeMillis()}.jpg")
-                context.contentResolver.openInputStream(it)?.use { input ->
-                    tempFile.outputStream().use { output ->
-                        input.copyTo(output)
-                    }
-                }
-                viewModel.processImageFile(tempFile, onCaptureComplete)
-            } catch (e: Exception) {
-                Log.e("GuidedCameraScreen", "Error al importar desde galería", e)
-            }
-        }
+        if (uri != null) session.importGallery(uri, onCaptureComplete)
+        else session.discardPendingCapture()
     }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
@@ -136,6 +136,7 @@ fun GuidedCameraScreen(
                             cameraControl = camera.cameraControl
                         } catch (exc: Exception) {
                             Log.e("CameraX", "Use case binding failed", exc)
+                            cameraError = "No se pudo iniciar la cámara. Puedes importar una fotografía."
                         }
                     }, ContextCompat.getMainExecutor(ctx))
                     previewView
@@ -147,29 +148,78 @@ fun GuidedCameraScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Se requiere permiso de cámara para la evaluación foliar.", color = Color.White)
+                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(24.dp)) {
+                    Text("Se requiere permiso de cámara para la evaluación foliar.", color = Color.White)
+                    Spacer(Modifier.height(12.dp))
+                    Button(onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) }, colors = ButtonDefaults.buttonColors(containerColor = PrimaryGreen)) { Text("Permitir cámara") }
+                }
             }
         }
 
-        // Overlay: Retículo tubular para Allium cepa (Cebolla Roja)
+        // Overlay: Guía visual neutra para encuadre de hoja de limón sutil
         Box(
             modifier = Modifier
                 .align(Alignment.Center)
-                .width(120.dp)
-                .height(400.dp)
-                .border(2.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(60.dp))
+                .width(220.dp)
+                .height(300.dp)
+                .border(2.dp, Color.White.copy(alpha = 0.6f), RoundedCornerShape(32.dp))
         )
 
-        // Overlay: Píldora de Iluminación
-        Box(
+        // Instrucciones de captura: no se presentan como mediciones automáticas.
+        Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(top = 48.dp)
-                .clip(CircleShape)
-                .background(Color.Black.copy(alpha = 0.6f))
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(top = 48.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text("Iluminación Óptima", color = Color.White, style = Typography.labelMedium)
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(Color.Black.copy(alpha = 0.6f))
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            ) {
+                Text("Busca luz uniforme, sin sombras", color = Color.White, style = Typography.labelMedium)
+            }
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.Black.copy(alpha = 0.6f))
+                    .padding(horizontal = 14.dp, vertical = 6.dp)
+            ) {
+                Text(
+                    text = "Encuadre la hoja de limón dentro de la guía",
+                    color = Color.White,
+                    style = Typography.labelMedium
+                )
+            }
+            Box {
+                Surface(
+                    onClick = { selectingPlot = true },
+                    color = Color.Black.copy(alpha = 0.65f),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Row(modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Rounded.Place, null, tint = PrimaryGreen, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text(plots.firstOrNull { it.id == selectedPlot }?.let { "Parcela ${it.code}" } ?: "Seleccionar parcela", color = Color.White, style = Typography.labelMedium)
+                        Icon(Icons.Rounded.ArrowDropDown, null, tint = Color.White)
+                    }
+                }
+                DropdownMenu(expanded = selectingPlot, onDismissRequest = { selectingPlot = false }) {
+                    plots.filter { it.active }.forEach { plot ->
+                        DropdownMenuItem(text = { Text("${plot.code} · ${plot.name}") }, onClick = { session.selectedPlot.value = plot.id; selectingPlot = false })
+                    }
+                    if (plots.none { it.active }) DropdownMenuItem(text = { Text("Crea una parcela en Configuración") }, onClick = { selectingPlot = false })
+                }
+            }
+            val error = cameraError.ifBlank { message }
+            if (error.isNotBlank()) Text(error, color = Color.White, style = Typography.labelMedium,
+                modifier = Modifier.background(Color.Black.copy(alpha = 0.75f), RoundedCornerShape(8.dp)).padding(10.dp))
+        }
+
+        IconButton(onClick = { if (!captureInProgress && !isAnalyzing) onBack() }, modifier = Modifier.align(Alignment.TopStart).padding(top = 48.dp, start = 16.dp).background(Color.Black.copy(alpha = 0.5f), CircleShape)) {
+            Icon(Icons.Rounded.Close, contentDescription = "Volver", tint = Color.White)
         }
 
         // Top Right: Control de Linterna / Flash
@@ -200,7 +250,7 @@ fun GuidedCameraScreen(
                 .fillMaxWidth()
                 .padding(bottom = 32.dp, start = 32.dp, end = 32.dp)
         ) {
-            if (isAnalyzing) {
+            if (isAnalyzing || captureInProgress) {
                 Column(
                     modifier = Modifier.align(Alignment.Center),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -217,7 +267,9 @@ fun GuidedCameraScreen(
                         .size(56.dp)
                         .clip(CircleShape)
                         .background(Color.Black.copy(alpha = 0.5f))
-                        .clickable { galleryLauncher.launch("image/*") },
+                        .clickable(enabled = captureEnabled) {
+                            session.createCapture { galleryLauncher.launch("image/*") }
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(Icons.Rounded.PhotoLibrary, contentDescription = "Galería", tint = Color.White)
@@ -227,23 +279,32 @@ fun GuidedCameraScreen(
                 Button(
                     onClick = {
                         val capture = imageCapture ?: return@Button
-                        val photoFile = File(context.filesDir, "capture_${System.currentTimeMillis()}.jpg")
+                        cameraError = ""
+                        session.createCapture { path ->
+                        captureInProgress = true
+                        val photoFile = File(path)
                         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
                         capture.takePicture(
                             outputOptions,
-                            executor,
+                            ContextCompat.getMainExecutor(context),
                             object : ImageCapture.OnImageSavedCallback {
                                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                    viewModel.processImageFile(photoFile, onCaptureComplete)
+                                    captureInProgress = false
+                                    session.finishCapturedFile(true, onCaptureComplete)
                                 }
 
                                 override fun onError(exception: ImageCaptureException) {
                                     Log.e("CameraX", "Fallo al guardar imagen: ${exception.message}", exception)
+                                    captureInProgress = false
+                                    cameraError = "No se pudo guardar la fotografía. Intenta de nuevo."
+                                    session.discardPendingCapture()
                                 }
                             }
                         )
+                        }
                     },
+                    enabled = captureEnabled && hasCameraPermission && imageCapture != null,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(72.dp),

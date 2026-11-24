@@ -1,0 +1,72 @@
+{
+  "version": "2-propuesta",
+  "title": "Aplicación móvil para apoyar la identificación de daño foliar compatible con minador en limón sutil en la Cooperativa Agraria LIMONORT-PERU Sullana 2026",
+  "requirements": [
+    {
+      "id": "RF01",
+      "status": "Modificado",
+      "description": "Inicio y cierre de sesión local con credenciales verificadas; sin acceso universal ni contraseñas en claro.",
+      "acceptance": "CP-AUTH-01 credenciales válidas e inválidas; sesión cerrada impide entrar."
+    },
+    {
+      "id": "RF02",
+      "status": "Modificado",
+      "description": "Crear, consultar, editar y retirar parcelas por código único y nombre; sin GPS ni inferencia de edad fenológica.",
+      "acceptance": "CP-PARC-01 CRUD; duplicados rechazados; integridad al retirar parcela usada."
+    },
+    {
+      "id": "RF03",
+      "status": "Modificado",
+      "description": "Capturar o importar una hoja, conservar copia privada y preparar entrada RGB 224 por 224. Error explícito para archivo no legible.",
+      "acceptance": "CP-IMG-01 cámara, galería, archivo corrupto y orientación."
+    },
+    {
+      "id": "RF04",
+      "status": "Modificado",
+      "description": "Clasificar hoja completa en MINADOR_COMPATIBLE o SIN_SINTOMAS_VISIBLES con modelo TFLite real; admitir no concluyente.",
+      "acceptance": "CP-ML-01 contrato y paridad; matriz de confusión independiente."
+    },
+    {
+      "id": "RF05",
+      "status": "Retirado",
+      "description": "Déficit hídrico excluido por falta de medición validada con imagen RGB. ID conservado como trazabilidad histórica.",
+      "acceptance": "Sin implementación activa."
+    },
+    {
+      "id": "RF06",
+      "status": "Modificado",
+      "description": "Presentar acciones de observar, registrar y consultar al técnico; guardar texto original por inspección.",
+      "acceptance": "CP-REC-01 catálogo correcto; sin prescripción de pesticidas ni riego."
+    },
+    {
+      "id": "RF07",
+      "status": "Modificado",
+      "description": "Ejecutar inferencia local y medir tiempo real; meta inicial menor a 3,5 s en dispositivo identificado.",
+      "acceptance": "CP-PERF-01 30 ejecuciones; mediana, p95 y máximo."
+    },
+    {
+      "id": "RF08",
+      "status": "Modificado",
+      "description": "Historial por usuario y parcela; recuperar por ID; editar metadatos y eliminar con confirmación sin alterar predicción congelada.",
+      "acceptance": "CP-DATA-01 abrir A después de B; edición no cambia clase, score o modelo."
+    },
+    {
+      "id": "RF09",
+      "status": "Modificado",
+      "description": "Persistir borrador, imagen y resultado en Room; migrar datos anteriores como LEGADO. Sin sincronización remota.",
+      "acceptance": "CP-ROOM-01 reinicio, migración y modo avión."
+    },
+    {
+      "id": "RF10",
+      "status": "Modificado",
+      "description": "Exportar inspección a CSV compartible con identificadores, fechas, parcela, resultado, modelo y recomendaciones.",
+      "acceptance": "CP-CSV-01 escaping y correspondencia exacta con la inspección."
+    },
+    {
+      "id": "RF11",
+      "status": "Nuevo",
+      "description": "Crear, consultar, editar y retirar usuarios locales con identidad única; proteger usuario de sesión y referencias existentes.",
+      "acceptance": "CP-USR-01 CRUD; contraseña nueva verificable y registros relacionados preservados."
+    }
+  ]
+}

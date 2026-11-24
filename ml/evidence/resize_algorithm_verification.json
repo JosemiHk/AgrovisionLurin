@@ -1,0 +1,47 @@
+{
+  "algorithm_matches_pillow_rgb_exactly": true,
+  "cases": [
+    {
+      "name": "synthetic_17x13",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "synthetic_224x224",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "synthetic_503x331",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "synthetic_1000x1000",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "minador_compatible_1.jpg",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "minador_compatible_2.jpg",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "sin_sintomas_visibles_1.jpg",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    },
+    {
+      "name": "sin_sintomas_visibles_2.jpg",
+      "max_channel_difference": 0,
+      "different_channels": 0
+    }
+  ],
+  "android_jpeg_decoder_parity": "requires_device_test",
+  "model_or_threshold_changed": false
+}

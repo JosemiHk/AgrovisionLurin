@@ -1,0 +1,245 @@
+Pregunta 2
+1/1
+1. Título del proyecto
+¿El título del proyecto identifica claramente las variables X e Y, la población de estudio, el lugar y el año de ejecución de la investigación?
+El título debe permitir identificar de manera inmediata qué se va a estudiar, sobre quiénes o qué se realizará el estudio, dónde se desarrollará y en qué periodo.
+Verificar que el título incluya:
+Variable X.
+Variable Y.
+Población.
+Lugar.
+Año.
+Pregunta de verificación:
+¿Al leer únicamente el título, es posible identificar las variables de estudio, la población involucrada, el lugar donde se realizará la investigación y el año correspondiente?
+Su respuesta
+IMPLEMENTACIÓN DE UNA APLICACIÓN MÓVIL PARA LA IDENTIFICACIÓN TEMPRANA DE PLAGAS EN EL CULTIVO DE LIMÓN SUTIL EN LA COOPERATIVA AGRARIA LIMONORT-PERU, SULLANA – 2026
+Pregunta 3
+1/1
+2. Población y muestra
+¿Cuál es la población que será objeto de estudio y cuál será la muestra que participará en la investigación?
+El proyecto debe identificar claramente la población de estudio, es decir, el conjunto de personas, organizaciones, documentos, procesos, registros u otras unidades que poseen las características relacionadas con la investigación.
+Posteriormente, debe determinarse la muestra, cuando corresponda, indicando cómo se seleccionarán las unidades que participarán en el estudio.
+Preguntas de verificación:
+¿Cuál es la población de estudio?
+¿Cuántos elementos conforman la población?
+¿Cuál será la muestra del proyecto?
+¿Cómo se determinará el tamaño de la muestra?
+¿Qué técnica de muestreo se utilizará y por qué?
+¿La muestra representa adecuadamente a la población definida?
+Importante para el proyecto final:
+El trabajo de investigación debe presentar población y muestra, debidamente justificadas de acuerdo con el diseño y enfoque de investigación. No es suficiente indicar solamente una cantidad de encuestados; debe explicarse de qué población provienen y cómo se determinó la muestra.
+Su respuesta
+Población humana:
+20 socios agricultores y personal técnico empadronados en la Cooperativa Agraria LIMONORT-PERU.
+Población técnica o de datos:
+Aproximadamente 800 capturas fotográficas foliares potenciales durante el año 2026. La unidad de análisis estará constituida por cada fotografía del cultivo de limón sutil con información fitosanitaria asociada.
+Muestra:
+600 fotografías válidas para conformar el conjunto de datos utilizado por el sistema.
+Para la evaluación con usuarios se considerará un piloto de 20 agricultores, seleccionados de acuerdo con los criterios de inclusión establecidos para el uso de la aplicación móvil.
+Pregunta 4
+1/1
+VARIABLE X
+3. Variable X y definición conceptual
+¿Cuál es la Variable X de la investigación y cómo se define conceptualmente con respaldo de una fuente académica?
+La variable X debe estar directamente relacionada con el problema y con el propósito de la investigación.
+La definición debe elaborarse utilizando una fuente académica confiable y presentarse con la correspondiente referencia y citación en formato APA 7.ª edición.
+Pregunta de verificación:
+¿La definición conceptual explica claramente qué significa la Variable X y está respaldada por un autor o fuente académica pertinente?
+Su respuesta
+Variable X
+Aplicación móvil.
+Definición conceptual
+Stoyanov et al. (2015) señalan que la calidad de una aplicación móvil es un constructo multidimensional evaluado mediante la Mobile App Rating Scale (MARS), que comprende cuatro dimensiones objetivas: compromiso, relacionado con el interés e interacción del usuario; funcionalidad, referida al funcionamiento y facilidad de uso; estética, asociada al diseño y presentación visual; y calidad de la información, relacionada con la calidad y presentación de la información proporcionada por la aplicación.
+Referencia 
+Stoyanov, S. R., Hides, L., Kavanagh, D. J., Zelenko, O., Tjondronegoro, D., & Mani, M. (2015). Mobile app rating scale: A new tool for assessing the quality of health mobile apps. JMIR mHealth and uHealth, 3(1), e27. https://doi.org/10.2196/mhealth.3422
+Pregunta 5
+1/1
+4. Dimensiones de la Variable X
+¿Cuáles son las dimensiones que permiten analizar o descomponer la Variable X?
+Las dimensiones representan los principales componentes o aspectos de la variable que serán estudiados.
+Preguntas de verificación:
+¿Cuáles son las dimensiones de la Variable X?
+¿Cada dimensión se encuentra sustentada en la definición conceptual de la variable?
+¿Las dimensiones permiten estudiar la Variable X de manera organizada y medible?
+¿Existe correspondencia entre la Variable X y sus dimensiones?
+Su respuesta
+La Variable X Aplicación móvil se encuentra conformada por las siguientes cuatro dimensiones:
+D1. Compromiso: evalúa el grado en que la aplicación resulta interesante, interactiva, entretenida y apropiada para el usuario objetivo.
+D2. Funcionalidad: evalúa el funcionamiento de la aplicación, su rendimiento, facilidad de uso, navegación e interacción mediante controles táctiles.
+D3. Estética: evalúa la organización visual, calidad gráfica y atractivo de la interfaz de la aplicación.
+D4. Calidad de la información: evalúa la exactitud, cantidad, presentación, credibilidad y respaldo de la información proporcionada por la aplicación.
+Pregunta 6
+1/1
+5. Indicadores de la Variable X
+¿Qué indicadores permitirán medir cada una de las dimensiones de la Variable X?
+Los indicadores deben estar asociados directamente con las dimensiones y permitir obtener información observable o medible.
+Preguntas de verificación:
+¿Qué indicadores corresponden a cada dimensión de la Variable X?
+¿Cada dimensión cuenta con uno o más indicadores pertinentes?
+¿Los indicadores permiten medir realmente la dimensión a la que pertenecen?
+¿Existe correspondencia entre variable → dimensión → indicador?
+Su respuesta
+Dimensión 1: Compromiso
+Entretenimiento.
+Interés.
+Personalización.
+Interactividad.
+Adecuación al público objetivo.
+Dimensión 2: Funcionalidad
+Rendimiento.
+Facilidad de uso.
+Navegación.
+Diseño gestual.
+Dimensión 3: Estética
+Distribución de los elementos.
+Gráficos.
+Atractivo visual.
+Dimensión 4: Calidad de la información
+Exactitud de la descripción de la aplicación.
+Objetivos.
+Calidad de la información.
+Cantidad de información.
+Información visual.
+Credibilidad.
+Base de evidencia.
+Pregunta 7
+1/1
+VARIABLE Y
+6. Variable Y y definición conceptual
+¿Cuál es la Variable Y de la investigación y cómo se define conceptualmente utilizando una fuente académica?
+La definición debe explicar con claridad qué representa la Variable Y dentro del estudio y debe encontrarse respaldada mediante una fuente académica pertinente.
+La citación y referencia deben elaborarse utilizando APA 7.ª edición.
+Pregunta de verificación:
+¿La definición conceptual de la Variable Y explica claramente su significado y cuenta con respaldo académico?
+Su respuesta
+Variable Y
+Identificación temprana de plagas en el cultivo de limón sutil.
+Definición conceptual
+La identificación temprana de plagas es un proceso de vigilancia fitosanitaria orientado a detectar oportunamente la presencia de organismos perjudiciales e identificar correctamente la plaga presente en un cultivo, permitiendo disponer de información antes de que su presencia o propagación genere una mayor afectación (European Food Safety Authority [EFSA] et al., 2024; Servicio Nacional de Sanidad Agraria [SENASA], 2016). Para la presente investigación, esta variable será analizada mediante las dimensiones detección de la presencia de plagas, identificación correcta de la plaga y oportunidad de la identificación. 
+
+Referencias
+European Food Safety Authority (EFSA), Martino, M. E., Delbianco, A., Kaluski, T., & Vos, S. (2024). Technical report on the classification of plant pest detection and identification methods. EFSA Supporting Publications, 21(1), EN-8381. https://doi.org/10.2903/sp.efsa.2024.EN-8381
+Servicio Nacional de Sanidad Agraria. (2016, 6 de diciembre).Vigilancia fitosanitaria permite detectar oportunamente presencia de plagas. SENASA. https://www.senasa.gob.pe/senasacontigo/vigilancia-fitosanitaria-permite-detectar-oportunamente-presencia-de-plagas/
+Pregunta 8
+1/1
+7. Dimensiones de la Variable Y
+¿Cuáles son las dimensiones que componen la Variable Y y permiten analizarla de manera específica?
+Las dimensiones deben representar componentes relevantes de la variable y mantener coherencia con su definición conceptual.
+Preguntas de verificación:
+¿Cuáles son las dimensiones de la Variable Y?
+¿Las dimensiones se desprenden conceptualmente de la variable?
+¿Las dimensiones permiten estudiar diferentes aspectos de la Variable Y?
+¿Existe coherencia entre la definición de la Variable Y y sus dimensiones?
+Su respuesta
+La Variable Y Identificación temprana de plagas en el cultivo de limón sutil se encuentra conformada por tres dimensiones:
+D1. Detección de la presencia de plagas
+Evalúa la capacidad de determinar correctamente si existe o no presencia de una plaga en el cultivo de limón sutil.
+D2. Identificación correcta de la plaga
+Evalúa la capacidad de reconocer y clasificar correctamente el tipo de plaga presente a partir de las características observadas en el cultivo.
+D3. Oportunidad de la identificación
+Evalúa la rapidez con la cual se logra identificar la presencia de la plaga, permitiendo obtener información oportunamente para la posterior toma de decisiones.
+Pregunta 9
+1/1
+8. Indicadores de la Variable Y
+¿Qué indicadores permitirán medir cada una de las dimensiones de la Variable Y?
+Los indicadores deben permitir operacionalizar las dimensiones y posteriormente formular los ítems del instrumento de recolección de datos.
+Preguntas de verificación:
+¿Qué indicadores corresponden a cada dimensión de la Variable Y?
+¿Cada dimensión cuenta con indicadores suficientes para su medición?
+¿Los indicadores son observables o medibles?
+¿Existe correspondencia entre Variable Y → Dimensiones → Indicadores → Ítems?
+Su respuesta
+Dimensión 1: Detección de la presencia de plagas
+Indicadores:
+Tasa de detección correcta.
+Sensibilidad (Recall).
+Tasa de falsos negativos.
+Qué permiten medir
+Determinan si la aplicación logra reconocer correctamente cuándo existe una plaga.
+Dimensión 2: Identificación correcta de la plaga
+Indicadores:
+Exactitud global (Accuracy).
+Precisión (Precision).
+F1-score.
+Qué permiten medir
+Determinan si, además de encontrar la presencia de una plaga, la aplicación logra clasificar correctamente qué plaga es.
+Los sistemas modernos de detección de plagas basados en visión por computadora se evalúan precisamente mediante criterios de exactitud y rapidez en la detección. 
+Dimensión 3: Oportunidad de la identificación
+Indicadores:
+Tiempo promedio requerido para la identificación.
+Reducción del tiempo de identificación respecto al procedimiento habitual.
+Porcentaje de identificaciones realizadas oportunamente.
+Qué permite medir
+Determina si la aplicación permite obtener la identificación de la plaga en menor tiempo.
+Pregunta 10
+1/1
+OBJETIVOS
+9. Objetivo general
+¿Qué pretende determinar, analizar, evaluar o establecer la investigación respecto de las variables X e Y?
+El objetivo general debe expresar de manera clara el propósito principal de la investigación y mantener correspondencia con el título y el problema general.
+Preguntas de verificación:
+¿El objetivo general responde directamente al problema general?
+¿El objetivo general mantiene correspondencia con el título?
+¿Incluye las variables X e Y?
+¿El verbo utilizado es coherente con el nivel de investigación?
+Su respuesta
+Determinar la influencia de la implementación de una aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil en la Cooperativa Agraria LIMONORT-PERU, Sullana – 2026.
+Pregunta 11
+1/1
+10. Objetivos específicos
+¿Qué aspectos específicos de la Variable X y de la Variable Y serán estudiados para alcanzar el objetivo general?
+Los objetivos específicos deben desarrollar el objetivo general y no simplemente repetirlo.
+En particular, deben mantener correspondencia con las dimensiones de X y con la Variable Y, según el modelo de investigación planteado.
+Preguntas de verificación:
+¿Cada objetivo específico aborda una dimensión de la Variable X?
+¿Existe un objetivo específico relacionado con la Variable Y cuando corresponda?
+¿Los objetivos específicos permiten alcanzar el objetivo general?
+¿Los objetivos específicos evitan repetir literalmente lo planteado en el objetivo general?
+¿Existe correspondencia entre objetivos específicos, dimensiones e indicadores?
+Su respuesta
+Determinar la influencia del compromiso de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil.
+Determinar la influencia de la funcionalidad de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil.
+Determinar la influencia de la estética de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil.
+Determinar la influencia de la calidad de la información de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil.
+Pregunta 12
+1/1
+PROBLEMAS DE INVESTIGACIÓN
+11. Problema general
+¿Cuál es la situación problemática principal que origina la investigación y qué relación existe entre las variables X e Y dentro del contexto estudiado?
+El problema general debe representar la situación que se pretende investigar y guardar correspondencia con el objetivo general.
+Preguntas de verificación:
+¿El problema general representa realmente la situación problemática identificada?
+¿Existe correspondencia entre problema general y objetivo general?
+¿El problema general considera las variables X e Y?
+¿Está delimitado a una población, lugar y periodo?
+Su respuesta
+¿De qué manera influye la implementación de una aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil en la Cooperativa Agraria LIMONORT-PERU, Sullana – 2026?
+Pregunta 13
+1/1
+12. Problemas específicos
+¿Qué interrogantes específicas deben responderse para analizar las dimensiones de la Variable X y la Variable Y?
+Los problemas específicos deben derivarse del problema general y mantener correspondencia con los objetivos específicos.
+Preguntas de verificación:
+¿Cada problema específico corresponde a un objetivo específico?
+¿Los problemas específicos permiten analizar las dimensiones de la Variable X?
+¿Existe correspondencia entre problemas, objetivos, dimensiones e indicadores?
+¿Los problemas específicos evitan repetir el problema general?
+Su respuesta
+¿De qué forma influye el compromiso de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil?
+¿De qué forma influye la funcionalidad de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil?
+¿De qué forma influye la estética de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil?
+¿De qué forma influye la calidad de la información de la aplicación móvil en la identificación temprana de plagas en el cultivo de limón sutil?
+Pregunta 14
+1/1
+DIAGRAMA DE ISHIKAWA
+13. Diagrama de Ishikawa
+¿Cuáles son las principales causas que originan o contribuyen al problema identificado en la investigación?
+El Diagrama de Ishikawa debe utilizarse para organizar visualmente las posibles causas que contribuyen al problema central.
+Preguntas de verificación:
+¿Cuál es el problema central que se colocará en la cabeza del diagrama?
+¿Cuáles son las principales categorías de causas?
+¿Qué causas específicas se encuentran dentro de cada categoría?
+¿Las causas identificadas tienen relación directa con el problema?
+¿Las causas están respaldadas por evidencias obtenidas del contexto real?
+¿Existe correspondencia entre las causas identificadas y el problema general de investigación?
+

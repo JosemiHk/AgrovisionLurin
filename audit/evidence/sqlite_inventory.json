@@ -1,0 +1,126 @@
+[
+  {
+    "path": "E:\\TESIS\\AGROVISION-LURIN-1\\database\\agrovision_lurin.sqlite",
+    "schema": [
+      [
+        "usuarios",
+        "CREATE TABLE usuarios (\n    id_usuario       INTEGER PRIMARY KEY AUTOINCREMENT,\n    username         TEXT    UNIQUE NOT NULL,\n    password_hash    TEXT    NOT NULL,\n    nombre_completo  TEXT    NOT NULL,\n    rol              TEXT    NOT NULL CHECK(rol IN ('Administrador del Lote','Ing. Agronomo','Operario de Campo')),\n    email            TEXT,\n    activo           INTEGER NOT NULL DEFAULT 1,\n    creado_en        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP\n)"
+      ],
+      [
+        "sqlite_sequence",
+        "CREATE TABLE sqlite_sequence(name,seq)"
+      ],
+      [
+        "parcelas",
+        "CREATE TABLE parcelas (\n    id_parcela         TEXT PRIMARY KEY,\n    nombre_fundo       TEXT NOT NULL,\n    sector             TEXT NOT NULL,\n    cultivo_principal  TEXT NOT NULL,\n    area_hectareas     REAL NOT NULL,\n    coordenadas_gps    TEXT,\n    estado             TEXT NOT NULL DEFAULT 'Activo',\n    creado_en          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP\n)"
+      ],
+      [
+        "catalogo_diagnosticos",
+        "CREATE TABLE catalogo_diagnosticos (\n    id_diagnostico    INTEGER PRIMARY KEY,\n    codigo            TEXT UNIQUE NOT NULL,\n    nombre_comun      TEXT NOT NULL,\n    nombre_cientifico TEXT,\n    tipo_afectacion   TEXT NOT NULL CHECK(tipo_afectacion IN ('Plaga entomologica','Estres Abiotico','Fisiologico Optimo')),\n    descripcion       TEXT NOT NULL,\n    umbral_alerta     REAL NOT NULL DEFAULT 0.75\n)"
+      ],
+      [
+        "recomendaciones_catalogo",
+        "CREATE TABLE recomendaciones_catalogo (\n    id_recomendacion  INTEGER PRIMARY KEY AUTOINCREMENT,\n    id_diagnostico    INTEGER NOT NULL,\n    titulo            TEXT NOT NULL,\n    descripcion       TEXT NOT NULL,\n    tipo_accion       TEXT NOT NULL CHECK(tipo_accion IN ('Monitoreo','Biologico','Quimico','Riego','Cultural')),\n    prioridad         TEXT NOT NULL CHECK(prioridad IN ('Baja','Media','Alta','Inmediata')),\n    FOREIGN KEY (id_diagnostico) REFERENCES catalogo_diagnosticos(id_diagnostico) ON DELETE CASCADE\n)"
+      ],
+      [
+        "inspecciones_campo",
+        "CREATE TABLE inspecciones_campo (\n    id_inspeccion             TEXT    PRIMARY KEY,\n    id_usuario                INTEGER,\n    id_parcela                TEXT    NOT NULL,\n    sub_parcela_surco         TEXT    NOT NULL,\n    ruta_imagen_local         TEXT    NOT NULL,\n    id_diagnostico            INTEGER NOT NULL,\n    confianza_ia              REAL    NOT NULL,\n    latencia_inferencia_ms    INTEGER NOT NULL,\n    nivel_severidad           TEXT    NOT NULL CHECK(nivel_severidad IN ('Bajo','Medio','Critico')),\n    estado_sincronizacion     INTEGER NOT NULL DEFAULT 0 CHECK(estado_sincronizacion IN (0,1)),\n    creado_en_timestamp       INTEGER NOT NULL,\n    sincronizado_en_timestamp INTEGER,\n    FOREIGN KEY (id_usuario)    REFERENCES usuarios(id_usuario)   ON DELETE SET NULL,\n    FOREIGN KEY (id_parcela)    REFERENCES parcelas(id_parcela)   ON DELETE RESTRICT,\n    FOREIGN KEY (id_diagnostico) REFERENCES catalogo_diagnosticos(id_diagnostico) ON DELETE RESTRICT\n)"
+      ],
+      [
+        "inspeccion_recomendaciones",
+        "CREATE TABLE inspeccion_recomendaciones (\n    id_detalle        INTEGER PRIMARY KEY AUTOINCREMENT,\n    id_inspeccion     TEXT    NOT NULL,\n    id_recomendacion  INTEGER NOT NULL,\n    aplicada          INTEGER NOT NULL DEFAULT 0,\n    fecha_aplicacion  DATETIME,\n    observaciones     TEXT,\n    FOREIGN KEY (id_inspeccion)    REFERENCES inspecciones_campo(id_inspeccion)  ON DELETE CASCADE,\n    FOREIGN KEY (id_recomendacion) REFERENCES recomendaciones_catalogo(id_recomendacion) ON DELETE RESTRICT\n)"
+      ],
+      [
+        "sincronizaciones_azure_log",
+        "CREATE TABLE sincronizaciones_azure_log (\n    id_sync             INTEGER PRIMARY KEY AUTOINCREMENT,\n    fecha_sync          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    cantidad_registros  INTEGER  NOT NULL,\n    endpoint_azure      TEXT     NOT NULL,\n    http_status         INTEGER  NOT NULL,\n    estado              TEXT     NOT NULL CHECK(estado IN ('PENDING','SUCCESS','FAILED')),\n    mensaje_respuesta   TEXT\n)"
+      ],
+      [
+        "inspections",
+        "CREATE TABLE inspections (\n    id                 TEXT    PRIMARY KEY NOT NULL,\n    plotId             TEXT    NOT NULL,\n    subPlot            TEXT    NOT NULL,\n    imagePath          TEXT    NOT NULL,\n    diagnosisClass     INTEGER NOT NULL,\n    confidence         REAL    NOT NULL,\n    latencyMs          INTEGER NOT NULL,\n    severityLevel      TEXT    NOT NULL,\n    recommendationsJson TEXT    NOT NULL,\n    syncStatus         INTEGER NOT NULL,\n    createdAt          INTEGER NOT NULL\n)"
+      ],
+      [
+        "v_resumen_fitosanitario",
+        "CREATE VIEW v_resumen_fitosanitario AS\nSELECT\n    p.nombre_fundo              AS fundo,\n    p.sector                    AS sector_lurin,\n    cd.nombre_comun             AS diagnostico,\n    cd.tipo_afectacion,\n    COUNT(i.id_inspeccion)      AS total_evaluaciones,\n    ROUND(AVG(i.confianza_ia)*100,2) AS confianza_promedio_pct,\n    ROUND(AVG(i.latencia_inferencia_ms),1) AS latencia_promedio_ms,\n    SUM(CASE WHEN i.nivel_severidad = 'Critico' THEN 1 ELSE 0 END) AS casos_criticos,\n    SUM(CASE WHEN i.estado_sincronizacion = 0 THEN 1 ELSE 0 END)   AS pendientes_sync\nFROM inspecciones_campo i\nJOIN parcelas              p  ON i.id_parcela    = p.id_parcela\nJOIN catalogo_diagnosticos cd ON i.id_diagnostico = cd.id_diagnostico\nGROUP BY p.nombre_fundo, p.sector, cd.nombre_comun, cd.tipo_afectacion"
+      ]
+    ],
+    "counts": {
+      "usuarios": 3,
+      "parcelas": 3,
+      "catalogo_diagnosticos": 3,
+      "recomendaciones_catalogo": 8,
+      "inspecciones_campo": 5,
+      "inspeccion_recomendaciones": 7,
+      "sincronizaciones_azure_log": 2,
+      "inspections": 5,
+      "v_resumen_fitosanitario": 5
+    },
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "fk_errors": []
+  },
+  {
+    "path": "E:\\TESIS\\AGROVISION-LURIN-1\\agrovision_database.sqlite",
+    "schema": [
+      [
+        "usuarios",
+        "CREATE TABLE usuarios (\n    id_usuario       INTEGER PRIMARY KEY AUTOINCREMENT,\n    username         TEXT    UNIQUE NOT NULL,\n    password_hash    TEXT    NOT NULL,\n    nombre_completo  TEXT    NOT NULL,\n    rol              TEXT    NOT NULL CHECK(rol IN ('Administrador del Lote','Ing. Agronomo','Operario de Campo')),\n    email            TEXT,\n    activo           INTEGER NOT NULL DEFAULT 1,\n    creado_en        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP\n)"
+      ],
+      [
+        "sqlite_sequence",
+        "CREATE TABLE sqlite_sequence(name,seq)"
+      ],
+      [
+        "parcelas",
+        "CREATE TABLE parcelas (\n    id_parcela         TEXT PRIMARY KEY,\n    nombre_fundo       TEXT NOT NULL,\n    sector             TEXT NOT NULL,\n    cultivo_principal  TEXT NOT NULL,\n    area_hectareas     REAL NOT NULL,\n    coordenadas_gps    TEXT,\n    estado             TEXT NOT NULL DEFAULT 'Activo',\n    creado_en          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP\n)"
+      ],
+      [
+        "catalogo_diagnosticos",
+        "CREATE TABLE catalogo_diagnosticos (\n    id_diagnostico    INTEGER PRIMARY KEY,\n    codigo            TEXT UNIQUE NOT NULL,\n    nombre_comun      TEXT NOT NULL,\n    nombre_cientifico TEXT,\n    tipo_afectacion   TEXT NOT NULL CHECK(tipo_afectacion IN ('Plaga entomologica','Estres Abiotico','Fisiologico Optimo')),\n    descripcion       TEXT NOT NULL,\n    umbral_alerta     REAL NOT NULL DEFAULT 0.75\n)"
+      ],
+      [
+        "recomendaciones_catalogo",
+        "CREATE TABLE recomendaciones_catalogo (\n    id_recomendacion  INTEGER PRIMARY KEY AUTOINCREMENT,\n    id_diagnostico    INTEGER NOT NULL,\n    titulo            TEXT NOT NULL,\n    descripcion       TEXT NOT NULL,\n    tipo_accion       TEXT NOT NULL CHECK(tipo_accion IN ('Monitoreo','Biologico','Quimico','Riego','Cultural')),\n    prioridad         TEXT NOT NULL CHECK(prioridad IN ('Baja','Media','Alta','Inmediata')),\n    FOREIGN KEY (id_diagnostico) REFERENCES catalogo_diagnosticos(id_diagnostico) ON DELETE CASCADE\n)"
+      ],
+      [
+        "inspecciones_campo",
+        "CREATE TABLE inspecciones_campo (\n    id_inspeccion             TEXT    PRIMARY KEY,\n    id_usuario                INTEGER,\n    id_parcela                TEXT    NOT NULL,\n    sub_parcela_surco         TEXT    NOT NULL,\n    ruta_imagen_local         TEXT    NOT NULL,\n    id_diagnostico            INTEGER NOT NULL,\n    confianza_ia              REAL    NOT NULL,\n    latencia_inferencia_ms    INTEGER NOT NULL,\n    nivel_severidad           TEXT    NOT NULL CHECK(nivel_severidad IN ('Bajo','Medio','Critico')),\n    estado_sincronizacion     INTEGER NOT NULL DEFAULT 0 CHECK(estado_sincronizacion IN (0,1)),\n    creado_en_timestamp       INTEGER NOT NULL,\n    sincronizado_en_timestamp INTEGER,\n    FOREIGN KEY (id_usuario)    REFERENCES usuarios(id_usuario)   ON DELETE SET NULL,\n    FOREIGN KEY (id_parcela)    REFERENCES parcelas(id_parcela)   ON DELETE RESTRICT,\n    FOREIGN KEY (id_diagnostico) REFERENCES catalogo_diagnosticos(id_diagnostico) ON DELETE RESTRICT\n)"
+      ],
+      [
+        "inspeccion_recomendaciones",
+        "CREATE TABLE inspeccion_recomendaciones (\n    id_detalle        INTEGER PRIMARY KEY AUTOINCREMENT,\n    id_inspeccion     TEXT    NOT NULL,\n    id_recomendacion  INTEGER NOT NULL,\n    aplicada          INTEGER NOT NULL DEFAULT 0,\n    fecha_aplicacion  DATETIME,\n    observaciones     TEXT,\n    FOREIGN KEY (id_inspeccion)    REFERENCES inspecciones_campo(id_inspeccion)  ON DELETE CASCADE,\n    FOREIGN KEY (id_recomendacion) REFERENCES recomendaciones_catalogo(id_recomendacion) ON DELETE RESTRICT\n)"
+      ],
+      [
+        "sincronizaciones_azure_log",
+        "CREATE TABLE sincronizaciones_azure_log (\n    id_sync             INTEGER PRIMARY KEY AUTOINCREMENT,\n    fecha_sync          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    cantidad_registros  INTEGER  NOT NULL,\n    endpoint_azure      TEXT     NOT NULL,\n    http_status         INTEGER  NOT NULL,\n    estado              TEXT     NOT NULL CHECK(estado IN ('PENDING','SUCCESS','FAILED')),\n    mensaje_respuesta   TEXT\n)"
+      ],
+      [
+        "inspections",
+        "CREATE TABLE inspections (\n    id                 TEXT    PRIMARY KEY NOT NULL,\n    plotId             TEXT    NOT NULL,\n    subPlot            TEXT    NOT NULL,\n    imagePath          TEXT    NOT NULL,\n    diagnosisClass     INTEGER NOT NULL,\n    confidence         REAL    NOT NULL,\n    latencyMs          INTEGER NOT NULL,\n    severityLevel      TEXT    NOT NULL,\n    recommendationsJson TEXT    NOT NULL,\n    syncStatus         INTEGER NOT NULL,\n    createdAt          INTEGER NOT NULL\n)"
+      ],
+      [
+        "v_resumen_fitosanitario",
+        "CREATE VIEW v_resumen_fitosanitario AS\nSELECT\n    p.nombre_fundo              AS fundo,\n    p.sector                    AS sector_lurin,\n    cd.nombre_comun             AS diagnostico,\n    cd.tipo_afectacion,\n    COUNT(i.id_inspeccion)      AS total_evaluaciones,\n    ROUND(AVG(i.confianza_ia)*100,2) AS confianza_promedio_pct,\n    ROUND(AVG(i.latencia_inferencia_ms),1) AS latencia_promedio_ms,\n    SUM(CASE WHEN i.nivel_severidad = 'Critico' THEN 1 ELSE 0 END) AS casos_criticos,\n    SUM(CASE WHEN i.estado_sincronizacion = 0 THEN 1 ELSE 0 END)   AS pendientes_sync\nFROM inspecciones_campo i\nJOIN parcelas              p  ON i.id_parcela    = p.id_parcela\nJOIN catalogo_diagnosticos cd ON i.id_diagnostico = cd.id_diagnostico\nGROUP BY p.nombre_fundo, p.sector, cd.nombre_comun, cd.tipo_afectacion"
+      ]
+    ],
+    "counts": {
+      "usuarios": 3,
+      "parcelas": 3,
+      "catalogo_diagnosticos": 3,
+      "recomendaciones_catalogo": 8,
+      "inspecciones_campo": 5,
+      "inspeccion_recomendaciones": 7,
+      "sincronizaciones_azure_log": 2,
+      "inspections": 5,
+      "v_resumen_fitosanitario": 5
+    },
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "fk_errors": []
+  }
+]

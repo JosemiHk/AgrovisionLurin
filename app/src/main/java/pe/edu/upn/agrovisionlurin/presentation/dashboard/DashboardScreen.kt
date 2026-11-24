@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
 import pe.edu.upn.agrovisionlurin.data.local.InspectionEntity
 import pe.edu.upn.agrovisionlurin.presentation.components.LeafThumbnail
 import java.text.SimpleDateFormat
@@ -35,11 +35,14 @@ fun DashboardScreen(
     onNavigateToCamera: () -> Unit,
     onNavigateToHistory: () -> Unit,
     onNavigateToDetail: (String) -> Unit = {},
-    viewModel: DashboardViewModel = viewModel()
+    session: LocalMvpViewModel
 ) {
-    val pendingCount by viewModel.pendingSyncCount.collectAsStateWithLifecycle()
-    val recentInspections by viewModel.recentInspections.collectAsStateWithLifecycle()
-    val totalScans by viewModel.totalScansCount.collectAsStateWithLifecycle()
+    val inspections by session.inspections.collectAsStateWithLifecycle(initialValue = emptyList())
+    val busy by session.busy.collectAsStateWithLifecycle()
+    val message by session.message.collectAsStateWithLifecycle()
+    val pendingCount = inspections.count { it.state in listOf("BORRADOR", "ERROR", "NO_CONCLUYENTE") }
+    val recentInspections = inspections.sortedByDescending { it.createdAt }.take(5)
+    val totalScans = inspections.size
 
     Scaffold(
         containerColor = Color(0xFFF8F9FA)
@@ -54,6 +57,13 @@ fun DashboardScreen(
             // 1. Header Row
             item(key = "header_row") {
                 DashboardHeader(pendingCount = pendingCount)
+            }
+
+            if (busy) {
+                item(key = "loading") { LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), color = Color(0xFF1B5E20)) }
+            }
+            if (message.isNotBlank()) {
+                item(key = "operation_message") { Text(message, color = Color(0xFF5E636E), fontSize = 13.sp) }
             }
 
             // 2. Hero Scan Card
@@ -153,7 +163,7 @@ private fun DashboardHeader(pendingCount: Int) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -172,14 +182,15 @@ private fun DashboardHeader(pendingCount: Int) {
                 )
             }
             Text(
-                text = "Valle de Lurín",
+                text = "Cooperativa Agraria LIMONORT-PERU, Sullana",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color(0xFF5E636E)
             )
         }
 
-        // Compact Offline Pill
+        Spacer(modifier = Modifier.width(8.dp))
+        // Compact local status pill
         val isPending = pendingCount > 0
         Surface(
             shape = RoundedCornerShape(20.dp),
@@ -195,13 +206,13 @@ private fun DashboardHeader(pendingCount: Int) {
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 Icon(
-                    imageVector = if (isPending) Icons.Rounded.CloudOff else Icons.Rounded.CloudDone,
-                    contentDescription = "Estado de sincronización",
+                    imageVector = if (isPending) Icons.Rounded.PendingActions else Icons.Rounded.PhoneAndroid,
+                    contentDescription = "Guardado local",
                     tint = if (isPending) Color(0xFFD97706) else Color(0xFF64748B),
                     modifier = Modifier.size(14.dp)
                 )
                 Text(
-                    text = if (isPending) "Offline · $pendingCount" else "Offline",
+                    text = if (isPending) "Revisar · $pendingCount" else "Local",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = if (isPending) Color(0xFF92400E) else Color(0xFF475569)
@@ -253,7 +264,7 @@ private fun HeroScanCard(onClick: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "Analizar hojas de cebolla en el lote",
+                    text = "Analizar hojas de limón sutil en el lote",
                     fontSize = 13.sp,
                     color = Color.White.copy(alpha = 0.85f)
                 )
@@ -292,7 +303,7 @@ private fun QuickMetricsBar(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Rounded.CloudUpload,
+                    imageVector = Icons.Rounded.PendingActions,
                     contentDescription = null,
                     tint = if (pendingCount > 0) Color(0xFFD97706) else Color(0xFF1B5E20),
                     modifier = Modifier.size(22.dp)
@@ -304,7 +315,7 @@ private fun QuickMetricsBar(
                     color = Color(0xFF1C1B1F)
                 )
                 Text(
-                    text = "Pendientes",
+                    text = "Por revisar",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color(0xFF5E636E)
@@ -351,25 +362,18 @@ private fun RecentInspectionCard(
     item: InspectionEntity,
     onClick: () -> Unit
 ) {
-    val (statusLabel, statusColor, statusBg, statusBorder) = when (item.diagnosisClass) {
-        1 -> Quadruple(
-            "Trips",
-            Color(0xFFBA1A1A),
-            Color(0xFFFEE2E2),
-            Color(0xFFFECACA)
-        )
-        2 -> Quadruple(
-            "Déficit Hídrico",
-            Color(0xFFD97706),
-            Color(0xFFFEF3C7),
-            Color(0xFFFDE68A)
-        )
-        else -> Quadruple(
-            "Sano",
-            Color(0xFF059669),
-            Color(0xFFECFDF5),
-            Color(0xFFA7F3D0)
-        )
+    val label = when (item.state) {
+        "LEGADO" -> "Legado"
+        "BORRADOR" -> "Borrador"
+        "ERROR" -> "Error"
+        "NO_CONCLUYENTE" -> "No concluyente"
+        else -> item.classLabel.ifBlank { "Sin etiqueta" }
+    }
+    val (statusLabel, statusColor, statusBg, statusBorder) = when {
+        item.state == "LEGADO" -> Quadruple(label, Color(0xFF64748B), Color(0xFFF1F5F9), Color(0xFFE2E8F0))
+        item.state != "VALIDO" -> Quadruple(label, Color(0xFFD97706), Color(0xFFFEF3C7), Color(0xFFFDE68A))
+        item.classCode == "MINADOR_COMPATIBLE" -> Quadruple(label, Color(0xFFBA1A1A), Color(0xFFFEE2E2), Color(0xFFFECACA))
+        else -> Quadruple(label, Color(0xFF059669), Color(0xFFECFDF5), Color(0xFFA7F3D0))
     }
 
     val formattedDate = SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault()).format(Date(item.createdAt))
@@ -398,7 +402,7 @@ private fun RecentInspectionCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = item.subPlot.ifBlank { "Surco sin definir" },
+                    text = item.plotCodeSnapshot.ifBlank { "Parcela" } + item.subPlot.takeIf { it.isNotBlank() }?.let { " · $it" }.orEmpty(),
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF1C1B1F),
@@ -434,6 +438,9 @@ private fun RecentInspectionCard(
                     )
                     Text(
                         text = statusLabel,
+                        modifier = Modifier.widthIn(max = 120.dp),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         color = statusColor

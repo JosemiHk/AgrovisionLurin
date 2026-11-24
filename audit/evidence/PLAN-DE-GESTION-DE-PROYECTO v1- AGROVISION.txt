@@ -1,0 +1,242 @@
+CONTROLDEVERSIONES
+Versión
+Hechapor
+Revisadapor
+Aprobadapor
+Fecha
+Motivo
+1.0
+Ortiz Sifuentes, Fabrizio Alexander
+Ortiz Sifuentes, Fabrizio Alexander
+Ing. Cesar Edinson Aguirre Rodriguez
+06/09/2026
+Versión inicial del Plan de Gestión de Proyecto
+
+Perea Valdivia José Miguel
+Perea Valdivia José Miguel
+
+
+
+PLANDEGESTIÓNDEPROYECTO
+
+NombredelProyecto
+SiglasdelProyecto
+Implementación de un software inteligente basado en visión artificial y agentes de decisión para mejorar el monitoreo fitosanitario y la toma de decisiones en el cultivo de cebolla roja en los valles de Lurín, 2026.
+AGROVISION-LURIN
+
+CICLODEVIDADELPROYECTOYENFOQUEMULTIFASE:DESCRIPCIÓNDETALLADADELCICLODEVIDA
+DELPROYECTOYLASCONSIDERACIONESDEENFOQUEMULTIFASE(CUANDOLOSRESULTADOSDELFINDEUNAFASE INFLUYEN O DECIDEN EL INICIO O CANCELACIÓN DE LA FASE SUBSECUENTE O DEL PROYECTO COMPLETO).
+CiclodevidadelProyecto
+EnfoquesMultifase
+FASEDELPROYECTO (1ºNIVELDELWBS)
+ENTREGABLE PRINCIPAL DE LA FASE
+CONSIDERACIONESPARA LA INICIACIÓN DE ESTA FASE
+CONSIDERACIONES PARAELCIERREDE ESTA FASE
+1. Iniciación y Gestión
+Project Charter, Registro de Interesados y Plan de Gestión de Proyecto aprobados.
+Aprobación del tema de investigación por el docente y formalización del equipo.
+Documentos de gestión firmados y líneas base iniciales establecidas.
+2. Análisis y Requisitos
+Documento de Especificación de Requerimientos de Software (SRS) y protocolo de muestreo de campo.
+Cierre formal de la fase de iniciación y contacto establecido con los 12 agricultores de Lurín.
+Aprobación de requerimientos funcionales y no funcionales por el asesor técnico.
+3. Recolección y Procesamiento de Datos
+Dataset curado y etiquetado de 600 imágenes (sano, plagas, estrés hídrico).
+Protocolos de captura autorizados y cronograma de visitas a parcelas activas.
+600 imágenes depuradas, balanceadas por clase y divididas en Train/Val/Test.
+4. Diseño y Arquitectura
+Documento de Arquitectura de Software (SAD), diagramas de componentes y diseño UI/UX rural.
+Especificación de requisitos cerrada y dataset consolidado.
+Arquitectura validada para inferencia móvil/nube con soporte offline-first.
+5. Desarrollo e Integración
+Modelos YOLO/MobileNet entrenados, motor de agentes de decisión y app móvil integrada.
+Arquitectura aprobada y entorno de desarrollo configurado.
+Cobertura de pruebas unitarias concluidas y métricas de modelo: Accuracy >=85% y tiempo < 3.5s. 
+
+6. Pruebas y Validación en Campo
+Reporte de pruebas de aceptación en parcelas con los 5 agricultores piloto y matriz de confusión validada.
+Despliegue funcional de la versión Release Candidate en dispositivos piloto.
+Pruebas de campo firmadas, métricas alcanzadas y evaluación de usabilidad completada.
+7. Cierre del Proyecto
+Informe final de Capstone, manuales de usuario/técnico y video demostrativo de sustentación.
+Aprobación de la validación en campo.
+Aprobación del docente y sustentación final ejecutada.
+
+PROCESOSDEGESTIÓNDEPROYECTOS:DESCRIPCIÓNDETALLADADELOSPROCESOSDEGESTIÓNDE
+Proyectosquehansidoseleccionadosporelequipodeproyectoparagestionarelproyecto.
+Proceso
+Nivelde
+Implantación
+Inputs
+Modode
+Trabajo
+Outputs
+Herramientas yTécnicas
+Gestión del Alcance
+Alto
+Plantilla UPN, objetivos de investigación, requerimientos.
+Descomposición jerárquica WBS/EDT y matriz de trazabilidad.
+EDT, Diccionario de la EDT y Baseline de Alcance.
+Descomposición de entregables, reuniones de revisión técnica.
+Gestión del Cronograma
+Alto
+Lista de actividades, estimación de duraciones, calendario académico 2026-2.
+Secuenciamiento mediante diagramas de red y cálculo de ruta crítica.
+Cronograma de hitos, Diagrama de Gantt y Baseline de Cronograma.
+Método de Ruta Crítica (CPM), Microsoft Project / Excel.
+Gestión de Costos
+Medio
+Requerimientos de software/hardware, estimación por Puntos de Función.
+Estimación paramétrica y agregación de costos directos/indirectos.
+Presupuesto del proyecto, Curva S y Baseline de Costo.
+Estimación por Puntos de Función (FPA), hoja de costeo Excel.
+Gestión de Calidad
+Alto
+Métricas de Deep Learning, norma ISO/IEC 25010.
+Pruebas continuas de inferencia, revisión estática de código y matriz de confusión.
+Reportes de calidad de software y métricas de exactitud.
+PyTest, Matriz de Confusión, métricas F1-Score / Recall / Precision.
+Gestión de riesgos
+Medio
+Factores ambientales de Lurín, restricciones de conectividad y adopción.
+Análisis cualitativo (Probabilidad x Impacto) y asignación de mitigaciones.
+Matriz de Riesgos y Plan de Respuesta a Riesgos.
+Matriz de evaluación cualitativa, sesiones de lluvia de ideas.
+
+ENFOQUEDETRABAJO: DESCRIPCIÓNDETALLADADELMODOENQUESEREALIZARÁELTRABAJODELPROYECTO PARA LOGRAR LOS OBJETIVOS DEL PROYECTO.
+El proyecto se ejecuta combinando un control estructurado de entregables académicos bajo lineamientos del PMI (gestión de alcance, cronograma y costos) con el marco de trabajo ágil Scrum para la fase de construcción de software. Se establecen Sprints quincenales orientados al entrenamiento incremental de los modelos de visión por computador y al desarrollo de la aplicación cliente. 
+
+La interacción con campo comprende tres hitos presenciales en Lurín: levantamiento inicial con 12 productores, sesiones de captura fotográfica del cultivo, y validación operativa en campo con 5 productores piloto. Las decisiones técnicas se guían por las restricciones de baja conectividad (implementando arquitectura con almacenamiento local y sincronización asíncrona) y usabilidad simplificada adaptada a agricultores. 
+
+
+PLANDEGESTIÓNDECAMBIOS: DESCRIPCIÓNDELAFORMAENQUESEMONITOREARÁNYCONTROLARÁNLOS CAMBIOS, INCLUYENDO EL QUÉ, QUIÉN, CÓMO, CUÁNDO, DÓNDE.
+Qué: Cualquier modificación que impacte el alcance del software (adición de nuevas plagas a detectar, cambios en la arquitectura de agentes), los hitos del cronograma o los costos. 
+
+Quién: Los cambios pueden ser solicitados por los desarrolladores o sugeridos por el docente asesor. La evaluación del impacto técnico la realizan Ortiz y Perea; la aprobación final recae en el docente del curso. 
+
+Cómo: Se diligencia una Solicitud de Cambio Formal documentando justificación, impacto en horas hombre (HH), esfuerzo en Puntos de Función y reprogramación temporal. No se implementa ningún cambio que no cuente con visto bueno formal. 
+
+Cuándo / Dónde: Las solicitudes se evalúan durante las reuniones semanales de seguimiento y quedan registradas en el repositorio institucional del proyecto. 
+
+
+PLANDEGESTIÓNDELACONFIGURACIÓN:DEFINE AQUELLOSITEMSQUESONCONFIGURABLES,AQUELLOS
+ITEMSQUEREQUIERENUNCONTROLFORMALDECAMBIOS, YLOSPROCESOSPARACONTROLARLOSCAMBIOSADICHOS ITEMS.
+Ítems Configurables:
+Código fuente de la app móvil y backend de agentes.
+Modelos entrenados (.pt, .tflite, .onnx) y pesos de redes neuronales.
+Dataset original y dataset aumentado (imágenes y archivos de anotación .txt/.json). 
+Documentación de ingeniería (SRS, SAD, Planes de Gestión, Informes de Capstone). 
+Mecanismos de Control:
+Control de versiones distribuido mediante Git y GitHub. 
+Ramas protegidas: main (código en producción validado), develop (integración continua) y feature/* (funcionalidades específicas).
+Versionado semántico (vX.Y.Z) para compilaciones del software y etiquetado con fecha/hash para las versiones de los pesos de Deep Learning. 
+
+
+
+
+GESTIÓNDELÍNEASBASE: DESCRIPCIÓNDELAFORMAENQUESEMANTENDRÁLAINTEGRIDAD,YSEUSARÁN LAS LÍNEAS BASE DE MEDICIÓN DE PERFORMANCE DEL PROYECTO,INCLUYENDO EL QUÉ,QUIÉN,CÓMO,CUÁNDO,DÓNDE.
+Línea Base del Alcance: Constituida por la Especificación de Requerimientos (SRS), el WBS/EDT detallado y el Diccionario de la EDT. Se formaliza al término de la fase 2. Cualquier elemento fuera de la EDT no se desarrolla sin una solicitud de cambio aprobada. 
+Línea Base del Cronograma: Compuesta por el Diagrama de Gantt inicial aprobado con los hitos del semestre 2026-2. El responsable de seguimiento compara semanalmente el avance real (% de trabajo completado) vs. el avance programado mediante análisis de varianza temporal. 
+Línea Base del Costo: Determinada por el presupuesto estimado por Puntos de Función y costeo de recursos humanos/materiales. Se monitorea quincenalmente contra las horas hombre devengadas y consumo de recursos cloud. 
+Responsable: Jose Miguel Perea Valdivia (Control de Gestión y Métricas) y Fabrizio Alexander Ortiz Sifuentes (Control Técnico de Entregables). 
+
+COMUNICACIÓNENTRESTAKEHOLDERS:DESCRIPCIÓNDETALLADADELASNECESIDADESYTÉCNICASDECOMUNICACIÓN ENTRE LOS STAKEHOLDERS DEL PROYECTO.
+NecesidadesdeComunicacióndelos
+Stakeholders
+TécnicasdeComunicaciónautilizar
+Docente Asesor (Ing. Cesar Aguirre): Monitoreo del cumplimiento de hitos, revisión metodológica, retroalimentación de entregables y aprobación de fases.
+Sesiones síncronas semanales de asesoría técnica.
+Equipo de Desarrollo (Ortiz / Perea): Sincronización técnica diaria, seguimiento de tareas de desarrollo, entrenamiento de modelos y resolución de impedimentos.
+Daily Scrum virtual (15 min), tablero Kanban en GitHub Projects y repositorio de código.
+Agricultores de Lurín (Población Intervención / Accesible): Coordinación para visitas a parcelas, recopilación de feedback de usabilidad y entrega de recomendaciones.
+Entrevistas directas en campo, demostraciones prácticas en smartphone y mensajería instantánea (WhatsApp).
+
+
+
+REVISIONESDEGESTIÓN: DESCRIPCIÓNDETALLADADELASREVISIONESCLAVESDEGESTIÓNQUEFACILITARÁN EL ABORDAR LOS PROBLEMAS NO RESUELTOS Y LAS DECISIONES PENDIENTES.
+TipodeRevisión de
+Gestión
+(TIPODEREUNIÓNENLACUALSEREALIZARÁ LA REVISIÓN DEGESTIÓN)
+
+Contenido
+(AGENDAOPUNTOSATRATARENLA REUNIÓN DE REVISIÓN DEGESTIÓN)
+ExtensiónoAlcance
+(FORMAENQUESEDESARROLLARÁLA REUNIÓN, Y TIPO DECONCLUSIONES, RECOMENDACIONES,O DECISIONESQUE SE PUEDEN TOMAR)
+Oportunidad
+(MOMENTOS,FRECUENCIAS,OEVENTOS DISPARADORES QUEDETERMINARÁNLASOPORTUNIDADESDEREALIZACIÓNDELAREUNIÓN)
+Revisión de Asesoría de Capstone
+Avance del informe, verificación de cumplimiento de rúbricas y aprobación de entregables.
+Reunión de 30 a 45 min. Se generan acuerdos de ajuste y visto bueno formal de entregas parciales.
+Semanal (según calendario lectivo UPN 2026-2).
+Sprint Review y Retrospectiva
+Demostración de incrementos funcionales (modelos de visión, módulos de app) y lecciones aprendidas.
+Sesión interna de 1 hora del equipo de desarrollo. Se ajusta la velocidad y el backlog.
+Quincenal (al cierre de cada Sprint).
+Quality Gate de Fase
+Auditoría técnica de entregables de fase (SRS, Dataset, Métricas de IA, Resultados de Validación).
+Evaluación técnica formal. Decisión de autorizar el paso a la siguiente fase o aplicar plan de contingencia.
+Al culminar cada una de las 7 fases del proyecto.
+
+
+
+
+
+
+
+
+
+LÍNEABASEYPLANESSUBSIDIARIOS:DEFINICIÓNDELÍNEABASEYPLANESSUBSIDIARIOSQUESE ADJUNTAN AL PLAN DE GESTIÓN DEL PROYECTO.
+LíneaBase
+PlanesSubsidiarios
+Documento
+Adjunto (si/no)
+TipodePlan
+Adjunto (si/no)
+LíneaBasedelAlcance
+Sí
+PlandeGestióndeAlcance
+Sí
+
+
+PlandeGestióndeRequisitos
+Sí
+
+
+PlandeGestióndeSchedule
+Sí
+LíneaBasedelTiempo
+Sí
+PlandeGestióndeCostos
+Sí
+
+
+PlandeGestióndeCalidad
+Sí
+
+
+PlandeMejoradeProcesos
+No
+LíneaBasedelCosto
+Sí
+PlandeRecursosHumanos
+Sí
+
+
+PlandeGestióndeComunicaciones
+Sí
+
+
+PlandeGestióndeRiesgos
+Sí
+
+
+PlandeGestióndeAdquisiciones
+No
+
+
+
+
+
+
+
+

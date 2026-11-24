@@ -1,0 +1,135 @@
+{
+  "model_sha256": "324d1fefc9675564606024691fee1445624ae186d303c3a9518874b532fbe507",
+  "tolerance": 0.002,
+  "fixtures": [
+    {
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "probabilities": [
+        0.9993823766708374,
+        0.0006176558672450483
+      ]
+    },
+    {
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "probabilities": [
+        0.9998629093170166,
+        0.00013707111065741628
+      ]
+    },
+    {
+      "rgb": [
+        0,
+        255,
+        0
+      ],
+      "probabilities": [
+        0.9999043941497803,
+        9.565150685375556e-05
+      ]
+    },
+    {
+      "rgb": [
+        255,
+        0,
+        0
+      ],
+      "probabilities": [
+        0.9988985061645508,
+        0.001101445173844695
+      ]
+    }
+  ],
+  "natural_fixtures": [
+    {
+      "image_file": "parity_images/minador_compatible_1.jpg",
+      "input_file": "parity_images/minador_compatible_1.f32",
+      "input_encoding": "little_endian_float32_row_major_NHWC",
+      "input_shape": [
+        1,
+        224,
+        224,
+        3
+      ],
+      "source_path": "Citrus Leafminer/Citrus Leafminer_692.jpg",
+      "source_split": "validation",
+      "source_class": "MINADOR_COMPATIBLE",
+      "source_sha256": "a1c2fdb9d85040a15113d370d5e0676413a734432950539d781b6e3cd3730e68",
+      "input_sha256": "f4f1792b624ec927f297dbd3ff6bc69b6914a1ad44ecd2e57067ea79f5024ba9",
+      "probabilities": [
+        0.999210000038147,
+        0.0007900289492681623
+      ]
+    },
+    {
+      "image_file": "parity_images/minador_compatible_2.jpg",
+      "input_file": "parity_images/minador_compatible_2.f32",
+      "input_encoding": "little_endian_float32_row_major_NHWC",
+      "input_shape": [
+        1,
+        224,
+        224,
+        3
+      ],
+      "source_path": "Citrus Leafminer/Citrus Leafminer_433.jpg",
+      "source_split": "validation",
+      "source_class": "MINADOR_COMPATIBLE",
+      "source_sha256": "b514a61afe8afbd80d73b682f6a94fd16f57eec996e8c4e3f5d03b239614042e",
+      "input_sha256": "1c448dd471e352eaa94f7e3f77fe3c2b018692d8080d0cabdaaf8010c4342552",
+      "probabilities": [
+        0.9999333620071411,
+        6.665591354249045e-05
+      ]
+    },
+    {
+      "image_file": "parity_images/sin_sintomas_visibles_1.jpg",
+      "input_file": "parity_images/sin_sintomas_visibles_1.f32",
+      "input_encoding": "little_endian_float32_row_major_NHWC",
+      "input_shape": [
+        1,
+        224,
+        224,
+        3
+      ],
+      "source_path": "Healthy/Healthy_909.jpg",
+      "source_split": "validation",
+      "source_class": "SIN_SINTOMAS_VISIBLES",
+      "source_sha256": "2d60b1f48081e35b0f57ff4458955c3563533b4962dd8e0c20724d1799e09ab8",
+      "input_sha256": "668ea28c910780f0287dc42b8ecb27879d04053724b18a4ea777d6c70216cea1",
+      "probabilities": [
+        0.0017537042731419206,
+        0.9982463121414185
+      ]
+    },
+    {
+      "image_file": "parity_images/sin_sintomas_visibles_2.jpg",
+      "input_file": "parity_images/sin_sintomas_visibles_2.f32",
+      "input_encoding": "little_endian_float32_row_major_NHWC",
+      "input_shape": [
+        1,
+        224,
+        224,
+        3
+      ],
+      "source_path": "Healthy/Healthy_1440.jpg",
+      "source_split": "validation",
+      "source_class": "SIN_SINTOMAS_VISIBLES",
+      "source_sha256": "bc89e69611743618eae067abf985229dc8cabd1f8d287f15c82014c51c5cb742",
+      "input_sha256": "70e2b5473cde11d6125e526d1313599101955d241cd4bf15a3c695dd99c6cd92",
+      "probabilities": [
+        0.06148606911301613,
+        0.9385138750076294
+      ]
+    }
+  ],
+  "natural_fixture_tensor_probability_tolerance": 0.002,
+  "natural_fixture_preprocessing_input_tolerance": 0.01568627450980392,
+  "natural_fixture_notes": "Expected tensors use Pillow bilinear downsampling and EXIF transpose. Raw tensor runtime tolerance0.002 applies only to identical inputs. Natural JPEG decoding/resizing parity must be measured on Android; these tolerances are proposed acceptance limits, not verified device results. Samples from validation only; no held-out test was queried."
+}

@@ -1,0 +1,161 @@
+CONTROL DE VERSIONES
+Versión
+Hecha por
+Revisada por
+Aprobada por
+Fecha
+Motivo
+1.0
+Ortiz Sifuentes, Fabrizio Alexander
+
+Perea Valdivia, Jose Miguel
+
+Ortiz Sifuentes, Fabrizio Alexander
+
+Perea Valdivia, Jose Miguel
+
+Ing. Cesar Edinson Aguirre Rodriguez
+06/09/2026
+Elaboración del Registro de Interesados alineado al diagnóstico de campo y ciclo 2026-2.
+
+
+
+
+REGISTRO DE INTERESADOS
+
+Nombre del Proyecto
+Siglas del Proyecto
+Implementación de un software inteligente basado en visión artificial y agentes de decisión para mejorar el monitoreo fitosanitario y la toma de decisiones en el cultivo de cebolla roja en los valles de Lurín, 2026.
+AGROVISION-LURIN.
+
+
+INFORMACIÓN DE IDENTIFICACIÓN
+INFORMACIÓN DE EVALUACIÓN
+CLASIFICACIÓN DE LOS INTERESADOS
+NOMBRE
+EMPRESA Y PUESTO
+UBICA-CIÓN
+ROL EN EL PROYECTO
+INFORMACIÓN DE CONTACTO
+REQUISITOS PRINCIPALES
+EXPECTATIVAS PRINCIPALES
+INFLUENCIA POTENCIAL
+FASE DE MAYOR INTERÉS
+INTERNO / EXTERNO
+PARTIDARIO / NEUTRAL / RETICENTE
+Ing. Cesar Edinson Aguirre Rodriguez
+UPN Chorrillos – Docente Asesor del Curso Capstone
+Campus Chorrillos, Lima
+Patrocinador Académico / Evaluador Principal
+cesar.aguirre@upn.edu.pe
+Cumplimiento del perfil de egreso, estándares de ingeniería, rigor metodológico y rúbricas UPN.
+Obtener un producto de software y tesis aplicativa validada en campo con impacto demostrable.
+Fuerte
+Todas las fases (Especialmente Cierre y Sustentación)
+Interno
+Partidario
+
+Perea Valdivia, Jose Miguel
+UPN Chorrillos – Estudiante de Ing. de Sistemas Computacionales
+Chorrillos, Lima
+Colíder de Proyecto / Especialista en IA y Datos
+N00283137@upn.edu.pe
+Acceso a GPU de cómputo, dataset balanceado de 600 fotos y modelos cuantizados para móvil.
+Lograr exactitud ≥85%, respuesta <3.5s y aprobar con máxima calificación. 
+
+Fuerte
+Fase 3 (Datos) y Fase 5 (Desarrollo e IA)
+Interno
+Partidario
+Ortiz Sifuentes, Fabrizio Alexander
+UPN Chorrillos – Estudiante de Ing. de SistemasComputacionales
+Chorrillos, Lima
+Colíder de Proyecto / Arquitecto y Líder QA
+N00327732@upn.edu.pe
+Arquitectura modular con soporte offline, APK estable en Android y cobertura de pruebas ≥80%. 
+
+Generar una app con alta usabilidad rural y validar el flujo integral en smartphone.
+Fuerte
+Fase 4 (Arquitectura) y Fase 6 (Validación)
+Interno
+Partidario
+Población de Intervención (5 Agricultores Piloto)
+Comités de Regantes del Valle Bajo de Lurín – Productores Hortícolas
+Parcelas de cultivo, Valle de Lurín
+Usuarios Finales Piloto / Evaluadores de Campo
+Contacto directo vía Comité de Regantes
+Funcionamiento sin internet en parcela, app intuitiva con símbolos grandes y diagnósticos claros.
+Detectar trips/manchas antes de perder cosecha y ahorrar en aplicaciones de plaguicidas.
+Media
+Fase 6 (Pruebas y Validación en Campo)
+Externo
+Partidario
+Población Accesible de Diagnóstico (7 Agricultores restantes)
+Comités de Regantes del Valle Bajo de Lurín – Productores tradicionales
+Sector productivo, Valle de Lurín
+Grupo de Diagnóstico Inicial y Comparación Testigo
+Padrón de regantes local
+No invasión de su jornada laboral, privacidad de sus lotes y claridad en el uso de datos.
+Escepticismo inicial sobre si una app de celular puede sustituir la inspección manual empírica.
+Media
+Fase 2 (Diagnóstico) y Fase 6 (Grupo Control)
+Externo
+Reticente (a Neutral tras demostración)
+Dirigente del Comité de Regantes del Valle de Lurín
+Junta de Usuarios del Sector Hidráulico Menor Lurín – Directivo
+Lurín, Lima
+Facilitador Comunitario / Autoridad Local
+Contacto directo – Mensajería instantánea
+Autorización formal de visitas a parcelas y retorno de resultados en beneficio de la comunidad.
+Mejorar la eficiencia del agua en periodos críticos de estiaje en la cuenca del río Lurín.
+Media
+Fase 2 (Requisitos) y Fase 6 (Cierre de Campo)
+Externo
+Partidario
+MIDAGRI / SENASA Lurín
+Organismos Estatales del Sector Agrario – Inspectores Zonales
+
+Agencia Agraria Lurín, Lima
+Fuente Normativa y Fitosanitaria Externa
+contacto.senasa@midagri.gob.pe
+Cumplimiento de catálogos oficiales de plagas en Allium cepa y lineamientos ecotoxicológicos.
+Fomentar herramientas tecnológicas preventivas que reduzcan el exceso de agroquímicos en los valles.
+Débil
+Fase 2 (Requisitos) y Fase 4 (Base de Conocimiento)
+Externo
+Neutral
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Instrucciones de llenado:
+{Registro de interesados: Es un documento que incluye la identificación, evaluación y clasificación de los interesados del proyecto} El Registro de Interesados se divide en 3 grupos de datos; Identificación, Evaluación y Clasificación. A su vez, estos 3 grupos se clasifican en:
+
+Información de Identificación
+Nombre: Insertar el nombre del interesado.
+Empresa y Puesto: Insertar el nombre de la empresa y el puesto que ocupa en la organización.
+Ubicación: Insertar el lugar donde está ubicada la empresa.
+Rol en el proyecto: Insertar el papel que desempeña en el proyecto.
+Información de contacto: Insertar el teléfono y correo electrónico del contacto.
+
+Información de Evaluación
+Requisitos Principales:{Requisito: Es una condición o capacidad que debe estar presente en un producto, servicio o resultado para satisfacer un contrato u otra especificación formalmente impuesta} Insertar los requisitos primordiales que cada interesado tiene para el proyecto
+Expectativas Principales: {Expectativa: Es lo que se considera lo más probable que suceda. Una expectativa, que es una suposición centrada en el futuro, puede o no ser realista} Insertar las expectativas principales que cada interesado espera que se cumplan a través del proyecto o como resultado del mismo. 
+Influencia Potencial:Insertar el grado de influencia potencial que el interesado tiene sobre el proyecto, la cual podría ser débil, media o fuerte.
+Fase de mayor interés: Insertar la fase del proyecto que es de mayor interés para el interesado.
+
+Clasificación de los Interesados
+Interno/Externo: Insertar si el interesado es Interno (pertenece a la organización ejecutante) o Externo (no pertenece a la organización ejecutante).
+Partidario/Neutral/Reticente: Insertar si el interesado es Partidario (Apoya), Neutral (No apoya ni se opone), Reticente (Opositor).
+

@@ -1,0 +1,210 @@
+
+FACULTADDEINGENIERÍA
+
+CARRERADEINGENIERÍA DESISTEMAS COMPUTACIONALES
+
+DOCUMENTO DE ESPECIFICACIÓN DE REQUISITOS DE SOFTWARE (SRS)
+Título: Implementación de un software inteligente basado en visión artificial y agentes de decisión para la detección temprana de plagas y déficit hídrico en el cultivo de cebolla roja en los valles de Lurín – 2026
+Autores:
+ORTIZ SIFUENTES, Fabrizio Alexander (100%)
+PEREA VALDIVIA, Jose Miguel (100%)
+
+Curso:
+Capstone Project Sistemas
+
+Docente del Curso:
+Ing. Cesar Edinson Aguirre Rodriguez
+
+Chorrillos –Perú
+2026-2
+
+
+Control de Versiones del Documento
+Versión
+Elaborado por
+Revisado por
+Aprobado por
+Fecha
+Motivo del Cambio
+1.0
+Ortiz Sifuentes, F.Perea Valdivia, J.
+Ortiz Sifuentes, F.Perea Valdivia, J.
+Ing. Cesar Aguirre Rodriguez
+06/09/2026
+Línea base formal de requisitos funcionales y no funcionales para Semana 3.
+Introducción y Propósito del Sistema
+El presente documento define la Especificación de Requisitos de Software (SRS) para el proyecto AGROVISION-LURIN, desarrollado bajo los lineamientos del estándar ISO/IEC/IEEE 29148:2018 y el modelo de calidad de producto ISO/IEC 25010. El propósito central es formalizar técnica y contractualmente las capacidades funcionales y restricciones de calidad del aplicativo móvil y sus motores computacionales, destinados a proporcionar a los agricultores de cebolla roja de los valles de Lurín una herramienta accesible y de respuesta en tiempo real para el monitoreo fitosanitario y la gestión hídrica ante el estiaje estacional.
+Especificación de Requisitos Funcionales (RF01 - RF10)
+ID
+Nombre del Requisito
+Descripción Detallada
+Entradas
+Salidas / Resultado
+HU
+MoSCoW
+RF01
+Autenticación y Control de Acceso Dual
+El sistema debe permitir el inicio de sesión del usuario mediante credenciales (código/contraseña) o acceso biométrico/PIN local offline cuando el dispositivo se encuentre en parcelas sin señal celular.
+DNI/Código, Contraseña cifrada, PIN local.
+Validación de credenciales en base local/remota y token de sesión activo.
+HU001
+Must Have
+RF02
+Gestión y Parametrización Fenológica de Parcelas
+El sistema debe permitir registrar, editar y listar lotes de cebolla roja, asociando coordenadas de geolocalización, fecha de siembra/trasplante y método de irrigación (goteo o gravedad) para determinar la etapa del cultivo.
+Nombre de parcela, sector Lurín, fecha trasplante, tipo riego.
+Ficha de lote creada y cálculo automático de edad fenológica.
+HU002
+Must Have
+RF03
+Captura y Preprocesamiento Foliar con Filtro Óptico
+El sistema debe adquirir imágenes foliares a través de la cámara móvil (o galería) validando nitidez mínima mediante gradiente de Laplacian (> 100) y resolución >= 8 MP, alertando si existe desenfoque severo.
+Fotograma de cámara o archivo JPG/PNG.
+Imagen recortada, normalizada en memoria y libre de desenfoque.
+HU003
+Must Have
+RF04
+Detección y Delimitación de Plagas Foliares
+El sistema debe procesar la captura mediante redes neuronales convolucionales optimizadas (YOLOv8/MobileNet) para identificar y delimitar síntomas de plagas recurrentes en Lurín (Thripstabaci, manchas por alternaria).
+Tensor normalizado de la hoja.
+Bounding boxes en pantalla, etiqueta de plaga y porcentaje de certeza.
+HU004
+Must Have
+RF05
+Evaluación y Clasificación de Déficit Hídrico
+El sistema debe evaluar los patrones morfológicos foliares (pérdida de turgencia, curvatura apical) y canales cromáticos para categorizar el estado de agua en: Óptimo, Estrés Moderado o Déficit Severo.
+Tensor foliar preprocesado, espacio cromático HSV.
+Nivel de estrés hídrico asignado y probabilidad asociada.
+HU005
+Must Have
+RF06
+Generación de Recomendaciones por Agente de Decisión
+El sistema debe implementar un agente de decisión basado en reglas agronómicas que combine el diagnóstico fitosanitario, el estado hídrico y la fenología del lote para emitir recomendaciones técnicas inmediatas y accionables.
+Diagnóstico de plaga, estado hídrico, días del cultivo.
+Recomendación agronómica (control cultural, ajuste de riego) y nivel de alerta.
+HU006
+Must Have
+RF07
+Inferencia Local de Baja Latencia en Edge
+El sistema debe ejecutar el proceso completo de diagnóstico y ejecución de reglas localmente en el smartphone en un tiempo de respuesta menor a 3.5 segundos por captura, garantizando dinamismo en campo.
+Imagen en búfer de memoria del smartphone.
+Diagnóstico y recomendación desplegados en pantalla en < 3.5 s.
+HU007
+Must Have
+RF08
+Historial Fitosanitario y Trazabilidad Cronológica
+El sistema debe mantener un registro histórico de cada inspección efectuada clasificada por parcela y fecha, permitiendo visualizar imágenes pasadas, niveles de severidad y evolución del cultivo con semáforo visual.
+ID de parcela, rango de fechas de consulta.
+Listado histórico de evaluaciones con miniaturas y estados.
+HU008
+Should Have
+RF09
+Persistencia Local y Sincronización Asíncrona (Offline-First)
+El sistema debe almacenar todos los registros fotográficos, evaluaciones y coordenadas en una base SQLite local cuando no haya conexión, y sincronizarlos automáticamente en segundo plano al detectar red 3G/4G/Wi-Fi.
+Eventos de cambio de red (NetworkCallback), cola local.
+Carga segura a la nube y cambio de estado a 'Sincronizado'.
+HU009
+Must Have
+RF10
+Emisión y Exportación de Ficha Técnica Digital
+El sistema debe permitir consolidar y exportar los resultados de una inspección en una ficha técnica en formato PDF o imagen compartible (WhatsApp), detallando anomalías delimitadas y recomendaciones del agente.
+ID de inspección seleccionado por el usuario.
+Archivo PDF/imagen estructurado listo para compartir.
+HU10
+Could Have
+
+Requisitos No Funcionales (Estándar ISO/IEC 25010)
+Los Requisitos No Funcionales (RNF) definen los atributos de calidad, rendimiento y restricciones de ingeniería estructurados conforme a las características del estándar internacional ISO/IEC 25010 (SQuaRE), garantizando la viabilidad operativa del software en las condiciones ambientales y de conectividad del valle de Lurín.
+Código
+Característica ISO 25010
+Subcaracterística
+Especificación y Métrica Cuantificable
+RNF01
+Adecuación Funcional
+Exactitud de Inferencia
+El modelo convolucional debe alcanzar una exactitud diagnóstica (Accuracy) >= 85%, con métricas de Precision >= 80% y Recall >= 80% en el set de prueba de imágenes independientes de Allium cepa.
+RNF02
+Adecuación Funcional
+Completitud de Reglas
+El agente de decisión debe poseer cobertura completa del 100% para las combinaciones de estado foliar (sano, estrés hídrico, infestación de plaga y diagnóstico dual) definidas en la base agronómica.
+RNF03
+Eficiencia de Desempeño
+Tiempo de Respuesta
+El tiempo de respuesta total entre el disparo de la captura y la presentación de la alerta técnica en pantalla debe ser estrictamente inferior a 3.5 segundos ejecutado en la CPU/NPU del smartphone.
+RNF04
+Eficiencia de Desempeño
+Uso de Recursos
+El paquete del modelo cuantizado (TFLite/ONNX int8) no debe exceder 45 MB de almacenamiento en el almacenamiento flash y el consumo de RAM no debe superar 250 MB durante la inferencia.
+RNF05
+Fiabilidad
+Tolerancia a Fallos Offline
+El software debe operar continuamente al 100% de sus funciones diagnósticas en ausencia total de red celular, garantizando 0% de pérdida de capturas gracias a la persistencia transaccional SQLite.
+RNF06
+Fiabilidad
+Recuperabilidad
+En caso de interrupción de señal durante la sincronización, el gestor en segundo plano debe reanudar la transferencia a partir del último paquete no confirmado sin duplicar registros en el servidor.
+RNF07
+Usabilidad
+Operabilidad Rural (UX)
+La interfaz gráfica debe emplear paletas de alto contraste visibles bajo luz solar directa, iconografía intuitiva y un flujo de máximo 3 toques para escanear, alcanzando un puntaje SUS >= 85 puntos con agricultores.
+RNF08
+Usabilidad
+Prevención de Errores
+El sistema debe advertir inmediatamente al usuario si la foto presenta desenfoque mediante el filtro Laplacian antes de ejecutar el modelo, evitando la emisión de diagnósticos erróneos.
+RNF09
+Seguridad
+Confidencialidad e Integridad
+Las comunicaciones cliente-servidor deben cifrarse obligatoriamente mediante TLS 1.3 / HTTPS. Las contraseñas de acceso deben protegerse con hashing criptográfico robusto (BCrypt/Argon2).
+RNF10
+Portabilidad
+Instalabilidad y Compatibilidad
+La aplicación debe ser compatible con dispositivos Android versión 10.0 (API 29) o superior con al menos 2 GB de RAM y cámara fotográfica integrada de 8 megapíxeles o superior.
+
+Matriz de Trazabilidad de Requisitos (RTM)
+La matriz de trazabilidad asegura la correspondencia bidireccional entre la especificación funcional, las Historias de Usuario priorizadas, los casos de prueba de validación y la norma de calidad aplicada:
+RequisitoFuncional
+Historia de Usuario Vinculada
+Caso de Prueba / Validación
+Estándar / Dimensión Asociada
+RF01
+HU001: Autenticación
+CP-AUTH-01 (Login online), CP-AUTH-02 (PIN offline)
+ISO 25010: Seguridad
+RF02
+HU002: Gestión Parcelas
+CP-PARC-01 (Alta de lote y edad fenológica)
+ISO 25010: AdecuaciónFuncional
+RF03
+HU003: Captura Foliar
+CP-OPT-01 (Filtro Laplacian), CP-OPT-02 (Encuadre)
+ISO 25010: Usabilidad
+RF04
+HU004: Detección Plagas
+CP-ML-01 (Matriz de confusión y Accuracy >= 85%)
+ISO 25010: Exactitud
+RF05
+HU005: Déficit Hídrico
+CP-ML-02 (Clasificación de curvatura foliar)
+ISO 25010: Exactitud
+RF06
+HU006: Agente Decisión
+CP-AGNT-01 (Motor de reglas agronómicas)
+ISO 25010: Completitud
+RF07
+HU007: Inferencia Edge
+CP-PERF-01 (Cronometraje de latencia < 3.5 s)
+ISO 25010: Eficiencia
+RF08
+HU008: Historial
+CP-DATA-01 (Consulta cronológica por lote)
+ISO 25010: Operabilidad
+RF09
+HU009: Persistencia Offline
+CP-SYNC-01 (Transacciones SQLite y Sync Worker)
+ISO 25010: Tolerancia a fallos
+RF10
+HU010: Ficha Digital
+CP-REP-01 (Generación de PDF de inspección)
+ISO 25010: Portabilidad
+
+____________________________                  ____________________________ORTIZ SIFUENTES, Fabrizio Alexander                   PEREA VALDIVIA, Jose MiguelCo-Líder de Proyecto / QA Lead                       Co-Líder de Proyecto / ML Engineer

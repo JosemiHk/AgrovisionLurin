@@ -1,0 +1,7 @@
+{
+  "external_test_already_seen": true,
+  "initial_exploratory_receipt": "test_evaluation_receipt_initial_exploratory.json",
+  "current_protocol_version": 2,
+  "final_unseen_local_test_pending": true,
+  "reuse_for_tuning_forbidden": true
+}
