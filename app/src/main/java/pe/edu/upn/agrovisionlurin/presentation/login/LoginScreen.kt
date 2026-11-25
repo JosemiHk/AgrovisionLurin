@@ -105,8 +105,8 @@ fun LoginScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .widthIn(max = 460.dp),
+                    .widthIn(max = 460.dp)
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 

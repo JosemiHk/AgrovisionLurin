@@ -74,8 +74,8 @@ fun DiagnosticResultScreen(resultId: String, onBack: () -> Unit, onNavigateToCam
 
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
                     .widthIn(max = contentMaxWidth)
+                    .fillMaxSize()
                     .align(Alignment.TopCenter)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {

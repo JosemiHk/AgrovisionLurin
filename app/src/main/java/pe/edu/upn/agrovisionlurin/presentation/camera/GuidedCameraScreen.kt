@@ -413,8 +413,8 @@ fun GuidedCameraScreen(
                     ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxWidth()
                                 .widthIn(max = 420.dp)
+                                .fillMaxWidth()
                                 .padding(horizontal = if (isCompactWidth) 8.dp else 16.dp)
                         ) {
                             if (isAnalyzing || captureInProgress) {
