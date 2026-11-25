@@ -1,0 +1,101 @@
+{
+  "current_at_0_70": {
+    "threshold": 0.7,
+    "n": 276,
+    "minador_tp_of_99": 99,
+    "minador_fp_of_177": 0,
+    "minador_precision": 1.0,
+    "minador_recall": 1.0,
+    "abstentions": 7,
+    "coverage": 0.9746376811594203,
+    "confusion_columns": [
+      "MINADOR_COMPATIBLE",
+      "SIN_SINTOMAS_VISIBLES",
+      "NO_CONCLUYENTE"
+    ],
+    "confusion_rows": [
+      "MINADOR_COMPATIBLE",
+      "SIN_SINTOMAS_VISIBLES"
+    ],
+    "confusion_matrix": [
+      [
+        99,
+        0,
+        0
+      ],
+      [
+        0,
+        170,
+        7
+      ]
+    ]
+  },
+  "candidate_at_0_70": {
+    "threshold": 0.7,
+    "n": 276,
+    "minador_tp_of_99": 99,
+    "minador_fp_of_177": 0,
+    "minador_precision": 1.0,
+    "minador_recall": 1.0,
+    "abstentions": 7,
+    "coverage": 0.9746376811594203,
+    "confusion_columns": [
+      "MINADOR_COMPATIBLE",
+      "SIN_SINTOMAS_VISIBLES",
+      "NO_CONCLUYENTE"
+    ],
+    "confusion_rows": [
+      "MINADOR_COMPATIBLE",
+      "SIN_SINTOMAS_VISIBLES"
+    ],
+    "confusion_matrix": [
+      [
+        99,
+        0,
+        0
+      ],
+      [
+        0,
+        170,
+        7
+      ]
+    ]
+  },
+  "candidate_selected_threshold": 0.7,
+  "candidate_at_selected_threshold": null,
+  "current_contract": {
+    "input_shape": [
+      1,
+      224,
+      224,
+      3
+    ],
+    "input_dtype": "<class 'numpy.float32'>",
+    "output_shape": [
+      1,
+      2
+    ],
+    "output_dtype": "<class 'numpy.float32'>",
+    "sha256": "324d1fefc9675564606024691fee1445624ae186d303c3a9518874b532fbe507"
+  },
+  "candidate_contract": {
+    "input_shape": [
+      1,
+      224,
+      224,
+      3
+    ],
+    "input_dtype": "<class 'numpy.float32'>",
+    "output_shape": [
+      1,
+      2
+    ],
+    "output_dtype": "<class 'numpy.float32'>",
+    "sha256": "324d1fefc9675564606024691fee1445624ae186d303c3a9518874b532fbe507"
+  },
+  "candidate_manifest_contract_ok": true,
+  "keras_tflite_max_delta_direct": 5.245208740234375e-06,
+  "keras_tflite_max_delta_report": 6.9141387939453125e-06,
+  "epochs_completed": 8,
+  "candidate_same_weights_as_current": true
+}

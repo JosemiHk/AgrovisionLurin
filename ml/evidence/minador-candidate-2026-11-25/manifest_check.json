@@ -1,0 +1,35 @@
+{
+  "total_rows": 17586,
+  "split_counts": {
+    "challenge": {
+      "(sin_etiqueta)": 13581
+    },
+    "excluded_conflict": {
+      "(sin_etiqueta)": 1467,
+      "MINADOR_COMPATIBLE": 239,
+      "SIN_SINTOMAS_VISIBLES": 462
+    },
+    "train": {
+      "MINADOR_COMPATIBLE": 463,
+      "SIN_SINTOMAS_VISIBLES": 823
+    },
+    "test": {
+      "MINADOR_COMPATIBLE": 99,
+      "SIN_SINTOMAS_VISIBLES": 176
+    },
+    "validation": {
+      "MINADOR_COMPATIBLE": 99,
+      "SIN_SINTOMAS_VISIBLES": 177
+    }
+  },
+  "group_counts": {
+    "challenge": 9197,
+    "excluded_conflict": 99,
+    "train": 954,
+    "test": 275,
+    "validation": 276
+  },
+  "cross_split_group_leaks": {},
+  "missing_train_val_files": 0,
+  "missing_samples": []
+}

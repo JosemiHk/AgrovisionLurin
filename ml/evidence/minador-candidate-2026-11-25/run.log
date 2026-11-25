@@ -1,0 +1,34 @@
+﻿**********************
+Inicio de la transcripción de Windows PowerShell
+Hora de inicio: 20261125073552
+Nombre de usuario: PC-JOSEMIGUEL\josem
+Usuario RunAs: PC-JOSEMIGUEL\josem
+Nombre de la configuración: 
+Máquina: PC-JOSEMIGUEL (Microsoft Windows NT 10.0.26300.0)
+Aplicación host: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File ml\artifacts\minador-candidate\run_candidate_eval.ps1
+Id. de proceso: 33268
+PSVersion: 5.1.26100.9818
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9818
+BuildVersion: 10.0.26100.9818
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+La transcripción ha comenzado. El archivo de salida es ml\artifacts\minador-candidate\run.log
+=== [1/4] Verificación de rama, rutas, pesos locales y manifiesto ===
+
+KERAS_HOME=E:\TESIS\AGROVISION-LURIN-1\ml\artifacts\weights
+
+=== [2/4] Entrenamiento real y exportación TFLite del candidato (sin --evaluate-test) ===
+
+=== [3/4] Comparación TFLite actual vs candidato en 276 fotos de validation + paridad y contrato Android ===
+
+=== [4/4] Comprobación de disponibilidad de Pixel Tablet (emulator-5554) ===
+
+=== LOTE COMPLETADO CORRECTAMENTE ===
+**********************
+Fin de la transcripción de Windows PowerShell
+Hora de finalización: 20261125073825
+**********************

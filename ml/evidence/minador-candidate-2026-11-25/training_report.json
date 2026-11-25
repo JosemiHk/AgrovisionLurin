@@ -1,0 +1,130 @@
+{
+  "validation": {
+    "n": 276,
+    "threshold": 0.7,
+    "coverage": 0.9746376811594203,
+    "abstentions": 7,
+    "accuracy_full_denominator": 0.9746376811594203,
+    "accuracy_without_abstention": 0.9963768115942029,
+    "confusion_columns": [
+      "MINADOR_COMPATIBLE",
+      "SIN_SINTOMAS_VISIBLES",
+      "NO_CONCLUYENTE"
+    ],
+    "confusion_matrix": [
+      [
+        99,
+        0,
+        0
+      ],
+      [
+        0,
+        170,
+        7
+      ]
+    ],
+    "per_class": [
+      {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 99
+      },
+      {
+        "precision": 1.0,
+        "recall": 0.96045197740113,
+        "f1": 0.9798270893371758,
+        "support": 177
+      }
+    ]
+  },
+  "keras_tflite_max_probability_delta": 6.9141387939453125e-06,
+  "history": {
+    "accuracy": [
+      0.8751944303512573,
+      0.9552876949310303,
+      0.9692845940589905,
+      0.9716174006462097,
+      0.9766718745231628,
+      0.9809486865997314,
+      0.9797822833061218,
+      0.9832814931869507
+    ],
+    "loss": [
+      0.3086942136287689,
+      0.12877486646175385,
+      0.09462812542915344,
+      0.08374753594398499,
+      0.0715455710887909,
+      0.06302224844694138,
+      0.05885322764515877,
+      0.053622957319021225
+    ],
+    "val_accuracy": [
+      0.9710144996643066,
+      0.97826087474823,
+      0.989130437374115,
+      0.9818840622901917,
+      0.989130437374115,
+      0.9927536249160767,
+      0.9927536249160767,
+      0.9963768124580383
+    ],
+    "val_loss": [
+      0.10308567434549332,
+      0.07578528672456741,
+      0.049056150019168854,
+      0.05454988405108452,
+      0.04212525486946106,
+      0.034238219261169434,
+      0.0317767895758152,
+      0.028596052899956703
+    ]
+  },
+  "class_weights": {
+    "0": 1.388768898488121,
+    "1": 0.7812879708383961
+  },
+  "model_manifest": {
+    "model_file": "lemon_leaf_mobilenetv2_float32.tflite",
+    "model_version": "sullana-minador-baseline-1-protocol2",
+    "model_sha256": "324d1fefc9675564606024691fee1445624ae186d303c3a9518874b532fbe507",
+    "labels": [
+      "MINADOR_COMPATIBLE",
+      "SIN_SINTOMAS_VISIBLES"
+    ],
+    "input_shape": [
+      1,
+      224,
+      224,
+      3
+    ],
+    "input_dtype": "FLOAT32",
+    "output_shape": [
+      1,
+      2
+    ],
+    "output_dtype": "FLOAT32",
+    "input_color": "RGB",
+    "normalization": "minus_one_to_one",
+    "resize": "bilinear",
+    "abstention_threshold": 0.7,
+    "input_quantization": {
+      "scale": 0.0,
+      "zero_point": 0
+    },
+    "output_quantization": {
+      "scale": 0.0,
+      "zero_point": 0
+    },
+    "training_manifest_sha256": "3fb4ccb36ba61c8bf6e3bc4829848bc8826d51b1bab68e865f916855c4a8f007",
+    "seed": 20261012,
+    "source": "external_unverified_copy",
+    "local_validation_complete": false,
+    "early_detection_validated": false,
+    "threshold_protocol_version": 2,
+    "abstention_threshold_status": "validation_selected_pending_local_validation"
+  },
+  "tensorflow_version": "2.16.1",
+  "test_evaluated": false
+}
