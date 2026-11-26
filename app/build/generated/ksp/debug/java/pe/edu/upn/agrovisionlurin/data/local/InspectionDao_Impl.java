@@ -5,13 +5,13 @@ import android.os.CancellationSignal;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.CoroutinesRoom;
+import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
 import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
-import androidx.room.util.StringUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import java.lang.Class;
 import java.lang.Exception;
@@ -19,7 +19,6 @@ import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.StringBuilder;
 import java.lang.SuppressWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +36,9 @@ public final class InspectionDao_Impl implements InspectionDao {
 
   private final EntityInsertionAdapter<InspectionEntity> __insertionAdapterOfInspectionEntity;
 
-  private final SharedSQLiteStatement __preparedStmtOfMarkAsSynced;
+  private final EntityDeletionOrUpdateAdapter<InspectionEntity> __updateAdapterOfInspectionEntity;
+
+  private final SharedSQLiteStatement __preparedStmtOfDeleteInspection;
 
   public InspectionDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
@@ -45,7 +46,7 @@ public final class InspectionDao_Impl implements InspectionDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR REPLACE INTO `inspections` (`id`,`plotId`,`subPlot`,`imagePath`,`diagnosisClass`,`confidence`,`latencyMs`,`severityLevel`,`recommendationsJson`,`syncStatus`,`createdAt`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `inspections` (`id`,`plotId`,`subPlot`,`imagePath`,`diagnosisClass`,`confidence`,`latencyMs`,`severityLevel`,`recommendationsJson`,`syncStatus`,`createdAt`,`userId`,`state`,`classCode`,`classLabel`,`modelVersion`,`errorMessage`,`plotCodeSnapshot`,`userNameSnapshot`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -62,13 +63,53 @@ public final class InspectionDao_Impl implements InspectionDao {
         statement.bindString(9, entity.getRecommendationsJson());
         statement.bindLong(10, entity.getSyncStatus());
         statement.bindLong(11, entity.getCreatedAt());
+        statement.bindString(12, entity.getUserId());
+        statement.bindString(13, entity.getState());
+        statement.bindString(14, entity.getClassCode());
+        statement.bindString(15, entity.getClassLabel());
+        statement.bindString(16, entity.getModelVersion());
+        statement.bindString(17, entity.getErrorMessage());
+        statement.bindString(18, entity.getPlotCodeSnapshot());
+        statement.bindString(19, entity.getUserNameSnapshot());
       }
     };
-    this.__preparedStmtOfMarkAsSynced = new SharedSQLiteStatement(__db) {
+    this.__updateAdapterOfInspectionEntity = new EntityDeletionOrUpdateAdapter<InspectionEntity>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "UPDATE OR ABORT `inspections` SET `id` = ?,`plotId` = ?,`subPlot` = ?,`imagePath` = ?,`diagnosisClass` = ?,`confidence` = ?,`latencyMs` = ?,`severityLevel` = ?,`recommendationsJson` = ?,`syncStatus` = ?,`createdAt` = ?,`userId` = ?,`state` = ?,`classCode` = ?,`classLabel` = ?,`modelVersion` = ?,`errorMessage` = ?,`plotCodeSnapshot` = ?,`userNameSnapshot` = ? WHERE `id` = ?";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          @NonNull final InspectionEntity entity) {
+        statement.bindString(1, entity.getId());
+        statement.bindString(2, entity.getPlotId());
+        statement.bindString(3, entity.getSubPlot());
+        statement.bindString(4, entity.getImagePath());
+        statement.bindLong(5, entity.getDiagnosisClass());
+        statement.bindDouble(6, entity.getConfidence());
+        statement.bindLong(7, entity.getLatencyMs());
+        statement.bindString(8, entity.getSeverityLevel());
+        statement.bindString(9, entity.getRecommendationsJson());
+        statement.bindLong(10, entity.getSyncStatus());
+        statement.bindLong(11, entity.getCreatedAt());
+        statement.bindString(12, entity.getUserId());
+        statement.bindString(13, entity.getState());
+        statement.bindString(14, entity.getClassCode());
+        statement.bindString(15, entity.getClassLabel());
+        statement.bindString(16, entity.getModelVersion());
+        statement.bindString(17, entity.getErrorMessage());
+        statement.bindString(18, entity.getPlotCodeSnapshot());
+        statement.bindString(19, entity.getUserNameSnapshot());
+        statement.bindString(20, entity.getId());
+      }
+    };
+    this.__preparedStmtOfDeleteInspection = new SharedSQLiteStatement(__db) {
       @Override
       @NonNull
       public String createQuery() {
-        final String _query = "UPDATE inspections SET syncStatus = 1 WHERE id = ?";
+        final String _query = "DELETE FROM inspections WHERE id = ?";
         return _query;
       }
     };
@@ -113,12 +154,31 @@ public final class InspectionDao_Impl implements InspectionDao {
   }
 
   @Override
-  public Object markAsSynced(final String id, final Continuation<? super Unit> $completion) {
+  public Object updateInspection(final InspectionEntity inspection,
+      final Continuation<? super Unit> $completion) {
     return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
       @Override
       @NonNull
       public Unit call() throws Exception {
-        final SupportSQLiteStatement _stmt = __preparedStmtOfMarkAsSynced.acquire();
+        __db.beginTransaction();
+        try {
+          __updateAdapterOfInspectionEntity.handle(inspection);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object deleteInspection(final String id, final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfDeleteInspection.acquire();
         int _argIndex = 1;
         _stmt.bindString(_argIndex, id);
         try {
@@ -131,7 +191,7 @@ public final class InspectionDao_Impl implements InspectionDao {
             __db.endTransaction();
           }
         } finally {
-          __preparedStmtOfMarkAsSynced.release(_stmt);
+          __preparedStmtOfDeleteInspection.release(_stmt);
         }
       }
     }, $completion);
@@ -162,6 +222,14 @@ public final class InspectionDao_Impl implements InspectionDao {
           final int _cursorIndexOfRecommendationsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "recommendationsJson");
           final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
           final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUserId = CursorUtil.getColumnIndexOrThrow(_cursor, "userId");
+          final int _cursorIndexOfState = CursorUtil.getColumnIndexOrThrow(_cursor, "state");
+          final int _cursorIndexOfClassCode = CursorUtil.getColumnIndexOrThrow(_cursor, "classCode");
+          final int _cursorIndexOfClassLabel = CursorUtil.getColumnIndexOrThrow(_cursor, "classLabel");
+          final int _cursorIndexOfModelVersion = CursorUtil.getColumnIndexOrThrow(_cursor, "modelVersion");
+          final int _cursorIndexOfErrorMessage = CursorUtil.getColumnIndexOrThrow(_cursor, "errorMessage");
+          final int _cursorIndexOfPlotCodeSnapshot = CursorUtil.getColumnIndexOrThrow(_cursor, "plotCodeSnapshot");
+          final int _cursorIndexOfUserNameSnapshot = CursorUtil.getColumnIndexOrThrow(_cursor, "userNameSnapshot");
           final InspectionEntity _result;
           if (_cursor.moveToFirst()) {
             final String _tmpId;
@@ -186,7 +254,23 @@ public final class InspectionDao_Impl implements InspectionDao {
             _tmpSyncStatus = _cursor.getInt(_cursorIndexOfSyncStatus);
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
-            _result = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt);
+            final String _tmpUserId;
+            _tmpUserId = _cursor.getString(_cursorIndexOfUserId);
+            final String _tmpState;
+            _tmpState = _cursor.getString(_cursorIndexOfState);
+            final String _tmpClassCode;
+            _tmpClassCode = _cursor.getString(_cursorIndexOfClassCode);
+            final String _tmpClassLabel;
+            _tmpClassLabel = _cursor.getString(_cursorIndexOfClassLabel);
+            final String _tmpModelVersion;
+            _tmpModelVersion = _cursor.getString(_cursorIndexOfModelVersion);
+            final String _tmpErrorMessage;
+            _tmpErrorMessage = _cursor.getString(_cursorIndexOfErrorMessage);
+            final String _tmpPlotCodeSnapshot;
+            _tmpPlotCodeSnapshot = _cursor.getString(_cursorIndexOfPlotCodeSnapshot);
+            final String _tmpUserNameSnapshot;
+            _tmpUserNameSnapshot = _cursor.getString(_cursorIndexOfUserNameSnapshot);
+            _result = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt,_tmpUserId,_tmpState,_tmpClassCode,_tmpClassLabel,_tmpModelVersion,_tmpErrorMessage,_tmpPlotCodeSnapshot,_tmpUserNameSnapshot);
           } else {
             _result = null;
           }
@@ -220,6 +304,14 @@ public final class InspectionDao_Impl implements InspectionDao {
           final int _cursorIndexOfRecommendationsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "recommendationsJson");
           final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
           final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+          final int _cursorIndexOfUserId = CursorUtil.getColumnIndexOrThrow(_cursor, "userId");
+          final int _cursorIndexOfState = CursorUtil.getColumnIndexOrThrow(_cursor, "state");
+          final int _cursorIndexOfClassCode = CursorUtil.getColumnIndexOrThrow(_cursor, "classCode");
+          final int _cursorIndexOfClassLabel = CursorUtil.getColumnIndexOrThrow(_cursor, "classLabel");
+          final int _cursorIndexOfModelVersion = CursorUtil.getColumnIndexOrThrow(_cursor, "modelVersion");
+          final int _cursorIndexOfErrorMessage = CursorUtil.getColumnIndexOrThrow(_cursor, "errorMessage");
+          final int _cursorIndexOfPlotCodeSnapshot = CursorUtil.getColumnIndexOrThrow(_cursor, "plotCodeSnapshot");
+          final int _cursorIndexOfUserNameSnapshot = CursorUtil.getColumnIndexOrThrow(_cursor, "userNameSnapshot");
           final List<InspectionEntity> _result = new ArrayList<InspectionEntity>(_cursor.getCount());
           while (_cursor.moveToNext()) {
             final InspectionEntity _item;
@@ -245,7 +337,23 @@ public final class InspectionDao_Impl implements InspectionDao {
             _tmpSyncStatus = _cursor.getInt(_cursorIndexOfSyncStatus);
             final long _tmpCreatedAt;
             _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
-            _item = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt);
+            final String _tmpUserId;
+            _tmpUserId = _cursor.getString(_cursorIndexOfUserId);
+            final String _tmpState;
+            _tmpState = _cursor.getString(_cursorIndexOfState);
+            final String _tmpClassCode;
+            _tmpClassCode = _cursor.getString(_cursorIndexOfClassCode);
+            final String _tmpClassLabel;
+            _tmpClassLabel = _cursor.getString(_cursorIndexOfClassLabel);
+            final String _tmpModelVersion;
+            _tmpModelVersion = _cursor.getString(_cursorIndexOfModelVersion);
+            final String _tmpErrorMessage;
+            _tmpErrorMessage = _cursor.getString(_cursorIndexOfErrorMessage);
+            final String _tmpPlotCodeSnapshot;
+            _tmpPlotCodeSnapshot = _cursor.getString(_cursorIndexOfPlotCodeSnapshot);
+            final String _tmpUserNameSnapshot;
+            _tmpUserNameSnapshot = _cursor.getString(_cursorIndexOfUserNameSnapshot);
+            _item = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt,_tmpUserId,_tmpState,_tmpClassCode,_tmpClassLabel,_tmpModelVersion,_tmpErrorMessage,_tmpPlotCodeSnapshot,_tmpUserNameSnapshot);
             _result.add(_item);
           }
           return _result;
@@ -286,6 +394,14 @@ public final class InspectionDao_Impl implements InspectionDao {
             final int _cursorIndexOfRecommendationsJson = CursorUtil.getColumnIndexOrThrow(_cursor, "recommendationsJson");
             final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
             final int _cursorIndexOfCreatedAt = CursorUtil.getColumnIndexOrThrow(_cursor, "createdAt");
+            final int _cursorIndexOfUserId = CursorUtil.getColumnIndexOrThrow(_cursor, "userId");
+            final int _cursorIndexOfState = CursorUtil.getColumnIndexOrThrow(_cursor, "state");
+            final int _cursorIndexOfClassCode = CursorUtil.getColumnIndexOrThrow(_cursor, "classCode");
+            final int _cursorIndexOfClassLabel = CursorUtil.getColumnIndexOrThrow(_cursor, "classLabel");
+            final int _cursorIndexOfModelVersion = CursorUtil.getColumnIndexOrThrow(_cursor, "modelVersion");
+            final int _cursorIndexOfErrorMessage = CursorUtil.getColumnIndexOrThrow(_cursor, "errorMessage");
+            final int _cursorIndexOfPlotCodeSnapshot = CursorUtil.getColumnIndexOrThrow(_cursor, "plotCodeSnapshot");
+            final int _cursorIndexOfUserNameSnapshot = CursorUtil.getColumnIndexOrThrow(_cursor, "userNameSnapshot");
             final List<InspectionEntity> _result = new ArrayList<InspectionEntity>(_cursor.getCount());
             while (_cursor.moveToNext()) {
               final InspectionEntity _item;
@@ -311,7 +427,23 @@ public final class InspectionDao_Impl implements InspectionDao {
               _tmpSyncStatus = _cursor.getInt(_cursorIndexOfSyncStatus);
               final long _tmpCreatedAt;
               _tmpCreatedAt = _cursor.getLong(_cursorIndexOfCreatedAt);
-              _item = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt);
+              final String _tmpUserId;
+              _tmpUserId = _cursor.getString(_cursorIndexOfUserId);
+              final String _tmpState;
+              _tmpState = _cursor.getString(_cursorIndexOfState);
+              final String _tmpClassCode;
+              _tmpClassCode = _cursor.getString(_cursorIndexOfClassCode);
+              final String _tmpClassLabel;
+              _tmpClassLabel = _cursor.getString(_cursorIndexOfClassLabel);
+              final String _tmpModelVersion;
+              _tmpModelVersion = _cursor.getString(_cursorIndexOfModelVersion);
+              final String _tmpErrorMessage;
+              _tmpErrorMessage = _cursor.getString(_cursorIndexOfErrorMessage);
+              final String _tmpPlotCodeSnapshot;
+              _tmpPlotCodeSnapshot = _cursor.getString(_cursorIndexOfPlotCodeSnapshot);
+              final String _tmpUserNameSnapshot;
+              _tmpUserNameSnapshot = _cursor.getString(_cursorIndexOfUserNameSnapshot);
+              _item = new InspectionEntity(_tmpId,_tmpPlotId,_tmpSubPlot,_tmpImagePath,_tmpDiagnosisClass,_tmpConfidence,_tmpLatencyMs,_tmpSeverityLevel,_tmpRecommendationsJson,_tmpSyncStatus,_tmpCreatedAt,_tmpUserId,_tmpState,_tmpClassCode,_tmpClassLabel,_tmpModelVersion,_tmpErrorMessage,_tmpPlotCodeSnapshot,_tmpUserNameSnapshot);
               _result.add(_item);
             }
             __db.setTransactionSuccessful();
@@ -356,37 +488,6 @@ public final class InspectionDao_Impl implements InspectionDao {
         _statement.release();
       }
     });
-  }
-
-  @Override
-  public Object markAllAsSynced(final List<String> ids,
-      final Continuation<? super Unit> $completion) {
-    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
-      @Override
-      @NonNull
-      public Unit call() throws Exception {
-        final StringBuilder _stringBuilder = StringUtil.newStringBuilder();
-        _stringBuilder.append("UPDATE inspections SET syncStatus = 1 WHERE id IN (");
-        final int _inputSize = ids.size();
-        StringUtil.appendPlaceholders(_stringBuilder, _inputSize);
-        _stringBuilder.append(")");
-        final String _sql = _stringBuilder.toString();
-        final SupportSQLiteStatement _stmt = __db.compileStatement(_sql);
-        int _argIndex = 1;
-        for (String _item : ids) {
-          _stmt.bindString(_argIndex, _item);
-          _argIndex++;
-        }
-        __db.beginTransaction();
-        try {
-          _stmt.executeUpdateDelete();
-          __db.setTransactionSuccessful();
-          return Unit.INSTANCE;
-        } finally {
-          __db.endTransaction();
-        }
-      }
-    }, $completion);
   }
 
   @NonNull
