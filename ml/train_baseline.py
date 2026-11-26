@@ -19,7 +19,11 @@ from PIL import Image, ImageOps
 
 def load_image(path, size=224):
     with Image.open(path) as image:
-        image = ImageOps.exif_transpose(image).convert("RGB")
+        image = ImageOps.exif_transpose(image)
+        if "A" in image.getbands() or "transparency" in image.info:
+            rgba = image.convert("RGBA")
+            image = Image.alpha_composite(Image.new("RGBA", rgba.size, "white"), rgba)
+        image = image.convert("RGB")
         return np.asarray(image.resize((size, size), Image.Resampling.BILINEAR), dtype=np.float32) / 127.5 - 1.0
 
 

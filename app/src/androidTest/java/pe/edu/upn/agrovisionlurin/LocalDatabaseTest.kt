@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import pe.edu.upn.agrovisionlurin.data.local.*
 import pe.edu.upn.agrovisionlurin.data.local.ml.LemonClassifier
+import pe.edu.upn.agrovisionlurin.data.local.ml.PillowBilinearResizer
 import pe.edu.upn.agrovisionlurin.data.repository.LocalMvpRepository
 import pe.edu.upn.agrovisionlurin.domain.model.DiagnosticResult
 import java.io.File
@@ -154,6 +155,64 @@ class LocalDatabaseTest {
                 for(channel in 0..1) assertEquals(expected.getDouble(channel),output[0][channel].toDouble(),fixture.getDouble("natural_fixture_tensor_probability_tolerance"))
             }
         } finally {interpreter.close()}
+    }
+    @Test fun greenGraphicWithDetailDoesNotProduceADiagnosis() = runBlocking {
+        val bitmap = android.graphics.Bitmap.createBitmap(224, 224, android.graphics.Bitmap.Config.ARGB_8888)
+        val canvas = android.graphics.Canvas(bitmap)
+        val paint = android.graphics.Paint()
+        canvas.drawColor(android.graphics.Color.LTGRAY)
+        paint.color = android.graphics.Color.rgb(30, 142, 40)
+        canvas.drawRoundRect(15f, 60f, 209f, 165f, 10f, 10f, paint)
+        paint.color = android.graphics.Color.WHITE
+        paint.textSize = 32f
+        canvas.drawText("ACEPTAR", 34f, 127f, paint)
+        val file = File.createTempFile("green-button-", ".png", context.cacheDir)
+        val classifier = LemonClassifier(context)
+        try {
+            file.outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+            val result = classifier.classifyImageFile(file)
+            assertEquals("NO_CONCLUYENTE", result.state)
+            assertEquals("", result.classCode)
+            assertEquals(-1, result.classId)
+            assertTrue(result.className.contains("hoja de limón"))
+            assertEquals(-1, classifier.classifyImageFile(file, confirmedOrigin = true).classId)
+        } finally {
+            classifier.close()
+            bitmap.recycle()
+            file.delete()
+        }
+    }
+    @Test fun transparentCutoutHasTheSameInputAsAWhiteBackground() {
+        val cutout = android.graphics.Bitmap.createBitmap(32, 32, android.graphics.Bitmap.Config.ARGB_8888)
+        val flattened = cutout.copy(android.graphics.Bitmap.Config.ARGB_8888, true)
+        try {
+            val paint = android.graphics.Paint().apply { color = android.graphics.Color.GREEN }
+            android.graphics.Canvas(cutout).drawOval(8f, 3f, 24f, 29f, paint)
+            flattened.eraseColor(android.graphics.Color.WHITE)
+            android.graphics.Canvas(flattened).drawBitmap(cutout, 0f, 0f, null)
+            assertArrayEquals(PillowBilinearResizer.resizePixels(flattened), PillowBilinearResizer.resizePixels(cutout))
+        } finally {
+            cutout.recycle()
+            flattened.recycle()
+        }
+    }
+    @Test fun onlyAnInspectionWaitingForOriginCanBeConfirmed() = runBlocking {
+        val db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        try {
+            val repo = LocalMvpRepository(db)
+            val actor = repo.login("admin", "password123", "Admin").id
+            repo.savePlot(actor, null, "P01", "Parcela", true)
+            repo.createDraft(actor, requireNotNull(db.accountDao().findPlotForTest("P01")), "leaf", "/leaf.png")
+            val final = DiagnosticResult(0, "Daño compatible con minador", .98f, 10,
+                classCode = "MINADOR_COMPATIBLE", modelVersion = "test+origen-confirmado")
+            assertFails { repo.complete(actor, "leaf", final, confirmedOrigin = true) }
+            repo.complete(actor, "leaf", DiagnosticResult(pe.edu.upn.agrovisionlurin.domain.model.LEAF_ORIGIN_PENDING,
+                "¿La hoja proviene de un limonero?", 0f, 10, state = "NO_CONCLUYENTE", modelVersion = "test"))
+            assertTrue(repo.inspect(actor, "leaf").awaitingLemonOrigin)
+            assertFails { repo.complete(actor, "leaf", final) }
+            assertEquals(final.classCode, repo.complete(actor, "leaf", final, confirmedOrigin = true).classCode)
+            assertFails { repo.complete(actor, "leaf", final, confirmedOrigin = true) }
+        } finally { db.close() }
     }
     @Test fun naturalPhotographOutputsMatchProposedProbabilityTolerance()=runBlocking {
         // Unlike raw tensor parity, this measures the complete JPEG/EXIF/Android resize path.

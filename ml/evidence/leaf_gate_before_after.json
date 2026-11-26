@@ -1,0 +1,57 @@
+{
+  "diagnosis_sha256": "324d1fefc9675564606024691fee1445624ae186d303c3a9518874b532fbe507",
+  "gate_sha256": "f8f7625256da217de94066f8b037261832fda09fc7ef1507f3df03cc5b27aed0",
+  "inventory_sha256": "07d677adb5c8ba46c00210bf8e3c5157c3946ce9ee74a0e14f0ca6ad689c1fb1",
+  "split": "test",
+  "scope": "Todas las fotos de objetos y otras plantas de la partición de prueba del filtro. Para síntomas de limón se incluyen solo las carpetas Healthy y Citrus Leafminer. Etiquetas de origen, sin verificación agronómica local.",
+  "results": {
+    "limon_leafminer": {
+      "before": {
+        "MINADOR_COMPATIBLE": 4,
+        "SIN_SINTOMAS_VISIBLES": 1
+      },
+      "after": {
+        "MINADOR_COMPATIBLE": 4,
+        "SIN_SINTOMAS_VISIBLES": 1
+      }
+    },
+    "limon_healthy": {
+      "before": {
+        "SIN_SINTOMAS_VISIBLES": 10
+      },
+      "after": {
+        "SIN_SINTOMAS_VISIBLES": 8,
+        "FOTO_RECHAZADA": 2
+      }
+    },
+    "object": {
+      "before": {
+        "SIN_SINTOMAS_VISIBLES": 13,
+        "MINADOR_COMPATIBLE": 162,
+        "NO_CONCLUYENTE": 28
+      },
+      "after": {
+        "FOTO_RECHAZADA": 203
+      }
+    },
+    "orange": {
+      "before": {
+        "SIN_SINTOMAS_VISIBLES": 27
+      },
+      "after": {
+        "FOTO_RECHAZADA": 27
+      }
+    },
+    "other_leaf": {
+      "before": {
+        "SIN_SINTOMAS_VISIBLES": 93,
+        "NO_CONCLUYENTE": 25,
+        "MINADOR_COMPATIBLE": 37
+      },
+      "after": {
+        "FOTO_RECHAZADA": 154,
+        "SIN_SINTOMAS_VISIBLES": 1
+      }
+    }
+  }
+}

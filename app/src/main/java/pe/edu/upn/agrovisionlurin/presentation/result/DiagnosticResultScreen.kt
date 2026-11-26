@@ -22,6 +22,8 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import pe.edu.upn.agrovisionlurin.presentation.components.LeafThumbnail
+import pe.edu.upn.agrovisionlurin.data.local.awaitingLemonOrigin
+import pe.edu.upn.agrovisionlurin.domain.model.CONFIRMED_ORIGIN_SUFFIX
 import pe.edu.upn.agrovisionlurin.presentation.local.LocalMvpViewModel
 import pe.edu.upn.agrovisionlurin.presentation.theme.PrimaryGreen
 import pe.edu.upn.agrovisionlurin.presentation.theme.Typography
@@ -69,7 +71,7 @@ fun DiagnosticResultScreen(resultId: String, onBack: () -> Unit, onNavigateToCam
             val title = when (record.state) {
                 "ERROR" -> "Análisis no completado"
                 "BORRADOR" -> "Fotografía pendiente de análisis"
-                "NO_CONCLUYENTE" -> "Resultado no concluyente"
+                "NO_CONCLUYENTE" -> record.classLabel.ifBlank { "Resultado no concluyente" }
                 "LEGADO" -> "Registro histórico"
                 else -> record.classLabel.ifBlank { "Resultado sin etiqueta" }
             }
@@ -91,7 +93,23 @@ fun DiagnosticResultScreen(resultId: String, onBack: () -> Unit, onNavigateToCam
                             Spacer(Modifier.height(8.dp))
                             Text(title, style = Typography.titleLarge, color = statusColor, fontWeight = FontWeight.Bold)
                             if (record.state == "VALIDO") Text("Puntuación del modelo: ${(record.confidence * 100).toInt()}%", style = Typography.bodyMedium)
-                            if (record.state == "NO_CONCLUYENTE") Text("No se emitió una clasificación. Revisa la muestra con un técnico.", style = Typography.bodyMedium)
+                            if (record.awaitingLemonOrigin) {
+                                Text("Se reconoce una hoja. Confirma el árbol de origen para evaluar sus síntomas.", style = Typography.bodyMedium)
+                                Button(enabled = !busy, onClick = { session.confirmLemonOrigin(record.id) }) {
+                                    Text("Sí, es de limonero. Analizar")
+                                }
+                                TextButton(enabled = !busy, onClick = onNavigateToCamera) { Text("Tomar otra foto") }
+                            } else if (record.state == "NO_CONCLUYENTE") {
+                                val guidance = if (record.diagnosisClass == -1) {
+                                    "Acércate a una sola hoja de limón, enfócala y toma otra foto."
+                                } else {
+                                    "No se emitió una clasificación. Revisa la muestra con un técnico."
+                                }
+                                Text(guidance, style = Typography.bodyMedium)
+                            }
+                            if (record.modelVersion.endsWith(CONFIRMED_ORIGIN_SUFFIX)) {
+                                Text("Origen confirmado por el usuario", style = Typography.bodyMedium)
+                            }
                             if (record.state == "LEGADO") Text("Dominio anterior: clase ${record.diagnosisClass}. No representa un diagnóstico de limón.", style = Typography.bodyMedium)
                             if (record.errorMessage.isNotBlank()) Text(record.errorMessage, style = Typography.bodyMedium)
                         }

@@ -43,12 +43,8 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
         _user.value=repo.restore(preferences.getString("user_id",null))
         if(_user.value==null) preferences.edit().clear().apply()
         try {
-            val assets=getApplication<Application>().assets
-            val metadata=org.json.JSONObject(assets.open("models/model_manifest.json").bufferedReader().use { it.readText() })
-            val bytes=assets.open("models/${metadata.getString("model_file")}").use { it.readBytes() }
-            val hash=java.security.MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
-            _modelAvailable.value=hash==metadata.getString("model_sha256")
-            _modelVersion.value=metadata.getString("model_version")
+            _modelVersion.value=classifier.verifiedVersion()
+            _modelAvailable.value=true
         } catch(cause:Exception) { if(cause is CancellationException) throw cause; _modelAvailable.value=false }
         _ready.value=true
     } }
@@ -131,9 +127,14 @@ class LocalMvpViewModel(app: Application, private val saved: SavedStateHandle) :
         require(record.state in listOf("BORRADOR","ERROR")) { "Resultado congelado; captura una inspección nueva" }
         evaluate(record)
     }
-    private suspend fun evaluate(record:InspectionEntity) {
-        val result=classifier.classifyImageFile(File(record.imagePath))
-        _detail.value=repo.complete(actorId(),record.id,result)
+    fun confirmLemonOrigin(id:String)=action {
+        val record = repo.inspect(actorId(), id)
+        require(record.awaitingLemonOrigin) { "Esta inspección no necesita confirmar el origen" }
+        evaluate(record, confirmedOrigin = true)
+    }
+    private suspend fun evaluate(record:InspectionEntity, confirmedOrigin:Boolean = false) {
+        val result=classifier.classifyImageFile(File(record.imagePath), confirmedOrigin)
+        _detail.value=repo.complete(actorId(),record.id,result,confirmedOrigin)
     }
     fun updateMetadata(id:String,subPlot:String)=action {
         _detail.value=repo.updateMetadata(actorId(),id,subPlot);_message.value="Nota actualizada; resultado conservado"

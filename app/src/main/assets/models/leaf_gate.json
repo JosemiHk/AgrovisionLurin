@@ -1,0 +1,24 @@
+{
+  "model_file": "lemon_leaf_gate.tflite",
+  "model_version": "leaf-gate-v2",
+  "model_sha256": "ecd2ad0c02d0fa77c751da74e9e9c9feb0b6c579fd80f6d37c9933b4f0af78cf",
+  "acceptance_threshold": 0.764,
+  "outputs": [
+    "HOJA_DE_LIMON",
+    "HOJA"
+  ],
+  "leaf_threshold": 0.9,
+  "input_shape": [
+    1,
+    224,
+    224,
+    3
+  ],
+  "output_shape": [
+    1,
+    2
+  ],
+  "normalization": "minus_one_to_one",
+  "input_color": "RGB",
+  "resize": "bilinear"
+}

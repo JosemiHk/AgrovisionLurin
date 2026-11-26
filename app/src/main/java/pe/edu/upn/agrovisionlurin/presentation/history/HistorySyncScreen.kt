@@ -299,7 +299,8 @@ private fun HistoryItemCard(
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = when (item.state) {
-                        "VALIDO", "NO_CONCLUYENTE" -> "${item.latencyMs} ms · ${(item.confidence * 100).toInt()}% puntuación"
+                        "VALIDO" -> "${item.latencyMs} ms · ${(item.confidence * 100).toInt()}% puntuación"
+                        "NO_CONCLUYENTE" -> item.classLabel.ifBlank { "Resultado no concluyente" }
                         "ERROR" -> item.errorMessage.ifBlank { "Análisis no disponible" }
                         "LEGADO" -> "Registro histórico · resultado original conservado"
                         else -> "Captura pendiente de análisis"

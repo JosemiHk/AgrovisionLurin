@@ -163,8 +163,14 @@ fun LocalMvpScreen(vm: LocalMvpViewModel = viewModel()) {
     Text("${record.plotCodeSnapshot} · ${record.userNameSnapshot}")
     Text("Estado: ${record.state}")
     Text(record.classLabel.ifBlank { "Captura pendiente" })
+    if (record.awaitingLemonOrigin) {
+        Button(enabled = !busy, onClick = { vm.confirmLemonOrigin(record.id) }) {
+            Text("Sí, es de limonero. Analizar")
+        }
+    }
     if(record.state=="VALIDO" || record.state=="NO_CONCLUYENTE") {
-        Text("Puntuación: ${"%.3f".format(java.util.Locale.ROOT,record.confidence)} · tiempo de procesamiento: ${record.latencyMs} ms")
+        if (record.diagnosisClass >= 0) Text("Puntuación: ${"%.3f".format(java.util.Locale.ROOT,record.confidence)}")
+        Text("Tiempo de procesamiento: ${record.latencyMs} ms")
         Text("Modelo: ${record.modelVersion}")
     }
     if(record.state=="LEGADO") Text("Registro histórico del dominio anterior. Clase ordinal ${record.diagnosisClass}; severidad histórica ${record.severityLevel}. No representa diagnóstico de limón.")

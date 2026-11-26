@@ -40,6 +40,21 @@ internal object PillowBilinearResizer {
         val reduced = IntArray(width * bitmap.height)
         for (y in 0 until bitmap.height) {
             bitmap.getPixels(row, 0, bitmap.width, 0, y, bitmap.width, 1)
+            if (bitmap.hasAlpha()) {
+                // A transparent cutout has no photographed background. Composite onto
+                // white before resizing so hidden RGB cannot become a dark silhouette.
+                for (column in row.indices) {
+                    val pixel = row[column]
+                    val alpha = pixel ushr 24
+                    if (alpha < 255) {
+                        val white = 255 * (255 - alpha) + 127
+                        val red = (((pixel ushr 16 and 255) * alpha + white) / 255)
+                        val green = (((pixel ushr 8 and 255) * alpha + white) / 255)
+                        val blue = (((pixel and 255) * alpha + white) / 255)
+                        row[column] = (255 shl 24) or (red shl 16) or (green shl 8) or blue
+                    }
+                }
+            }
             for (x in 0 until width) {
                 val kernel = horizontal[x]
                 var r = HALF; var g = HALF; var b = HALF

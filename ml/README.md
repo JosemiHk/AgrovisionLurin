@@ -1,5 +1,57 @@
 # Baseline externo de minador: AgroVision Sullana
 
+## Filtro de fotografías en Android
+
+La captura y la importación pasan primero por `lemon_leaf_gate.tflite`. Este modelo
+local estima por separado si hay una hoja y si parece de limonero. Cuando falta
+evidencia de hoja, la app detiene el diagnóstico. Una hoja reconocible de especie
+incierta queda pendiente de confirmar el árbol de origen. Si el usuario confirma
+que la hoja proviene de un limonero, la app vuelve a comprobar la presencia de hoja
+y evalúa los síntomas. El registro conserva la indicación `+origen-confirmado`.
+Las fotos aceptadas automáticamente continúan al clasificador de síntomas. Las inspecciones guardan ambas
+versiones. El filtro usa la misma entrada RGB normalizada de 224 × 224.
+
+El filtro v2 usa un cabezal logístico sobre MobileNetV2 de ancho 1,0 con pesos
+de ImageNet. Durante el entrenamiento se incluyen vistas completas y recortes
+rotados de ambas clases, con mayor peso para las hojas etiquetadas con minador.
+Las muestras incluyen originales de hojas sanas y dañadas, hojas de
+naranjo, hojas de otras plantas y objetos. Las fuentes y rutas originales están
+identificadas en `evidence/leaf_gate_images.csv`, junto con SHA256 y partición.
+
+- Das y colaboradores, [BDLemonLeaf v6](https://data.mendeley.com/datasets/643f5bbc2t/6), carpeta Raw Image.
+- [Lemon Leaf Dataset](https://data.mendeley.com/datasets/smz8ffbthy), incluidas hojas con minador, y [Comprehensive Lemon Leaf Disease Dataset](https://data.mendeley.com/datasets/44nrn4593f/1), carpeta Original Dataset.
+- [Smartphone Image Dataset for Aegle Marmelos, Hog Plum and Lemon Plant Leaf v1](https://data.mendeley.com/datasets/54r883j5zr/1), archivos Original Dataset de las tres especies.
+- [PlantVillage](https://github.com/spMohanty/PlantVillage-Dataset/tree/7f7ecc7e1eaca78107e3affe7cb5abd9427e139a/raw/color), incluidas hojas de naranjo etiquetadas con greening.
+- [Imagenette](https://github.com/fastai/imagenette), fotos de diez clases de objetos y animales.
+- [Caltech 101](https://data.caltech.edu/records/mzrjq-6wc02), fotos de objetos y animales.
+- [COCO128](https://docs.ultralytics.com/datasets/detect/coco128/), escenas reservadas por completo para la evaluación.
+
+Para repetir el entrenamiento, coloca las muestras bajo las rutas de la columna
+`path` del inventario. Desde la raíz del proyecto, en el entorno Python del
+entrenamiento, ejecuta lo siguiente. Usa carpetas de salida separadas para
+comparar con el modelo distribuido.
+
+```powershell
+python -m pip install scikit-learn==1.9.1
+python ml/train_leaf_gate.py --dataset ml/data/leaf_gate --assets ml/outputs/gate/assets --evidence ml/outputs/gate/evidence
+```
+
+El script admite nuevas fotos bajo `lemon`, `orange`, `other_leaf` y `object`, con
+una subcarpeta por fuente. Elimina fotos de aspecto casi idéntico mediante pHash
+y protege las particiones de prueba y validación del diagnóstico anterior. Elige
+el umbral con la validación y mide la aceptación por grupo en prueba usando el
+TFLite exportado. Los recuentos están en `evidence/leaf_gate_report.json`. Las
+etiquetas proceden de los conjuntos públicos. La identificación de variedades
+locales, otros cítricos y fotos de campo en Perú requiere evaluación independiente.
+Las imágenes conservadas de v1 mantienen su partición original. Los cinco ejemplos
+comunicados por el usuario se excluyen mediante pHash. En fotografías con transparencia,
+Android y la referencia Python componen sobre blanco antes de reducir a RGB.
+La separación se hizo por imágenes con control de similitud. Una misma planta
+podría aparecer en más de una partición. El recuento de diagnósticos antes y
+después del primer filtro está en `evidence/leaf_gate_before_after.json`.
+
+## Clasificador de síntomas
+
 Este pipeline prepara datos sin modificar las fotografías originales. El modelo
 clasifica una hoja completa como `MINADOR_COMPATIBLE` o `SIN_SINTOMAS_VISIBLES`.
 No identifica todos los agentes causales, no mide severidad y no acredita detección

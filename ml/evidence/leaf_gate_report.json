@@ -1,0 +1,74 @@
+{
+  "manifest": {
+    "model_file": "lemon_leaf_gate.tflite",
+    "model_version": "leaf-gate-v2",
+    "model_sha256": "ecd2ad0c02d0fa77c751da74e9e9c9feb0b6c579fd80f6d37c9933b4f0af78cf",
+    "acceptance_threshold": 0.764,
+    "outputs": [
+      "HOJA_DE_LIMON",
+      "HOJA"
+    ],
+    "leaf_threshold": 0.9,
+    "input_shape": [
+      1,
+      224,
+      224,
+      3
+    ],
+    "output_shape": [
+      1,
+      2
+    ],
+    "normalization": "minus_one_to_one",
+    "input_color": "RGB",
+    "resize": "bilinear"
+  },
+  "inventory_sha256": "bfc7adb2aba48830f247d9e17000ffd9048ec7d2fab73d631d6be83658f88072",
+  "training_images": 3963,
+  "training_views": 7926,
+  "local_validation_complete": false,
+  "validation": {
+    "lemon": {
+      "total": 341,
+      "accepted_as_lemon": 329,
+      "recognized_as_leaf": 341
+    },
+    "orange": {
+      "total": 28,
+      "accepted_as_lemon": 0,
+      "recognized_as_leaf": 28
+    },
+    "other_leaf": {
+      "total": 154,
+      "accepted_as_lemon": 3,
+      "recognized_as_leaf": 153
+    },
+    "object": {
+      "total": 330,
+      "accepted_as_lemon": 0,
+      "recognized_as_leaf": 0
+    }
+  },
+  "test": {
+    "lemon": {
+      "total": 341,
+      "accepted_as_lemon": 330,
+      "recognized_as_leaf": 341
+    },
+    "orange": {
+      "total": 27,
+      "accepted_as_lemon": 0,
+      "recognized_as_leaf": 27
+    },
+    "other_leaf": {
+      "total": 155,
+      "accepted_as_lemon": 4,
+      "recognized_as_leaf": 152
+    },
+    "object": {
+      "total": 458,
+      "accepted_as_lemon": 0,
+      "recognized_as_leaf": 0
+    }
+  }
+}

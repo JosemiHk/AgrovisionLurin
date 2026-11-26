@@ -1,0 +1,72 @@
+{
+  "gate_sha256": "ecd2ad0c02d0fa77c751da74e9e9c9feb0b6c579fd80f6d37c9933b4f0af78cf",
+  "diagnosis_sha256": "324d1fefc9675564606024691fee1445624ae186d303c3a9518874b532fbe507",
+  "test_results": {
+    "lemon_other_damage": {
+      "NO_CONCLUYENTE": 31,
+      "MINADOR_COMPATIBLE": 136,
+      "SIN_SINTOMAS_VISIBLES": 51,
+      "CONFIRMAR_ORIGEN": 8
+    },
+    "lemon_leafminer": {
+      "MINADOR_COMPATIBLE": 52,
+      "SIN_SINTOMAS_VISIBLES": 1,
+      "NO_CONCLUYENTE": 2
+    },
+    "lemon_healthy": {
+      "SIN_SINTOMAS_VISIBLES": 54,
+      "CONFIRMAR_ORIGEN": 3,
+      "NO_CONCLUYENTE": 2,
+      "MINADOR_COMPATIBLE": 1
+    },
+    "object": {
+      "FOTO_RECHAZADA": 458
+    },
+    "orange": {
+      "CONFIRMAR_ORIGEN": 27
+    },
+    "other_leaf": {
+      "CONFIRMAR_ORIGEN": 148,
+      "MINADOR_COMPATIBLE": 2,
+      "FOTO_RECHAZADA": 3,
+      "SIN_SINTOMAS_VISIBLES": 2
+    }
+  },
+  "reported_examples": [
+    {
+      "sha256": "9729006fab90a93c90141ed481743e833f474cde023497a84d3a2723b79dd41b",
+      "lemon_score": 0.9897104501724243,
+      "leaf_score": 0.9998398423194885,
+      "result": "SIN_SINTOMAS_VISIBLES",
+      "after_confirmation": null
+    },
+    {
+      "sha256": "c02c24b24ade3c83125ad7a4ae691c79ef532a066a22d71a6822f26bc75a8419",
+      "lemon_score": 0.9986094832420349,
+      "leaf_score": 0.999899685382843,
+      "result": "SIN_SINTOMAS_VISIBLES",
+      "after_confirmation": null
+    },
+    {
+      "sha256": "831863bf8691470dc968a9e64bfa3dc6f7f1bee3e255921a9230caace281f1c0",
+      "lemon_score": 0.06315132975578308,
+      "leaf_score": 0.9569610953330994,
+      "result": "CONFIRMAR_ORIGEN",
+      "after_confirmation": "MINADOR_COMPATIBLE"
+    },
+    {
+      "sha256": "50a6a7e3b9e66e48e2fa41e09d82ae1f09d715246b4c884b0347d167d737efb9",
+      "lemon_score": 0.8912184834480286,
+      "leaf_score": 0.9991728067398071,
+      "result": "MINADOR_COMPATIBLE",
+      "after_confirmation": null
+    },
+    {
+      "sha256": "f261bd0a1912fb8d1ef962de6476c97f3227f3567c33fbb83a808687d9864581",
+      "lemon_score": 0.1046278327703476,
+      "leaf_score": 0.9998170733451843,
+      "result": "CONFIRMAR_ORIGEN",
+      "after_confirmation": "MINADOR_COMPATIBLE"
+    }
+  ]
+}

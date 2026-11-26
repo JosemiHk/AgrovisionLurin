@@ -82,9 +82,13 @@ class LocalMvpRepository(private val db: AppDatabase) {
         val actor=actor(actorId);val record=records.getInspectionById(id) ?: error("Inspección inexistente")
         require(actor.role=="ADMIN" || actor.id==record.userId) { "Inspección de otro usuario" };return record
     }
-    suspend fun complete(actorId:String,id:String,result:DiagnosticResult):InspectionEntity = db.withTransaction {
+    suspend fun complete(actorId:String,id:String,result:DiagnosticResult, confirmedOrigin:Boolean = false):InspectionEntity = db.withTransaction {
         val original=inspect(actorId,id)
-        require(original.state in listOf("BORRADOR","ERROR")) { "Resultado congelado; captura una inspección nueva" }
+        if (confirmedOrigin) {
+            require(original.awaitingLemonOrigin) { "Esta inspección no necesita confirmar el origen" }
+        } else {
+            require(original.state in listOf("BORRADOR","ERROR")) { "Resultado congelado; captura una inspección nueva" }
+        }
         require(result.state in listOf("VALIDO","NO_CONCLUYENTE","ERROR") && result.latencyMs>=0) { "Estado de inferencia inválido" }
         require(result.confidence.isFinite() && result.confidence in 0f..1f) { "Puntuación inválida" }
         when(result.state) {

@@ -40,3 +40,6 @@ data class InspectionEntity(
     val plotCodeSnapshot: String = "",
     val userNameSnapshot: String = ""
 )
+
+val InspectionEntity.awaitingLemonOrigin: Boolean
+    get() = state == "NO_CONCLUYENTE" && diagnosisClass == pe.edu.upn.agrovisionlurin.domain.model.LEAF_ORIGIN_PENDING
